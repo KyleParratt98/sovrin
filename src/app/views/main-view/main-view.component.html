@@ -1,17 +1,14 @@
-<app-header></app-header>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<app-footer></app-footer>
+<div content="user-scalable=no" class="page-wrapper">
+    <app-header></app-header>
+    <div class="content-wrapper"> 
+                              
+        <div class="content">
+            <router-outlet name="mainViews"></router-outlet>        
+        </div>
+
+        <div class="footer">
+            <app-footer></app-footer>
+        </div>
+
+    </div>
+</div>
