@@ -1,16 +1,34 @@
+// Angular imports
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { AppRoutingModule } from './routing/app-routing.module';
+
+// Third party imports
 
 
+// Components
 import { AppComponent } from './app.component';
+import { MainViewComponent } from './views/main-view/main-view.component';
+import { AdminViewComponent } from './views/admin-view/admin-view.component';
+import { HeaderComponent } from './views/main-view/header/header.component';
+import { FooterComponent } from './views/main-view/footer/footer.component';
+import { HomeComponent } from './views/main-view/home/home.component';
+
+// Services
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MainViewComponent,
+    AdminViewComponent,
+    HeaderComponent,
+    FooterComponent,
+    HomeComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
