@@ -6,6 +6,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainViewComponent } from '../views/main-view/main-view.component';
 import { AdminViewComponent } from '../views/admin-view/admin-view.component';
 import { HomeComponent } from '../views/main-view/home/home.component';
+import { ContactUsComponent } from '../views/main-view/contact-us/contact-us.component';
+
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'mv', pathMatch: 'full'},
@@ -14,6 +16,7 @@ const appRoutes: Routes = [
         children: [
             {path: 'home', component: HomeComponent, outlet: 'mainViews'},
             {path: '', redirectTo: '/mv/(mainViews:home)', pathMatch: 'full'},
+            {path: 'contact-us', component: ContactUsComponent, outlet: 'mainViews'},
           ]},
           
         { path: 'admin-view', component: AdminViewComponent,

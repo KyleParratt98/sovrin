@@ -13,6 +13,7 @@ import { AdminViewComponent } from './views/admin-view/admin-view.component';
 import { HeaderComponent } from './views/main-view/header/header.component';
 import { FooterComponent } from './views/main-view/footer/footer.component';
 import { HomeComponent } from './views/main-view/home/home.component';
+import { ContactUsComponent } from './views/main-view/contact-us/contact-us.component';
 
 // Services
 
@@ -24,7 +25,8 @@ import { HomeComponent } from './views/main-view/home/home.component';
     AdminViewComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    ContactUsComponent
   ],
   imports: [
     BrowserModule,
