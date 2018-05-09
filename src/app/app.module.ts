@@ -14,6 +14,10 @@ import { HeaderComponent } from './views/main-view/header/header.component';
 import { FooterComponent } from './views/main-view/footer/footer.component';
 import { HomeComponent } from './views/main-view/home/home.component';
 import { ContactUsComponent } from './views/main-view/contact-us/contact-us.component';
+import { AboutUsComponent } from './views/main-view/about-us/about-us.component';
+import { FaqComponent } from './views/main-view/faq/faq.component';
+import { MyAccountComponent } from './views/main-view/my-account/my-account.component';
+import { BookOnlineComponent } from './views/main-view/book-online/book-online.component';
 
 // Services
 
@@ -26,7 +30,11 @@ import { ContactUsComponent } from './views/main-view/contact-us/contact-us.comp
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    AboutUsComponent,
+    FaqComponent,
+    MyAccountComponent,
+    BookOnlineComponent
   ],
   imports: [
     BrowserModule,
