@@ -5,25 +5,27 @@
     </button>
 
       <div class="collapse navbar-collapse" id="collapsibleContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['home']}}]">HOME</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['about-us']}}]">ABOUT US</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['faq']}}]">FAQ</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['book-online']}}]">BOOK ONLINE</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['contact-us']}}]">CONTACT US</a>
-          </li>
-        </ul>
+        <div class="container">
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['home']}}]">HOME</a>
+              </li>
+              <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['about-us']}}]">ABOUT US</a>
+              </li>
+              <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['faq']}}]">FAQ</a>
+              </li>
+              <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['book-online']}}]">BOOK ONLINE</a>
+              </li>
+              <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['contact-us']}}]">CONTACT US</a>
+              </li>
+          </ul>
+        </div>
         <ul class="navbar-nav justify-content-end">
-          <li class="nav-item" routerLinkActive="active">
+          <li class="nav-item" routerLinkActive="active" id="myAccountLink">
             <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['my-account']}}]">MY ACCOUNT</a>
           </li>
         </ul>
@@ -54,4 +56,3 @@
         </ul>
       </div>
 </nav>
-sd

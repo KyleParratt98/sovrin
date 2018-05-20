@@ -16,3 +16,12 @@
       display: none!important;
     }
 }
+
+#myAccountLink {
+    min-width: 116px;
+}
+
+nav#header.navbar.navbar-expand-lg.navbar-dark {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}

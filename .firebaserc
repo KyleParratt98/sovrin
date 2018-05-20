@@ -1,5 +1,6 @@
 {
   "projects": {
-    "version 0.1": "sovrin-transfers"
+    "version 0.1": "sovrin-transfers",
+    "default": "sovrin-transfers"
   }
 }
