@@ -3,3 +3,16 @@
     background-color: #150a46;
     border-radius: 2px;
 }
+
+@media only screen and (max-width: 992px) {
+    #collapsibleContent {
+      display: none!important;
+
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    #collapsibleContentMobile {
+      display: none!important;
+    }
+}
