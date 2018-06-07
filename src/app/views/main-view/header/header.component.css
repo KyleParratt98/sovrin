@@ -7,13 +7,32 @@
 @media only screen and (max-width: 992px) {
     #collapsibleContent {
       display: none!important;
-
+    }
+    .navbar-brand {
+        position: relative;
+        left: 7px;
+    }
+    #myAccountMobileButton {
+        display: block;
+        position: relative;
+        color: #dec061;
+        border: none;
+    }
+    #myAccountMobileIcon:focus {
+        outline:0;
+    }
+    #myAccountMobileIcon {
+        position: relative;
+        top: 3px;
     }
 }
 
 @media only screen and (min-width: 992px) {
     #collapsibleContentMobile {
       display: none!important;
+    }
+    #myAccountMobileIcon {
+        display: none;
     }
 }
 
@@ -25,3 +44,18 @@ nav#header.navbar.navbar-expand-lg.navbar-dark {
     padding-top: 0px;
     padding-bottom: 0px;
 }
+
+#myAccountButton {
+    background-color: #dec061; 
+    color: #14006d;
+    border-radius: 19px;
+}
+
+button.navbar-toggler:focus {
+    outline:0;
+}
+
+button.navbar-toggler {
+    border: none;
+}
+

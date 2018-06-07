@@ -6,6 +6,10 @@ import { AppRoutingModule } from './routing/app-routing.module';
 // Third party imports
 
 
+//Angular Material Imports
+import {MatButtonModule, MatIconModule} from '@angular/material';
+
+
 // Components
 import { AppComponent } from './app.component';
 import { MainViewComponent } from './views/main-view/main-view.component';
@@ -38,7 +42,9 @@ import { BookOnlineComponent } from './views/main-view/book-online/book-online.c
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
