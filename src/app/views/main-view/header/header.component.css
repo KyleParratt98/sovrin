@@ -10,20 +10,39 @@
     }
     .navbar-brand {
         position: relative;
-        left: 7px;
+        right: 1px;
+        margin-right: 0px;
     }
     #myAccountMobileButton {
         display: block;
         position: relative;
-        color: #dec061;
+        color: #FFB30F;
         border: none;
+        margin-left: 15px;
+        outline:0;
     }
-    #myAccountMobileIcon:focus {
+    #myAccountMobileButton:focus {
         outline:0;
     }
     #myAccountMobileIcon {
         position: relative;
-        top: 3px;
+        line-height: 30px;
+        font-size: 30px;
+        height: 30px;
+        width: 30px;
+    }
+    #menuIcon {
+        line-height: 30px;
+        font-size: 30px;
+        height: 30px;
+        width: 30px;
+        color: #FFF8F0;
+    }
+    nav#header.navbar.navbar-expand-lg.navbar-dark {
+        padding: 0px;
+    }
+    #collapsibleContentMobile {
+        padding-left: 12px;
     }
 }
 
@@ -46,16 +65,22 @@ nav#header.navbar.navbar-expand-lg.navbar-dark {
 }
 
 #myAccountButton {
-    background-color: #dec061; 
+    background-color: #FFB30F;
+    /* background-color: #dec061;  */
     color: #14006d;
     border-radius: 19px;
 }
 
-button.navbar-toggler:focus {
-    outline:0;
-}
-
 button.navbar-toggler {
     border: none;
+    margin-right: 15px;
 }
 
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 248, 240, 0.712);
+}
+
+.navbar-dark .navbar-nav .active>.nav-link, .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .show>.nav-link {
+    color: #FFF8F0;
+}
