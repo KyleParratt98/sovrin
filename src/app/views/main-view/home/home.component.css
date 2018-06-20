@@ -1,0 +1,103 @@
+br {
+    user-select: none;
+}
+
+/* ------------------------------------Banner------------------------------------------- */
+#HomePageBanner {
+    width: 100%;
+    height: 70vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-image: url('/assets/images/Home screen banner/Original.jpg');
+}
+@media only screen and (min-width: 1500px) {
+    #HomePageBanner {
+        height: 80vh;
+    }
+}
+@media only screen and (min-width: 550px) and (max-width: 720px){
+    #HomePageBanner {
+        height: 55vh;
+        background-position: 45% 50%;
+    }
+}
+@media only screen and (min-width: 500px) and (max-width: 550px){
+    #HomePageBanner {
+        height: 50vh;
+        background-position: 45% 50%;
+    }
+}
+@media only screen and (max-width: 500px){
+    #HomePageBanner {
+        height: 45vh;
+        background-position: 45% 50%;
+    }
+}
+/* ------------------------------------------------------------------------------- */
+
+
+/* ------------------------------------Services------------------------------------------- */
+#ourServicesHeading {
+    color: var(--sovrinBlue);
+    text-align: center;
+    font-weight: 700;
+    padding: 35px 0px 30px 0px;
+}
+
+#servicesIconParagraph {
+    text-align: center;
+}
+
+#servicesIcons {
+    font-size: 65px;
+    height: 65px;
+    width: 65px;
+}
+
+#servicesText {
+    text-align: center;
+    color: var(--sovrinBlue);
+}
+
+@media only screen and (max-width: 992px){
+    mat-card {
+        margin: 15px 0px 15px 0px 
+    }
+    #onlyDesktopBreak {
+        display: none;
+    }
+}
+
+#servicesCallToActionButton {
+    background-color: var(--yellow);
+    color: var(--sovrinBlue);
+    border-radius: 19px;
+    min-width: 120px;
+}
+#servicesCallToActionButton:focus {
+    outline: 0;
+}
+/* ------------------------------------------------------------------------------- */
+
+
+/* ------------------------------------Features------------------------------------------- */
+#proudFeaturesHeading {
+    color: var(--yellow);
+    text-align: center;
+    padding: 35px 0px 30px 0px;
+}
+#featuresHeadings {
+    color: var(--yellow);
+    text-align: left;
+}
+#featuresDetails {
+    text-align: left;
+    color: var(--white);
+}
+#proudFeaturesIcons {
+    color: var(--yellow);
+    font-size: 65px;
+    height: 65px;
+    width: 65px;
+}

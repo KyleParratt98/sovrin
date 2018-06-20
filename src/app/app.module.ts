@@ -4,10 +4,10 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './routing/app-routing.module';
 
 // Third party imports
-
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 //Angular Material Imports
-import {MatButtonModule, MatIconModule} from '@angular/material';
+import {MatButtonModule, MatIconModule, MatCardModule} from '@angular/material';
 
 
 // Components
@@ -44,7 +44,9 @@ import { BookOnlineComponent } from './views/main-view/book-online/book-online.c
     BrowserModule,
     AppRoutingModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule,
+    AngularFontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -17,8 +17,4 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/mv/(mainViews:my-account)');
   }
 
-  delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
-  }
-
 }

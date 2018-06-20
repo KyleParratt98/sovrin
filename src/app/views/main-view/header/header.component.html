@@ -2,13 +2,13 @@
     <button mat-icon-button id="myAccountMobileButton" (click)="myAccountClick()">
         <mat-icon id="myAccountMobileIcon">person</mat-icon>
     </button>
-    <a class="navbar-brand"[routerLink]="['/mv', { outlets: {'mainViews':['home']}}]"><img src="\assets\images\logo.jpg" alt="Sovrin Logo" style="max-height: 60px"></a>
+    <a class="navbar-brand"[routerLink]="['/mv', { outlets: {'mainViews':['home']}}]"><img src="\assets\images\logo.jpg" alt="Logo" style="max-height: 60px"></a>
     <button mat-icon-button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleContentMobile" aria-controls="collapsibleContentMobile" aria-expanded="false" aria-label="Toggle navigation">
         <mat-icon id="menuIcon">menu</mat-icon>
     </button>
 
       <div class="collapse navbar-collapse" id="collapsibleContent">
-        <div class="container">
+        <div class="container" id="collapsibleContentShifter">
           <ul class="navbar-nav mr-auto">
               <li class="nav-item" routerLinkActive="active">
                 <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['home']}}]">HOME</a>
