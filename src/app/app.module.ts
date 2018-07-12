@@ -2,12 +2,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './routing/app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Third party imports
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { environment } from '../environments/environment';
+import { AngularFireModule } from 'angularfire2';
+
+export const firebaseConfig = environment.firebaseConfig
+import { AngularFirestoreModule } from 'angularfire2/firestore'
 
 //Angular Material Imports
-import {MatButtonModule, MatIconModule, MatCardModule} from '@angular/material';
+import {MatButtonModule, MatIconModule, MatCardModule, MatSidenavModule, MatToolbarModule, MatListModule, MatExpansionModule, MatFormFieldModule} from '@angular/material';
 
 
 // Components
@@ -46,9 +52,17 @@ import { BookOnlineComponent } from './views/main-view/book-online/book-online.c
     MatButtonModule,
     MatIconModule,
     MatCardModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule, 
+    MatExpansionModule,
+    MatFormFieldModule,
+    BrowserAnimationsModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule
   ],
-  providers: [],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

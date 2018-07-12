@@ -1,3 +1,77 @@
-<p>
-  faq works!
-</p>
+<div id="outerHeader">
+  <nav id="header" class="navbar navbar-expand-lg navbar-dark">
+    <button mat-icon-button class="navbar-toggler" id="menuButton" type="button" data-toggle="collapse" data-target="#collapsibleContent" aria-controls="collapsibleContent" aria-expanded="false" aria-label="Toggle navigation">
+        <mat-icon id="menuIcon">keyboard_arrow_down</mat-icon>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="collapsibleContent">
+      <div class="container" id="collapsibleContentShifter">
+        <ul id="faqSectionsList">
+            <h3>FAQ Sections</h3>
+          <p id="faqSectionsParagraph">
+            
+          </p>
+          <p id="faqSectionsParagraph">
+            <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['about-us']}}]">Our vehicles</a>
+            </li>
+          </p>
+          <p id="faqSectionsParagraph">
+            <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['faq']}}]">Our drivers</a>
+            </li>
+          </p>
+          <p id="faqSectionsParagraph">
+            <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['book-online']}}]">Our booking process</a>
+            </li>
+          </p>
+          <p id="faqSectionsParagraph">
+             <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['contact-us']}}]">Our payment options</a>
+            </li>
+          </p>
+          <p id="faqSectionsParagraph">
+             <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['contact-us']}}]">Our operating  areas</a>
+            </li>
+          </p>
+          <p id="faqSectionsParagraph">
+             <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['contact-us']}}]">Our operating procedures</a>
+            </li>
+          </p>
+          <p id="faqSectionsParagraph">
+             <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['contact-us']}}]">Our be spoilt promise</a>
+            </li>
+          </p>
+          <p id="faqSectionsParagraph">
+             <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['contact-us']}}]">Sovrin safety</a>
+            </li>
+          </p>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+
+<br>
+<br>
+
+  <div class="row" id="questionExpansions">
+    <div class="col">
+          <mat-expansion-panel *ngFor="let hero of heros">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Self aware panel
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>I'm visible because I am open</p>
+            </mat-expansion-panel>
+    </div>
+  </div>
+  <br>
+  <br>

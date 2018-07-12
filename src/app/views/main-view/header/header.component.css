@@ -2,6 +2,7 @@
     box-shadow: 0 8px 16px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
     background-color: var(--sovrinBlue);
     border-radius: 2px;
+    z-index: 1;
 }
 
 @media only screen and (max-width: 992px) {
@@ -10,16 +11,13 @@
     }
     .navbar-brand {
         position: relative;
-        right: 1px;
+        right: 2px;
         margin-right: 0px;
     }
     #myAccountMobileButton {
-        display: block;
         position: relative;
         color: var(--yellow);
-        border: none;
         margin-left: 15px;
-        outline:0;
     }
     #myAccountMobileButton:focus {
         outline:0;
@@ -61,16 +59,12 @@
         position: relative;
         top: 6px;
     }
-    #myAccountMobileButton:focus {
+    #myAccountMobileIcon:focus {
         outline:0;
     }
-    #myAccountButton:focus {
+    #bookTransferButton:focus {
         outline: 0;
     }
-}
-
-#myAccountLink {
-    min-width: 116px;
 }
 
 nav#header.navbar.navbar-expand-lg.navbar-dark {
@@ -78,7 +72,7 @@ nav#header.navbar.navbar-expand-lg.navbar-dark {
     padding-bottom: 0px;
 }
 
-#myAccountButton {
+#bookTransferButton {
     background-color: var(--yellow);
     color: var(--sovrinBlue);
     border-radius: 19px;
