@@ -16,5 +16,10 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/mv/(mainViews:my-account)');
   }
 
+  bookTransferClick() {
+    this.router.navigateByUrl('/mv/(mainViews:book-online)');
+  }
+
+
   
 }

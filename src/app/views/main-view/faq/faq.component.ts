@@ -3,9 +3,10 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 
-interface Note {
-  content: string;
-  hearts: number;
+interface FAQ {
+  answer: string;
+  question: string;
+  id?: string;
 }
 
 @Component({
@@ -15,10 +16,40 @@ interface Note {
 })
 export class FaqComponent implements OnInit{
 
-  constructor() {
+  currentPage = 'Our Vehicles';
+  FAQCollection: AngularFirestoreCollection<FAQ>;
+  FAQ: Observable<FAQ[]>
+  FAQMenuIcon = 'keyboard_arrow_down';
+  displayMenu = 'none';
+
+  constructor(private afs: AngularFirestore) {
   }
 
   ngOnInit() {
-  
+    this.FAQCollection = this.afs.collection('FAQ/sections/' + this.currentPage);
+    this.FAQ = this.FAQCollection.valueChanges();
+    console.log(this.FAQ);
+    console.log(this.FAQCollection);
+    console.log(this.currentPage);
+  }
+
+  FAQMenuOpen() {
+    if (this.FAQMenuIcon == 'keyboard_arrow_down') {
+      this.displayMenu = 'block';
+      this.FAQMenuIcon = 'keyboard_arrow_up';
+    } else {
+      this.FAQMenuIcon = 'keyboard_arrow_down';
+      this.displayMenu = 'none';
+    }
+  }
+
+  pageChange(pageName) {
+    this.currentPage = pageName;
+    this.ngOnInit();
+    this.displayMenu = 'none';
+    this.FAQMenuIcon = 'keyboard_arrow_down';
+  }
+  click() {
+    console.log(this.currentPage);
   }
 }

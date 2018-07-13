@@ -6,10 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Third party imports
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment.prod';
 import { AngularFireModule } from 'angularfire2';
-
-export const firebaseConfig = environment.firebaseConfig
 import { AngularFirestoreModule } from 'angularfire2/firestore'
 
 //Angular Material Imports
@@ -59,8 +57,8 @@ import { BookOnlineComponent } from './views/main-view/book-online/book-online.c
     MatExpansionModule,
     MatFormFieldModule,
     BrowserAnimationsModule,
-    AngularFireModule.initializeApp(firebaseConfig),
-    AngularFirestoreModule
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule.enablePersistence(),
   ],
   providers: [ ],
   bootstrap: [AppComponent]

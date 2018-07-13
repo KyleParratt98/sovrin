@@ -1,19 +1,36 @@
 @media only screen and (max-width: 992px) {
     #header {
-        background-color: var(--white);
+        background-color: var(--subBlue);
+        display: none !important;
     }
     #questionExpansions {
         margin-left: 10px;
         margin-right: 10px;
     }
+    #headerMobile {
+        background-color: var(--subBlue);
+        color: var(--white);
+        min-height: 55px;
+    }
+    a.nav-link {
+        color: var(--white);
+    }
+    h3 {
+        color: var(--white);
+    }
+
 }
 @media only screen and (min-width: 992px) {
     #questionExpansions {
         margin-left: 300px;
         margin-right: 15px;
     }
+    #headerMobile {
+        background-color: var(--subBlue);
+        display: none !important;
+    }
     #header {
-        background-color: var(--white);
+        background-color: var(--subBlue);
         float: left;
         max-width: 300px;
         height: calc(100vh - 20px);
@@ -21,10 +38,17 @@
         display: block;
         border-right: solid;
         padding-top: 30px;
-        border-right-color: var(--grey);
+        border-right-color: var(--subBlue);
+        margin-top: -1px;
     }
     #outerHeader {
         position: relative;
+    }
+    a.nav-link {
+        color: var(--offWhite);
+    }
+    h3 {
+        color: var(--offWhite);
     }
 }
 #faqSectionsList {
@@ -38,9 +62,7 @@
     float: top;
     position: relative;
 }
-a {
-    color: var(--grey);
-}
+
 #menuIcon {
     color: black;
 }
@@ -57,4 +79,12 @@ mat-expansion-panel-header {
 mat-expansion-panel-header#mat-expansion-panel-header-0.mat-expansion-panel-header.ng-tns-c8-1.ng-trigger.ng-trigger-expansionHeight.ng-star-inserted.mat-expanded {
     min-height: 64px;
     height: auto !important;
+}
+
+h1 {
+    color: var(--sovrinBlue);
+}
+#FAQMenu {
+    display: none;
+    padding-left: 30px;
 }

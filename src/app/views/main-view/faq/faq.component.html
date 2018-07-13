@@ -12,48 +12,86 @@
             
           </p>
           <p id="faqSectionsParagraph">
-            <li class="nav-item" routerLinkActive="active">
-              <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['about-us']}}]">Our vehicles</a>
+            <li class="nav-item" routerLinkActive="active" (click)="pageChange('Our Vehicles')">
+              <a class="nav-link">Our vehicles</a>
             </li>
           </p>
           <p id="faqSectionsParagraph">
-            <li class="nav-item" routerLinkActive="active">
-              <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['faq']}}]">Our drivers</a>
+            <li class="nav-item" routerLinkActive="active" (click)="pageChange('Our Drivers')">
+              <a class="nav-link">Our drivers</a>
             </li>
           </p>
           <p id="faqSectionsParagraph">
-            <li class="nav-item" routerLinkActive="active">
-              <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['book-online']}}]">Our booking process</a>
+            <li class="nav-item" routerLinkActive="active" (click)="pageChange('Booking Process')">
+              <a class="nav-link">Our booking process</a>
             </li>
           </p>
           <p id="faqSectionsParagraph">
-             <li class="nav-item" routerLinkActive="active">
-              <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['contact-us']}}]">Our payment options</a>
+             <li class="nav-item" routerLinkActive="active" (click)="pageChange('Payment Options')">
+              <a class="nav-link">Our payment options</a>
             </li>
           </p>
           <p id="faqSectionsParagraph">
-             <li class="nav-item" routerLinkActive="active">
-              <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['contact-us']}}]">Our operating  areas</a>
+             <li class="nav-item" routerLinkActive="active" (click)="pageChange('Operating  Areas')">
+              <a class="nav-link">Our operating  areas</a>
             </li>
           </p>
           <p id="faqSectionsParagraph">
-             <li class="nav-item" routerLinkActive="active">
-              <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['contact-us']}}]">Our operating procedures</a>
+             <li class="nav-item" routerLinkActive="active" (click)="pageChange('Operating Procedures')">
+              <a class="nav-link">Our operating procedures</a>
             </li>
           </p>
           <p id="faqSectionsParagraph">
-             <li class="nav-item" routerLinkActive="active">
-              <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['contact-us']}}]">Our be spoilt promise</a>
+             <li class="nav-item" routerLinkActive="active" (click)="pageChange('Be Spoilt Promise')">
+              <a class="nav-link">Be Spoilt Promise</a>
             </li>
           </p>
           <p id="faqSectionsParagraph">
-             <li class="nav-item" routerLinkActive="active">
-              <a class="nav-link" [routerLink]="['/mv', { outlets: {'mainViews':['contact-us']}}]">Sovrin safety</a>
+             <li class="nav-item" routerLinkActive="active" (click)="pageChange('Sovrin Safety')">
+              <a class="nav-link">Sovrin Safety</a>
             </li>
           </p>
         </ul>
       </div>
     </div>
+  </nav>
+  <!--sdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsvdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsd -->
+  <nav id="headerMobile">
+      <button mat-icon-button (click)="FAQMenuOpen()" style="height: 55px; width: 55px; position: relative; bottom: 3px; left: 5px;">
+          <mat-icon id="menuIcon" style="color: var(--grey); font-size: 28px;">{{FAQMenuIcon}}</mat-icon>
+      </button>
+      <label for="" style="margin-left: 40px; margin-bottom:0px; font-size: 26px; line-height: 55px; color: var(--white)">FAQ Sections</label> 
+        <div>
+          <div id="FAQMenu" [ngStyle]="{'display': displayMenu == 'block' ? 'block' : 'none' }">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item" routerLinkActive="active" (click)="pageChange('Our Vehicles')">
+                <a class="nav-link">Our vehicles</a>
+              </li>
+              <li class="nav-item" routerLinkActive="active" (click)="pageChange('Our Drivers')">
+                <a class="nav-link">Our drivers</a>
+              </li>
+              <li class="nav-item" routerLinkActive="active" (click)="pageChange('Booking Process')">
+                <a class="nav-link">Our booking process</a>
+              </li>
+               <li class="nav-item" routerLinkActive="active" (click)="pageChange('Payment Options')">
+                <a class="nav-link">Our payment options</a>
+              </li>
+               <li class="nav-item" routerLinkActive="active" (click)="pageChange('Operating  Areas')">
+                <a class="nav-link">Our operating  areas</a>
+              </li>
+               <li class="nav-item" routerLinkActive="active" (click)="pageChange('Operating Procedures')">
+                <a class="nav-link">Our operating proced</a>
+              </li>
+               <li class="nav-item" routerLinkActive="active" (click)="pageChange('Be Spoilt Promise')">
+                <a class="nav-link">Be Spoilt Promise</a>
+              </li>
+               <li class="nav-item" routerLinkActive="active" (click)="pageChange('Sovrin Safety')">
+                <a class="nav-link">Sovrin Safety</a>
+              </li>
+            </ul>
+            <br>
+          </div>
+        </div>
   </nav>
 </div>
 
@@ -63,13 +101,16 @@
 
   <div class="row" id="questionExpansions">
     <div class="col">
-          <mat-expansion-panel *ngFor="let hero of heros">
+      <h1>{{currentPage}}</h1>
+      <br>
+      <br>
+          <mat-expansion-panel *ngFor="let FAQc of FAQ | async">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  Self aware panel
+                {{FAQc.question}}
                 </mat-panel-title>
               </mat-expansion-panel-header>
-              <p>I'm visible because I am open</p>
+              <p>{{FAQc.answer}}</p>
             </mat-expansion-panel>
     </div>
   </div>
