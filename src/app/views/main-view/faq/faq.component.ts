@@ -15,12 +15,12 @@ interface FAQ {
   styleUrls: ['./faq.component.css']
 })
 export class FaqComponent implements OnInit{
-
   currentPage = 'Our Vehicles';
   FAQCollection: AngularFirestoreCollection<FAQ>;
   FAQ: Observable<FAQ[]>
   FAQMenuIcon = 'keyboard_arrow_down';
   displayMenu = 'none';
+  numberOne = "One";
 
   constructor(private afs: AngularFirestore) {
   }
@@ -28,9 +28,6 @@ export class FaqComponent implements OnInit{
   ngOnInit() {
     this.FAQCollection = this.afs.collection('FAQ/sections/' + this.currentPage);
     this.FAQ = this.FAQCollection.valueChanges();
-    console.log(this.FAQ);
-    console.log(this.FAQCollection);
-    console.log(this.currentPage);
   }
 
   FAQMenuOpen() {
@@ -49,7 +46,5 @@ export class FaqComponent implements OnInit{
     this.displayMenu = 'none';
     this.FAQMenuIcon = 'keyboard_arrow_down';
   }
-  click() {
-    console.log(this.currentPage);
-  }
+
 }

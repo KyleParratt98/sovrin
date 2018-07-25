@@ -63,22 +63,8 @@
     position: relative;
 }
 
-#menuIcon {
-    color: black;
-}
 #menuButton:focus {
    outline: 0;
-}
-mat-expansion-panel-header {
-    height: auto !important;
-    min-height: 48px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-mat-expansion-panel-header#mat-expansion-panel-header-0.mat-expansion-panel-header.ng-tns-c8-1.ng-trigger.ng-trigger-expansionHeight.ng-star-inserted.mat-expanded {
-    min-height: 64px;
-    height: auto !important;
 }
 
 h1 {
@@ -87,4 +73,30 @@ h1 {
 #FAQMenu {
     display: none;
     padding-left: 30px;
+}
+.card-header {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    /* background-color: var(--grey) !important;
+    color: var(--white); */
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+}
+.noSelect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome and Opera */
+}
+a:hover {
+    cursor:pointer;
+}
+div.card-header.noSelect {
+    word-wrap: break-word;
+}
+div.card-header.noSelect:hover {
+    cursor:pointer;
 }
