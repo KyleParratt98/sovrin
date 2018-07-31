@@ -103,10 +103,8 @@
 
       <h1 id="pageHeadings">{{currentPage}}</h1>
       <br class="noSelect">
-      *Click on a question to see the answer.
-      <br class="noSelect">
-      <br class="noSelect">
-
+      <p style="text-align: right">*Click on a question to see the answer.</p>
+      
       <div class="accordion">
         <div class="card-header noSelect" data-toggle="collapse" [attr.data-target]="'#collapse' + FAQc.number" *ngFor="let FAQc of FAQ | async">
           {{FAQc.question}}
