@@ -1,4 +1,4 @@
-<div id="outerHeader">
+<div id="outerHeader" class="noSelect">
   <nav id="header" class="navbar navbar-expand-lg navbar-dark">
     <button mat-icon-button class="navbar-toggler" id="menuButton" type="button" data-toggle="collapse" data-target="#collapsibleContent" aria-controls="collapsibleContent" aria-expanded="false" aria-label="Toggle navigation">
         <mat-icon id="menuIcon">keyboard_arrow_down</mat-icon>
@@ -64,28 +64,28 @@
         <div>
           <div id="FAQMenu" [ngStyle]="{'display': displayMenu == 'block' ? 'block' : 'none' }">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item" routerLinkActive="active" (click)="pageChange('Our Vehicles')">
+              <li class="nav-item" (click)="pageChange('Our Vehicles')">
                 <a class="nav-link">Our vehicles</a>
               </li>
-              <li class="nav-item" routerLinkActive="active" (click)="pageChange('Our Drivers')">
+              <li class="nav-item" (click)="pageChange('Our Drivers')">
                 <a class="nav-link">Our drivers</a>
               </li>
-              <li class="nav-item" routerLinkActive="active" (click)="pageChange('Booking Process')">
+              <li class="nav-item" (click)="pageChange('Booking Process')">
                 <a class="nav-link">Our booking process</a>
               </li>
-               <li class="nav-item" routerLinkActive="active" (click)="pageChange('Payment Options')">
+               <li class="nav-item" (click)="pageChange('Payment Options')">
                 <a class="nav-link">Our payment options</a>
               </li>
-               <li class="nav-item" routerLinkActive="active" (click)="pageChange('Operating  Areas')">
+               <li class="nav-item" (click)="pageChange('Operating  Areas')">
                 <a class="nav-link">Our operating  areas</a>
               </li>
-               <li class="nav-item" routerLinkActive="active" (click)="pageChange('Operating Procedures')">
+               <li class="nav-item" (click)="pageChange('Operating Procedures')">
                 <a class="nav-link">Our operating proced</a>
               </li>
-               <li class="nav-item" routerLinkActive="active" (click)="pageChange('Be Spoilt Promise')">
+               <li class="nav-item" (click)="pageChange('Be Spoilt Promise')">
                 <a class="nav-link">Be Spoilt Promise</a>
               </li>
-               <li class="nav-item" routerLinkActive="active" (click)="pageChange('Sovrin Safety')">
+               <li class="nav-item" (click)="pageChange('Sovrin Safety')">
                 <a class="nav-link">Sovrin Safety</a>
               </li>
             </ul>
@@ -95,7 +95,6 @@
   </nav>
 </div>
 
-
 <br>
 <br>
 
@@ -104,15 +103,21 @@
       <h1>{{currentPage}}</h1>
       <br>
       <br>
-          <mat-expansion-panel *ngFor="let FAQc of FAQ | async">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                {{FAQc.question}}
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <p>{{FAQc.answer}}</p>
-            </mat-expansion-panel>
+      <div class="accordion" id="accordionExample">
+        <div class="card-header noSelect" data-toggle="collapse" aria-expanded="true" [attr.data-target]="'#collapse' + FAQc.number" *ngFor="let FAQc of FAQ | async">
+          {{FAQc.question}}
+          <div class="collapse" id="{{ 'collapse' + FAQc.number }}">
+            <div class="card-body">
+              {{FAQc.answer}}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
   <br>
   <br>
+  <br>
+  <br>
+  

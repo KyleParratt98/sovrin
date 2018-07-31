@@ -65,6 +65,12 @@
     #bookTransferButton:focus {
         outline: 0;
     }
+    #myAccountMobileButton {
+        display: none;
+    }
+    .navbar-brand {
+        margin-left: 20px;
+    }
 }
 
 nav#header.navbar.navbar-expand-lg.navbar-dark {
@@ -90,4 +96,14 @@ button.navbar-toggler {
 
 .navbar-dark .navbar-nav .active>.nav-link, .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .show>.nav-link {
     color: #FFF8F0;
+}
+
+.noSelect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome and Opera */
 }
