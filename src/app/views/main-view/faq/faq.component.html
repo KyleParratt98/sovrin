@@ -95,16 +95,20 @@
   </nav>
 </div>
 
-<br>
-<br>
+<br class="noSelect">
+<br class="noSelect">
 
   <div class="row" id="questionExpansions">
     <div class="col">
-      <h1>{{currentPage}}</h1>
-      <br>
-      <br>
-      <div class="accordion" id="accordionExample">
-        <div class="card-header noSelect" data-toggle="collapse" aria-expanded="true" [attr.data-target]="'#collapse' + FAQc.number" *ngFor="let FAQc of FAQ | async">
+
+      <h1 id="pageHeadings">{{currentPage}}</h1>
+      <br class="noSelect">
+      *Click on a question to see the answer.
+      <br class="noSelect">
+      <br class="noSelect">
+
+      <div class="accordion">
+        <div class="card-header noSelect" data-toggle="collapse" [attr.data-target]="'#collapse' + FAQc.number" *ngFor="let FAQc of FAQ | async">
           {{FAQc.question}}
           <div class="collapse" id="{{ 'collapse' + FAQc.number }}">
             <div class="card-body">
@@ -113,11 +117,14 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 
-  <br>
-  <br>
-  <br>
-  <br>
+  <br class="noSelect">
+  <br class="noSelect">
+  <br class="noSelect">
+  <br class="noSelect">
+
+
   
