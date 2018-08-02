@@ -21,6 +21,7 @@ export class FaqComponent implements OnInit{
   FAQMenuIcon = 'keyboard_arrow_down';
   displayMenu = 'none';
   numberOne = "One";
+  expanded = false;
 
   constructor(private afs: AngularFirestore) {
   }

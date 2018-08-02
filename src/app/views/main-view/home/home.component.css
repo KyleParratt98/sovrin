@@ -68,6 +68,17 @@ br {
         display: none;
     }
 }
+@media only screen and (max-width: 768px){
+    #ourServicesHeading {
+        font-size: 2rem;
+    }
+}
+@media only screen and (max-width: 444px){
+    #ourServicesHeading {
+        font-size: 1.5rem;
+    }
+}
+
 
 #servicesCallToActionButton {
     background-color: var(--yellow);
@@ -103,6 +114,21 @@ br {
     font-size: 65px;
     height: 65px;
     width: 65px;
+}
+@media only screen and (max-width: 768px){
+    #proudFeaturesHeading {
+        font-size: 1.8rem;
+    }
+}
+@media only screen and (max-width: 444px){
+    #proudFeaturesHeading {
+        font-size: 1.5rem;
+    }
+}
+@media only screen and (max-width: 380px){
+    #proudFeaturesHeading {
+        font-size: 1.3rem;
+    }
 }
 
 /* ------------------------------------------------------------------------------- */
