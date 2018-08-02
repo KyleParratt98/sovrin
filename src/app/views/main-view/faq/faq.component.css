@@ -100,6 +100,6 @@ div.card-header.noSelect {
 
 #pageHeadings {
     color: var(--sovrinBlue);
-    text-align: center;
+    text-align: left;
     font-weight: 400;
 }

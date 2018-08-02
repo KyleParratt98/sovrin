@@ -3,15 +3,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './routing/app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Third party imports
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { environment } from '../environments/environment.prod';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore'
+import { RecaptchaModule } from 'ng-recaptcha';
+import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 
 //Angular Material Imports
-import {MatButtonModule, MatIconModule, MatCardModule, MatSidenavModule, MatToolbarModule, MatListModule, MatExpansionModule, MatFormFieldModule} from '@angular/material';
+import {MatButtonModule, MatIconModule, MatCardModule, MatSidenavModule, MatToolbarModule, MatListModule, MatExpansionModule, MatFormFieldModule, MatInputModule} from '@angular/material';
 
 
 // Components
@@ -26,7 +29,6 @@ import { AboutUsComponent } from './views/main-view/about-us/about-us.component'
 import { FaqComponent } from './views/main-view/faq/faq.component';
 import { MyAccountComponent } from './views/main-view/my-account/my-account.component';
 import { BookOnlineComponent } from './views/main-view/book-online/book-online.component';
-import { ScrollTopService } from './services/scrolltop.service';
 
 // Services
 
@@ -60,8 +62,14 @@ import { ScrollTopService } from './services/scrolltop.service';
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule.enablePersistence(),
+    RecaptchaModule.forRoot(),
+    RecaptchaFormsModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+
   ],
-  providers: [ScrollTopService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

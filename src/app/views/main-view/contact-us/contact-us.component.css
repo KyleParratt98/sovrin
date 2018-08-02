@@ -1,12 +1,7 @@
-div {
-    background-color: #fafafa;
-    width: 100vw;
-    height: 100vh;
+#contactUsHeading {
+    color: var(--sovrinBlue);
+    text-align: center;
+    font-weight: 400;
+    padding: 25px 0px 25px 0px;
+    margin-bottom: 0px;
 }
-
-/* 
-#F18F01 
-#048BA8
-#2E4057
-*/
-

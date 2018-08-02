@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, Validators, FormBuilder, FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-contact-us',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contact-us.component.css']
 })
 export class ContactUsComponent implements OnInit {
+  reactiveForm: FormGroup;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
+    this.reactiveForm = new FormGroup({
+      recaptchaReactive: new FormControl(null, Validators.required)
+    });
   }
 
 }
