@@ -26,6 +26,7 @@ import { AboutUsComponent } from './views/main-view/about-us/about-us.component'
 import { FaqComponent } from './views/main-view/faq/faq.component';
 import { MyAccountComponent } from './views/main-view/my-account/my-account.component';
 import { BookOnlineComponent } from './views/main-view/book-online/book-online.component';
+import { ScrollTopService } from './services/scrolltop.service';
 
 // Services
 
@@ -60,7 +61,7 @@ import { BookOnlineComponent } from './views/main-view/book-online/book-online.c
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule.enablePersistence(),
   ],
-  providers: [ ],
+  providers: [ScrollTopService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
