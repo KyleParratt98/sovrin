@@ -57,6 +57,11 @@ br {
 
 #servicesText {
     text-align: center;
+    color: var(--grey);
+}
+
+#servicesHeadings {
+    text-align: center;
     color: var(--sovrinBlue);
 }
 
