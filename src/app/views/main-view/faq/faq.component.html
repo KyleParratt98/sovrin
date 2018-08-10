@@ -1,8 +1,5 @@
 <div id="outerHeader" class="noSelect">
   <nav id="header" class="navbar navbar-expand-lg navbar-dark">
-    <button mat-icon-button class="navbar-toggler" id="menuButton" type="button" data-toggle="collapse" data-target="#collapsibleContent" aria-controls="collapsibleContent" aria-expanded="false" aria-label="Toggle navigation">
-        <mat-icon id="menuIcon">keyboard_arrow_down</mat-icon>
-    </button>
   
     <div class="collapse navbar-collapse" id="collapsibleContent">
       <div class="container" id="collapsibleContentShifter">
@@ -57,11 +54,11 @@
   </nav>
   <!--sdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsvdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsd -->
   <nav id="headerMobile">
-      <button mat-icon-button (click)="FAQMenuOpen()" style="height: 55px; width: 55px; position: relative; bottom: 3px; left: 5px;">
-          <mat-icon id="menuIcon" style="color: var(--grey); font-size: 28px;">{{FAQMenuIcon}}</mat-icon>
-      </button>
       <label for="" style="margin-left: 40px; margin-bottom:0px; font-size: 26px; line-height: 55px; color: var(--white)">FAQ Sections</label> 
-        <div>
+      <button mat-icon-button (click)="FAQMenuOpen()" style="height: 49px; width: 70px; float: right; margin-right: 10px; top: 3px;">
+        <mat-icon id="menuIcon" style="color: var(--grey); font-size: 28px;">{{FAQMenuIcon}}</mat-icon>
+      </button>   
+      <div>
           <div id="FAQMenu" [ngStyle]="{'display': displayMenu == 'block' ? 'block' : 'none' }">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item" (click)="pageChange('Our Vehicles')">

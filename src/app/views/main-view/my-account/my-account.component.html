@@ -1,3 +1,66 @@
-<p>
-  my-account works!
-</p>
+<div id="outerHeader" class="noSelect">
+  <nav id="header" class="navbar navbar-expand-lg navbar-dark">
+  
+    <div class="collapse navbar-collapse" id="collapsibleContent">
+      <div class="container" id="collapsibleContentShifter">
+        <ul id="accountSectionsList">
+            <h3>Account Sections</h3>
+          <br class="noSelect">
+          <p id="accountSectionsParagraph">
+            <li class="nav-item" routerLinkActive="active" (click)="pageChange('Profile')">
+              <a class="nav-link">Profile</a>
+            </li>
+          </p>
+          <p id="accountSectionsParagraph">
+            <li class="nav-item" routerLinkActive="active" (click)="pageChange('Your Transfers')">
+              <a class="nav-link">Your Transfers</a>
+            </li>
+          </p>
+          <p id="accountSectionsParagraph">
+            <li class="nav-item" routerLinkActive="active" (click)="pageChange('Payment')">
+              <a class="nav-link">Payment</a>
+            </li>
+          </p>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!--sdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsvdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsd -->
+  <nav id="headerMobile">
+      <label style="margin-left: 20px; margin-bottom:0px; font-size: 26px; line-height: 55px; color: var(--white)">Account Sections</label> 
+      <button mat-icon-button (click)="MenuOpen()" style="height: 49px; width: 70px; float: right; margin-right: 10px; top: 3px;">
+        <mat-icon id="menuIcon" style="color: var(--grey); font-size: 28px;">{{myAccountMenuIcon}}</mat-icon>
+      </button>   
+      <div>
+          <div id="Menu" [ngStyle]="{'display': displayMenu == 'block' ? 'block' : 'none' }">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item" (click)="pageChange('Profile')">
+                <a class="nav-link">Profile</a>
+              </li>
+              <li class="nav-item" (click)="pageChange('Your Transfers')">
+                <a class="nav-link">Your Transfers</a>
+              </li>
+              <li class="nav-item" (click)="pageChange('Payment')">
+                <a class="nav-link">Payment</a>
+              </li>
+            </ul>
+            <br>
+          </div>
+        </div>
+  </nav>
+</div>
+
+<br class="noSelect">
+  <div class="row" id="myAccountDisplayArea">
+    <div class="col">
+        <h1 id="pageHeadings">{{currentPage}}</h1>
+        <app-profile [ngStyle]="{'display': profilePage}"></app-profile>
+        <app-payments [ngStyle]="{'display': paymentsPage}"></app-payments>
+        <app-your-transfers [ngStyle]="{'display': yourTransfersPage}"></app-your-transfers>
+    </div>
+  </div>
+
+  <br class="noSelect">
+  <br class="noSelect">
+  <br class="noSelect">
+  <br class="noSelect">

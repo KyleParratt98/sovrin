@@ -1,0 +1,104 @@
+@media only screen and (max-width: 992px) {
+    #header {
+        background-color: var(--subBlue);
+        display: none !important;
+    }
+    #myAccountDisplayArea {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    #headerMobile {
+        background-color: var(--subBlue);
+        color: var(--white);
+        min-height: 55px;
+    }
+    a.nav-link {
+        color: var(--white);
+    }
+    h3 {
+        color: var(--white);
+    }
+
+}
+@media only screen and (min-width: 992px) {
+    #myAccountDisplayArea {
+        margin-left: 300px;
+        margin-right: 15px;
+    }
+    #headerMobile {
+        background-color: var(--subBlue);
+        display: none !important;
+    }
+    #header {
+        background-color: var(--subBlue);
+        float: left;
+        max-width: 300px;
+        height: calc(100vh - 20px);
+        position: fixed;
+        display: block;
+        border-right: solid;
+        padding-top: 30px;
+        border-right-color: var(--subBlue);
+        margin-top: -1px;
+    }
+    #outerHeader {
+        position: relative;
+    }
+    a.nav-link {
+        color: var(--offWhite);
+    }
+    h3 {
+        color: var(--offWhite);
+    }
+}
+#accountSectionsList {
+    list-style-type: none;
+    padding: 2px;
+}
+#accountSectionsParagraph {
+    margin-bottom: 0.5rem;
+}
+#collapsibleContent {
+    float: top;
+    position: relative;
+}
+
+#menuButton:focus {
+   outline: 0;
+}
+
+h1 {
+    color: var(--sovrinBlue);
+}
+#Menu {
+    display: none;
+    padding-left: 30px;
+}
+.card-header {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+}
+
+a:hover {
+    cursor:pointer;
+}
+div.card-header.noSelect {
+    word-wrap: break-word;
+}
+div.card-header.noSelect:hover {
+    cursor:pointer;
+}
+
+div.card-header.noSelect {
+    word-wrap: break-word;
+}
+
+#pageHeadings {
+    color: var(--sovrinBlue);
+    text-align: left;
+    font-weight: 400;
+    position: relative;
+    right: 2px;
+}

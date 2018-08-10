@@ -31,6 +31,9 @@ import { FaqComponent } from './views/main-view/faq/faq.component';
 import { MyAccountComponent } from './views/main-view/my-account/my-account.component';
 import { BookOnlineComponent } from './views/main-view/book-online/book-online.component';
 import { ContactUsMapComponent } from './views/main-view/contact-us/contact-us-map/contact-us-map/contact-us-map.component';
+import { ProfileComponent } from './views/main-view/my-account/profile/profile.component';
+import { PaymentsComponent } from './views/main-view/my-account/payments/payments.component';
+import { YourTransfersComponent } from './views/main-view/my-account/your/your-transfers.component';
 
 // Services
 
@@ -48,7 +51,10 @@ import { ContactUsMapComponent } from './views/main-view/contact-us/contact-us-m
     FaqComponent,
     MyAccountComponent,
     BookOnlineComponent,
-    ContactUsMapComponent
+    ContactUsMapComponent,
+    ProfileComponent,
+    PaymentsComponent,
+    YourTransfersComponent
   ],
   imports: [
     BrowserModule,
