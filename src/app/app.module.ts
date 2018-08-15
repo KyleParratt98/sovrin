@@ -33,7 +33,7 @@ import { BookOnlineComponent } from './views/main-view/book-online/book-online.c
 import { ContactUsMapComponent } from './views/main-view/contact-us/contact-us-map/contact-us-map/contact-us-map.component';
 import { ProfileComponent } from './views/main-view/my-account/profile/profile.component';
 import { PaymentsComponent } from './views/main-view/my-account/payments/payments.component';
-import { YourTransfersComponent } from './views/main-view/my-account/your/your-transfers.component';
+import { YourTransfersComponent } from './views/main-view/my-account/your-transfers/your-transfers.component';
 
 // Services
 
