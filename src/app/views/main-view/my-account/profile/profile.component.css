@@ -1,0 +1,25 @@
+.inputIcons{ 
+    position: relative;
+    top: 7px;
+}
+.buttonIcons{ 
+    position: relative;
+    bottom: 1px;
+    right: 5px;
+}
+
+#selectDropdown {
+    font-size: 14px;
+    line-height: 1.35;
+    max-width: 106px !important;
+    
+}
+
+#selectDropdownOptions {
+    max-width: 106px !important;
+}
+
+.maxWidthInputs {
+    max-width: 286px;
+    width: 100%;
+}

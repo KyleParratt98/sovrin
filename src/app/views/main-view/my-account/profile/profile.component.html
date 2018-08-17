@@ -2,26 +2,30 @@
   Personal Details
 </h5>
 
-<br class="noSelect">
- <br class="noSelect">
-
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Favorite food" value="Sushi">
+  <mat-form-field class="maxWidthInputs">
+    <input matInput placeholder="First Name" value="">
   </mat-form-field>
-  <br>
-
-  <button mat-raised-button color="primary">Primary</button>
-
-  <br>
-
-  <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Leave a comment"></textarea>
+  <br class="noSelect">
+  <mat-form-field class="maxWidthInputs">
+    <input matInput placeholder="Last Name" value="">
   </mat-form-field>
-</form>
+  <br class="noSelect">
+  <mat-form-field id="selectDropdown">
+    <mat-select id="selectDropdownOptions" placeholder="Country Code" [(ngModel)]="selectedCode" name="first">
+      <mat-option *ngFor="let country of countryArray" [value]="country.code">
+        {{country.country}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder=" Mobile Number" [value]="selectedCode" [(ngModel)]="userMobileNumber" name="second">
+  </mat-form-field>
+  <br class="noSelect">
+  <mat-form-field class="maxWidthInputs">
+      <span matPrefix> <mat-icon class="inputIcons">mail</mat-icon> &nbsp;</span>
+    <input matInput placeholder="Email Address" value="">
+  </mat-form-field>
 
- <br class="noSelect">
- <br class="noSelect">
  <br class="noSelect">
  <br class="noSelect">
  <br class="noSelect">
@@ -30,21 +34,16 @@
 <h5 style="color: var(--grey)">
   Favourite Addresses
 </h5>
+<mat-form-field class="maxWidthInputs">
+  <span matPrefix> <mat-icon class="inputIcons">location_on</mat-icon> &nbsp;</span>
+<input matInput placeholder="Address 1" value="">
+</mat-form-field>
+<br>
 
-
-<br class="noSelect">
-<br class="noSelect">
-<br class="noSelect">
-<br class="noSelect">
-<br class="noSelect">
-
-<h5 style="color: var(--grey)">
-  Saved Preferences 
-</h5>
-
+<button mat-raised-button (click)="saveButtonClick()"><mat-icon class="buttonIcons">add</mat-icon>Additional address</button>
 
 <br class="noSelect">
 <br class="noSelect">
 <br class="noSelect">
-<br class="noSelect">
-<br class="noSelect">
+
+<button mat-raised-button color="primary" (click)="saveButtonClick()">Update</button>

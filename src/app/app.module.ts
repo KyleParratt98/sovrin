@@ -10,12 +10,10 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { environment } from '../environments/environment.prod';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore'
-import { RecaptchaModule } from 'ng-recaptcha';
-import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 import { AgmCoreModule } from '@agm/core';
 
 //Angular Material Imports
-import {MatButtonModule, MatIconModule, MatCardModule, MatSidenavModule, MatToolbarModule, MatListModule, MatExpansionModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+import {MatButtonModule, MatIconModule, MatCardModule, MatSidenavModule, MatToolbarModule, MatListModule, MatExpansionModule, MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
 
 
 // Components
@@ -36,6 +34,7 @@ import { PaymentsComponent } from './views/main-view/my-account/payments/payment
 import { YourTransfersComponent } from './views/main-view/my-account/your-transfers/your-transfers.component';
 
 // Services
+import { CountryCallCodesService } from './repeated-code/country-call-codes';
 
 
 @NgModule({
@@ -54,7 +53,7 @@ import { YourTransfersComponent } from './views/main-view/my-account/your-transf
     ContactUsMapComponent,
     ProfileComponent,
     PaymentsComponent,
-    YourTransfersComponent
+    YourTransfersComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,16 +70,15 @@ import { YourTransfersComponent } from './views/main-view/my-account/your-transf
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule.enablePersistence(),
-    RecaptchaModule.forRoot(),
-    RecaptchaFormsModule,
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSelectModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyB68mpC9K_kN8JFsHQfcj3TU2lm728CrQk'
     })
   ],
-  providers: [],
+  providers: [CountryCallCodesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
