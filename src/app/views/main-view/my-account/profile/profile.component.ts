@@ -6,6 +6,11 @@ export interface Country {
   code: string;
 }
 
+export interface FavouriteAddress {
+  address: string;
+  counter: number;
+}
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -21,6 +26,14 @@ export class ProfileComponent implements OnInit {
   possibleZero: string = '';
   firstSlice:string = '';
   secondSlice:string = '';
+  favouriteAddresses: FavouriteAddress[] = [
+    {address: "650 Cicely Street", counter: 1},
+  ];
+  firstAddressInput: string;
+  secondAddressInput: string;
+  isSecondAddress: boolean = false;
+  displaySecondAddressInput  = 'none';
+  displayAdditionalBut: boolean = true;
 
 
   constructor(private CountryCallCodesService: CountryCallCodesService) { 
@@ -28,13 +41,22 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.firstAddressInput = this.favouriteAddresses[0].address;
+    if( this.favouriteAddresses.length > 1) {
+      this.secondAddressInput = this.favouriteAddresses[1].address;
+      this.isSecondAddress = true;
+      this.displayAdditionalBut = false;
+    }
+    
+  }
+
+  additionalAddressClick() {
+    this.displaySecondAddressInput  = 'block';
     
   }
 
   saveButtonClick() {
     this.lengthOfSelectedCode = this.selectedCode.length;
-    console.log("length  = " + this.lengthOfSelectedCode);
-    console.log("usermobile  = " + this.userMobileNumber);
     this.possibleZero = this.userMobileNumber.charAt(this.lengthOfSelectedCode);
     if ( this.possibleZero === "0") {
       this.firstSlice = this.userMobileNumber.slice(0, this.lengthOfSelectedCode);
@@ -43,7 +65,7 @@ export class ProfileComponent implements OnInit {
     } else {
       this.finalMobileNumber = this.userMobileNumber;
     }
-
-    console.log("final = " + this.finalMobileNumber);
+    this.favouriteAddresses.push({address: this.secondAddressInput , counter: 2});
+    console.log(this.favouriteAddresses);
   }
 }

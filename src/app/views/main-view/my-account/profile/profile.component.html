@@ -18,7 +18,7 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field class="example-full-width">
-    <input matInput placeholder=" Mobile Number" [value]="selectedCode" [(ngModel)]="userMobileNumber" name="second">
+    <input matInput style="padding-left:3px" placeholder="Mobile Number" [value]="selectedCode" [(ngModel)]="userMobileNumber" name="second">
   </mat-form-field>
   <br class="noSelect">
   <mat-form-field class="maxWidthInputs">
@@ -34,13 +34,24 @@
 <h5 style="color: var(--grey)">
   Favourite Addresses
 </h5>
-<mat-form-field class="maxWidthInputs">
-  <span matPrefix> <mat-icon class="inputIcons">location_on</mat-icon> &nbsp;</span>
-<input matInput placeholder="Address 1" value="">
-</mat-form-field>
-<br>
 
-<button mat-raised-button (click)="saveButtonClick()"><mat-icon class="buttonIcons">add</mat-icon>Additional address</button>
+  <mat-form-field class="maxWidthInputs">
+    <span matPrefix> <mat-icon class="inputIcons">location_on</mat-icon> &nbsp;</span>
+    <input matInput [placeholder]="'Address ' + favouriteAddresses[0].counter" [(ngModel)]="firstAddressInput">
+  </mat-form-field>
+  <br class="noSelect">
+  <mat-form-field class="maxWidthInputs" *ngIf="isSecondAddress"> 
+    <span matPrefix> <mat-icon class="inputIcons">location_on</mat-icon> &nbsp;</span>
+    <input matInput [placeholder]="'Address ' + favouriteAddresses[1].counter" [(ngModel)]="secondAddressInput">
+  </mat-form-field>
+  <mat-form-field class="maxWidthInputs" *ngIf="!isSecondAddress" [ngStyle]="{'display': displaySecondAddressInput}">
+    <span matPrefix> <mat-icon class="inputIcons">location_on</mat-icon> &nbsp;</span>
+    <input matInput placeholder="New Address" [(ngModel)]="secondAddressInput">    
+  </mat-form-field>
+
+<br class="noSelect">
+
+<button mat-raised-button *ngIf="displayAdditionalBut" (click)="additionalAddressClick()"><mat-icon class="buttonIcons">add</mat-icon>Additional address</button>
 
 <br class="noSelect">
 <br class="noSelect">
