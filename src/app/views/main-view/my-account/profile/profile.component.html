@@ -3,11 +3,11 @@
 </h5>
 
   <mat-form-field class="maxWidthInputs">
-    <input matInput placeholder="First Name" value="">
+    <input matInput placeholder="First Name" value=""  [formControl]="firstNameFormControl">
   </mat-form-field>
   <br class="noSelect">
   <mat-form-field class="maxWidthInputs">
-    <input matInput placeholder="Last Name" value="">
+    <input matInput placeholder="Last Name" value=""  [formControl]="lastNameFormControl">
   </mat-form-field>
   <br class="noSelect">
   <mat-form-field id="selectDropdown">
@@ -21,10 +21,17 @@
     <input matInput style="padding-left:3px" placeholder="Mobile Number" [value]="selectedCode" [(ngModel)]="userMobileNumber" name="second">
   </mat-form-field>
   <br class="noSelect">
+
   <mat-form-field class="maxWidthInputs">
       <span matPrefix> <mat-icon class="inputIcons">mail</mat-icon> &nbsp;</span>
-    <input matInput placeholder="Email Address" value="">
-  </mat-form-field>
+      <input matInput placeholder="Email Address" [formControl]="emailFormControl">
+      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="emailFormControl.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
 
  <br class="noSelect">
  <br class="noSelect">

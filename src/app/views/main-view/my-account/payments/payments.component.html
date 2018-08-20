@@ -1,3 +1,28 @@
 <h5 style="color: var(--grey)">
   Payment Methods
 </h5>
+
+<br class="noSelect">
+
+  <mat-expansion-panel >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>credit_card</mat-icon>
+      </mat-panel-title>
+      <mat-panel-description>
+        •••• 0811
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field>
+      <input matInput placeholder="Card Number" value="•••• •••• •••• 0811">
+    </mat-form-field>
+      <br>
+    <mat-form-field>
+      <input matInput placeholder="Expiry Date" value="11/2019">
+    </mat-form-field>
+  </mat-expansion-panel>
+
+  <br>
+
+  <button mat-raised-button color="primary">Add New Payment Method</button>

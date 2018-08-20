@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CountryCallCodesService } from '../../../../repeated-code/country-call-codes';
+import {FormControl, Validators} from '@angular/forms';
+
+const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const MOBILE_NUMBER_REGEX = /^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$/;
 
 export interface Country {
   country: string;
@@ -17,6 +21,24 @@ export interface FavouriteAddress {
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.pattern(EMAIL_REGEX)
+  ]);
+
+  firstNameFormControl = new FormControl('', [
+      Validators.required,
+   ]);
+
+  lastNameFormControl = new FormControl('', [
+       Validators.required,
+   ]);
+
+   mobileNumberFormControl = new FormControl('', [
+    Validators.required,
+    Validators.pattern(MOBILE_NUMBER_REGEX)
+]);
 
   countryArray: Country[];
   selectedCode: string = '';
