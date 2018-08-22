@@ -14,7 +14,6 @@ export class MyAccountComponent implements OnInit {
   paymentsPage = 'none';
   yourTransfersPage = 'none';
 
-
   constructor() {
   }
 

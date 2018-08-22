@@ -13,7 +13,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore'
 import { AgmCoreModule } from '@agm/core';
 
 //Angular Material Imports
-import {MatButtonModule, MatIconModule, MatCardModule, MatSidenavModule, MatToolbarModule, MatListModule, MatExpansionModule, MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
+import {MatButtonModule, MatDialogModule, MatIconModule, MatTabsModule, MatCardModule, MatSidenavModule, MatToolbarModule, MatListModule, MatExpansionModule, MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
 
 
 // Components
@@ -32,9 +32,11 @@ import { ContactUsMapComponent } from './views/main-view/contact-us/contact-us-m
 import { ProfileComponent } from './views/main-view/my-account/profile/profile.component';
 import { PaymentsComponent } from './views/main-view/my-account/payments/payments.component';
 import { YourTransfersComponent } from './views/main-view/my-account/your-transfers/your-transfers.component';
+import { TransferDetailsDialog } from './views/main-view/my-account/transfer-details/transfer-details-dialog.component';
 
 // Services
 import { CountryCallCodesService } from './repeated-code/country-call-codes';
+
 
 
 @NgModule({
@@ -54,6 +56,7 @@ import { CountryCallCodesService } from './repeated-code/country-call-codes';
     ProfileComponent,
     PaymentsComponent,
     YourTransfersComponent,
+    TransferDetailsDialog,
   ],
   imports: [
     BrowserModule,
@@ -74,10 +77,13 @@ import { CountryCallCodesService } from './repeated-code/country-call-codes';
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
+    MatTabsModule,
+    MatDialogModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyB68mpC9K_kN8JFsHQfcj3TU2lm728CrQk'
     })
   ],
+  entryComponents: [ TransferDetailsDialog ],
   providers: [CountryCallCodesService],
   bootstrap: [AppComponent]
 })

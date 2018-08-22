@@ -9,17 +9,36 @@
 }
 
 #selectDropdown {
-    font-size: 14px;
-    line-height: 1.35;
-    max-width: 106px !important;
-    
+    max-width: 120px !important;
 }
 
 #selectDropdownOptions {
-    max-width: 106px !important;
+    max-width: 120px !important;
 }
 
 .maxWidthInputs {
     max-width: 286px;
     width: 100%;
 }
+
+#mobileNumberInput {
+    max-width: 166px;
+}
+
+@media only screen and (max-width: 576px) {
+    .maxWidthInputs {
+        max-width: 100%;
+        width: 100%;
+    }
+    #selectDropdown {
+        max-width: 120px !important;
+    }
+    #selectDropdownOptions {
+        max-width: 120px !important;
+    }
+    #mobileNumberInput {
+        max-width: 100%;
+        width: calc(100% - 120px);
+    }
+}
+

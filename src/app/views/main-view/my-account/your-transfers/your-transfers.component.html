@@ -1,3 +1,56 @@
-<h5 style="color: var(--grey)">
-  Your Transfer History
-</h5>
+<br class="noSelect">
+
+<mat-tab-group dynamicHeight>
+  <mat-tab label="Upcoming" >
+    <p *ngIf="upcomingTransfersArrayLength < 1">You have no upcoming transfers.</p>
+
+    <div class="row" id="upcomingRow">
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let transfer of upcomingTransfersArray; let i = index">
+        <mat-card>
+          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+          <mat-card-content>
+            <div>Date: {{transfer.date}}</div>
+            <div>Time: {{transfer.time}}</div>
+          </mat-card-content>
+          <mat-card-actions style="text-align: right">
+            <div class="row align-items-center">
+              <div class="col">
+                <div style="float: left; margin-left: 5px;">{{transfer.price}}</div>
+              </div>
+              <div class="col">
+                <button mat-raised-button (click)="viewTransferDetails(i, 'upcoming')">Details</button>
+              </div>
+            </div> 
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+
+  </mat-tab>
+  <mat-tab label="Past">
+    <p *ngIf="pastTransfersArrayLength < 1">You have no past transfers.</p>
+
+    <div class="row" id="pastRow">
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let transfer of pastTransfersArray; let i = index">
+        <mat-card>
+          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+          <mat-card-content>
+            <div>Date: {{transfer.date}}</div>
+            <div>Time: {{transfer.time}}</div>
+          </mat-card-content>
+          <mat-card-actions style="text-align: right">
+            <div class="row align-items-center">
+              <div class="col">
+                <div style="float: left; margin-left: 5px;">{{transfer.price}}</div>
+              </div>
+              <div class="col">
+                <button mat-raised-button (click)="viewTransferDetails(i, 'past')">Details</button>
+              </div>
+            </div>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+
+  </mat-tab>
+</mat-tab-group>

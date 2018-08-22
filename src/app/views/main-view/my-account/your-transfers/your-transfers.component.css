@@ -1,0 +1,45 @@
+::ng-deep div.mat-tab-body-wrapper {
+    padding: 10px;
+}
+
+#upcomingRow {
+    padding: 2px;
+}
+#pastRow {
+    padding: 2px;
+}
+
+mat-card {
+    margin-bottom: 10px;
+}
+
+img.mat-card-image {
+    margin-bottom: 0px;
+}
+
+mat-card-content.mat-card-content {
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
+
+@media only screen and (max-width: 598px) {
+    mat-card-content.mat-card-content {
+        margin-left: -8px;
+    } 
+}
+@media only screen and (min-width: 598px) {
+    mat-card-content.mat-card-content {
+        margin-left: -16px;
+    } 
+}
+
+mat-card-actions.mat-card-actions {
+    padding: 0px;
+}
+
+button.mat-raised-button {
+    padding-left:8px;
+    padding-right: 8px;
+    min-width: 66px;
+    margin: 0px;
+}
