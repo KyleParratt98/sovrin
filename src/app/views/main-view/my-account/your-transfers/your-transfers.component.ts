@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { TransferDetailsDialog } from '../transfer-details/transfer-details-dialog.component';
-
-export interface Transfer {
-  date: string;
-  time: string;
-  price: string;
-  tripScreenshot: string;
-  details: string;
-}
+import { TransferDetailsDialog } from '../your-transfers/transfer-details-dialog/transfer-details-dialog.component';
+import { Transfer } from '../../../../interfaces/transfer-interface'
 
 @Component({
   selector: 'app-your-transfers',

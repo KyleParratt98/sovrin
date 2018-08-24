@@ -1,0 +1,30 @@
+<div id="content" #content>
+        <div class="row">
+                <div class="col-lg">
+                  <mat-card>
+                    <p id="servicesIconParagraph">
+                      <mat-icon id="servicesIcons"  class="noSelect">work</mat-icon>
+                    </p>
+                    <h3 id="servicesHeadings">Chauffeur Services</h3>
+                    <p id="servicesText">
+                      A chauffeur will drive you around for the day. To your meetings, lunch dates and any other places you need to go.
+                    </p>
+                    <button mat-button id="servicesCallToActionButton">Request Chauffeur</button>
+                  </mat-card>
+                </div>
+                <div class="col-lg">
+                  <mat-card>
+                    <p id="servicesIconParagraph">
+                      <mat-icon id="servicesIcons"  class="noSelect">golf_course</mat-icon>
+                    </p>
+                    <h3 id="servicesHeadings">Special Events</h3>
+                    <p id="servicesText">
+                      We will organise the transfers for any event such as sporting tournaments, conferences and any other type of gathering. 
+                    </p>
+                    <button mat-button id="servicesCallToActionButton">Request event</button>
+                  </mat-card>
+                </div>
+              </div>
+</div>
+
+<button mat-raised-button color="primary" (click)="downloadPDF()">Print Invoice</button>

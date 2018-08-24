@@ -1,10 +1,10 @@
 import { Injectable } from "../../../node_modules/@angular/core";
+
 export interface Country {
     country: string;
     code: string;
-  }
+}
  
-
 @Injectable()
 export class CountryCallCodesService {
 

@@ -11,6 +11,7 @@ import { AboutUsComponent } from '../views/main-view/about-us/about-us.component
 import { BookOnlineComponent } from '../views/main-view/book-online/book-online.component';
 import { FaqComponent } from '../views/main-view/faq/faq.component';
 import { MyAccountComponent } from '../views/main-view/my-account/my-account.component';
+import { PrintableInvoiceComponent } from '../views/main-view/my-account/your-transfers/transfer-details-dialog/printable-invoice/printable-invoice.component';
 
 
 const appRoutes: Routes = [
@@ -25,6 +26,7 @@ const appRoutes: Routes = [
             {path: 'my-account', component: MyAccountComponent, outlet: 'mainViews'},
             {path: 'faq', component: FaqComponent, outlet: 'mainViews'},
             {path: 'book-online', component: BookOnlineComponent, outlet: 'mainViews'},
+            {path: 'print', component: PrintableInvoiceComponent, outlet: 'mainViews'},
           ]},
           
         { path: 'admin-view', component: AdminViewComponent,

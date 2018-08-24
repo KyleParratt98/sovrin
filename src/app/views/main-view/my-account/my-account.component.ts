@@ -18,7 +18,6 @@ export class MyAccountComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
   MenuOpen() {

@@ -1,0 +1,54 @@
+@media only screen and (max-width: 598px) {
+    ::ng-deep mat-dialog-container {
+        padding: 16px !important;
+    }
+    #closeDialogButtonDiv {
+        margin: -16px !important;
+    }
+    img {
+        margin-top:0px;
+    }
+}
+
+@media only screen and (max-width: 340px) {
+    #dialogHeading {
+        font-size: 15px;
+    }
+}
+
+::ng-deep mat-dialog-container {
+    max-height: 70vh !important;
+}
+
+#closeDialogButtonDiv {
+    margin: -24px;
+    margin-bottom: 0px;
+    text-align: right
+}
+
+#closeDialogButton:focus {
+    outline: 0px;
+}
+
+#dialogHeading {
+    float:left; 
+    padding: 7px;
+    padding-left: 10px; 
+    margin: 0px;
+}
+
+#printInvoiceButton {
+    float: right;
+}
+
+#priceOfTrip {
+    margin: 0px; 
+    margin-left: 15px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+#transferDetailsIcon {
+    position: relative;
+    top: 5px;
+}

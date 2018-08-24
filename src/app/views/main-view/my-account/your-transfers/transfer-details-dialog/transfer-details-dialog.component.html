@@ -1,0 +1,28 @@
+<div id="closeDialogButtonDiv">
+  <p id="dialogHeading">View Details and Print Invoice</p>
+  <button mat-icon-button color="primary" id="closeDialogButton" (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu" style="max-width: 460px;">
+
+<p><strong>Date:  </strong> {{selectedTransfer.date}} <strong>at </strong> {{selectedTransfer.time}}</p>
+<p><mat-icon style="color: #7a797b" id="transferDetailsIcon">location_on</mat-icon> {{selectedTransfer.pickup}}</p>
+<p><mat-icon  id="transferDetailsIcon">location_on</mat-icon> {{selectedTransfer.dropoff}}</p>
+<p><strong>Passengers:  </strong> {{selectedTransfer.nOfPassengers}}</p>
+<p><strong>Trailer:  </strong> {{selectedTransfer.tailer}}</p>
+<p><strong>Baby Seat:  </strong> {{selectedTransfer.babySeat}}</p>
+<p><strong>Distance:  </strong> {{selectedTransfer.distance}}</p>
+<p><strong>Payment Method:  </strong> {{selectedTransfer.paymentMethod}}</p>
+
+<div class="row align-items-center">
+  <div class="col">
+      <p id="priceOfTrip">{{selectedTransfer.price}}</p>
+  </div>
+  <div class="col">
+    <button mat-raised-button color="primary" id="printInvoiceButton" (click)="printInvoice()">Print Invoice</button>
+  </div>
+</div>
+
+<app-printable-invoice id="print-section" style="display: none"></app-printable-invoice>

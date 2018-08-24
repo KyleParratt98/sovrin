@@ -1,7 +1,7 @@
 <br class="noSelect">
 
 <mat-tab-group dynamicHeight>
-  <mat-tab label="Upcoming" >
+  <mat-tab label="Upcoming">
     <p *ngIf="upcomingTransfersArrayLength < 1">You have no upcoming transfers.</p>
 
     <div class="row" id="upcomingRow">
@@ -9,8 +9,8 @@
         <mat-card>
           <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
           <mat-card-content>
-            <div>Date: {{transfer.date}}</div>
-            <div>Time: {{transfer.time}}</div>
+            <div><strong>Date: </strong>{{transfer.date}}</div>
+            <div><strong>Time: </strong>{{transfer.time}}</div>
           </mat-card-content>
           <mat-card-actions style="text-align: right">
             <div class="row align-items-center">
@@ -25,8 +25,8 @@
         </mat-card>
       </div>
     </div>
-
   </mat-tab>
+
   <mat-tab label="Past">
     <p *ngIf="pastTransfersArrayLength < 1">You have no past transfers.</p>
 
@@ -51,6 +51,5 @@
         </mat-card>
       </div>
     </div>
-
   </mat-tab>
 </mat-tab-group>

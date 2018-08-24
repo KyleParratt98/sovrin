@@ -15,7 +15,6 @@ import { AgmCoreModule } from '@agm/core';
 //Angular Material Imports
 import {MatButtonModule, MatDialogModule, MatIconModule, MatTabsModule, MatCardModule, MatSidenavModule, MatToolbarModule, MatListModule, MatExpansionModule, MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
 
-
 // Components
 import { AppComponent } from './app.component';
 import { MainViewComponent } from './views/main-view/main-view.component';
@@ -32,10 +31,11 @@ import { ContactUsMapComponent } from './views/main-view/contact-us/contact-us-m
 import { ProfileComponent } from './views/main-view/my-account/profile/profile.component';
 import { PaymentsComponent } from './views/main-view/my-account/payments/payments.component';
 import { YourTransfersComponent } from './views/main-view/my-account/your-transfers/your-transfers.component';
-import { TransferDetailsDialog } from './views/main-view/my-account/transfer-details/transfer-details-dialog.component';
+import { TransferDetailsDialog } from './views/main-view/my-account/your-transfers/transfer-details-dialog/transfer-details-dialog.component';
 
 // Services
 import { CountryCallCodesService } from './repeated-code/country-call-codes';
+import { PrintableInvoiceComponent } from './views/main-view/my-account/your-transfers/transfer-details-dialog/printable-invoice/printable-invoice.component';
 
 
 
@@ -57,6 +57,7 @@ import { CountryCallCodesService } from './repeated-code/country-call-codes';
     PaymentsComponent,
     YourTransfersComponent,
     TransferDetailsDialog,
+    PrintableInvoiceComponent,
   ],
   imports: [
     BrowserModule,
