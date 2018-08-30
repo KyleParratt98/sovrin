@@ -13,7 +13,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore'
 import { AgmCoreModule } from '@agm/core';
 
 //Angular Material Imports
-import {MatButtonModule, MatDialogModule, MatIconModule, MatTabsModule, MatCardModule, MatSidenavModule, MatToolbarModule, MatListModule, MatExpansionModule, MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
+import {MatButtonModule, MatDialogModule, MatTableModule, MatIconModule, MatTabsModule, MatCardModule, MatSidenavModule, MatToolbarModule, MatListModule, MatExpansionModule, MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
 
 // Components
 import { AppComponent } from './app.component';
@@ -32,10 +32,11 @@ import { ProfileComponent } from './views/main-view/my-account/profile/profile.c
 import { PaymentsComponent } from './views/main-view/my-account/payments/payments.component';
 import { YourTransfersComponent } from './views/main-view/my-account/your-transfers/your-transfers.component';
 import { TransferDetailsDialog } from './views/main-view/my-account/your-transfers/transfer-details-dialog/transfer-details-dialog.component';
+import { PrintableInvoiceComponent } from './views/main-view/my-account/your-transfers/transfer-details-dialog/printable-invoice/printable-invoice.component';
 
 // Services
 import { CountryCallCodesService } from './repeated-code/country-call-codes';
-import { PrintableInvoiceComponent } from './views/main-view/my-account/your-transfers/transfer-details-dialog/printable-invoice/printable-invoice.component';
+import { UserProfileService } from './services/user-profile-service';
 
 
 
@@ -72,20 +73,24 @@ import { PrintableInvoiceComponent } from './views/main-view/my-account/your-tra
     MatExpansionModule,
     MatFormFieldModule,
     BrowserAnimationsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule.enablePersistence(),
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
     MatTabsModule,
     MatDialogModule,
+    MatTableModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule.enablePersistence(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyB68mpC9K_kN8JFsHQfcj3TU2lm728CrQk'
     })
   ],
   entryComponents: [ TransferDetailsDialog ],
-  providers: [CountryCallCodesService],
+  providers: [
+    CountryCallCodesService,
+    UserProfileService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

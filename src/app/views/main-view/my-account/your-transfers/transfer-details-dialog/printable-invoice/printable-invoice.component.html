@@ -1,30 +1,136 @@
-<div id="content" #content>
-        <div class="row">
-                <div class="col-lg">
-                  <mat-card>
-                    <p id="servicesIconParagraph">
-                      <mat-icon id="servicesIcons"  class="noSelect">work</mat-icon>
-                    </p>
-                    <h3 id="servicesHeadings">Chauffeur Services</h3>
-                    <p id="servicesText">
-                      A chauffeur will drive you around for the day. To your meetings, lunch dates and any other places you need to go.
-                    </p>
-                    <button mat-button id="servicesCallToActionButton">Request Chauffeur</button>
-                  </mat-card>
-                </div>
-                <div class="col-lg">
-                  <mat-card>
-                    <p id="servicesIconParagraph">
-                      <mat-icon id="servicesIcons"  class="noSelect">golf_course</mat-icon>
-                    </p>
-                    <h3 id="servicesHeadings">Special Events</h3>
-                    <p id="servicesText">
-                      We will organise the transfers for any event such as sporting tournaments, conferences and any other type of gathering. 
-                    </p>
-                    <button mat-button id="servicesCallToActionButton">Request event</button>
-                  </mat-card>
-                </div>
-              </div>
-</div>
+<div id="print-section" style="margin-left: 10px">
+    <img src="\assets\images\Invoice-Image.png" alt="Logo" style="width: 100%; margin-left: -10px;">
 
-<button mat-raised-button color="primary" (click)="downloadPDF()">Print Invoice</button>
+    <div style="margin-bottom: 30px;">
+        <div style="display: inline-block; margin-top: 10px;">
+            <h3 style="margin-bottom: 5px">INVOICE TO</h3>
+            {{userDetails.name}}&nbsp;{{userDetails.surname}}
+            <br>
+            {{userDetails.billingAddress}}
+        </div>
+
+        <div style="float:right; margin-top: 35px; margin-right: 40px;">
+            <strong>INVOICE NO: &nbsp;</strong>  {{selectedTransfer.transferID}}<br>
+            <strong>TERMS: &nbsp;</strong> Due on receipt <br>
+            <strong>DATE: &nbsp;</strong>  {{selectedTransfer.date}}<br>
+        </div>        
+    </div>
+
+    <br>
+    <br>
+
+    <hr style="width: 100%; margin-bottom: 30px; margin-left: -10px;">
+
+    <br>
+    <br>
+
+    <table style="width:100%" *ngIf="selectedTransfer.babySeat && selectedTransfer.trailer">
+        <tr style="text-align: left; font-size: 20px;">
+            <th>DATE</th>
+            <th>TRANSFER DETAILS</th>
+            <th>AMOUNT</th>
+        </tr>
+        <tr>
+            <td>{{selectedTransfer.date}}</td>
+            <td><strong>From: </strong> {{selectedTransfer.pickup}} <strong>To: </strong> {{selectedTransfer.dropoff}}</td> 
+            <td>R {{selectedTransfer.price}}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><strong>Baby Seat: </strong> Yes</td> 
+            <td>R {{priceOfExtras.babySeat}}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><strong>Trailer: </strong> Yes</td> 
+            <td>R {{priceOfExtras.trailer}}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td> 
+            <td><strong>R {{selectedTransfer.totalPrice}}</strong></td>
+        </tr>
+    </table>
+
+    <table style="width:100%" *ngIf="selectedTransfer.babySeat && !selectedTransfer.trailer">
+        <tr style="text-align: left; font-size: 20px;">
+            <th>DATE</th>
+            <th>TRANSFER DETAILS</th>
+            <th>AMOUNT</th>
+        </tr>
+        <tr>
+            <td>{{selectedTransfer.date}}</td>
+            <td><strong>From: </strong> {{selectedTransfer.pickup}} <strong>To: </strong> {{selectedTransfer.dropoff}}</td> 
+            <td>R {{selectedTransfer.price}}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><strong>Baby Seat: </strong> Yes</td> 
+            <td>R {{priceOfExtras.babySeat}}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td> 
+            <td><strong>R {{selectedTransfer.totalPrice}}</strong></td>
+        </tr>
+    </table>
+
+    <table style="width:100%" *ngIf="selectedTransfer.trailer && !selectedTransfer.babySeat">
+        <tr style="text-align: left; font-size: 20px;">
+            <th>DATE</th>
+            <th>TRANSFER DETAILS</th>
+            <th>AMOUNT</th>
+        </tr>
+        <tr>
+            <td>{{selectedTransfer.date}}</td>
+            <td><strong>From: </strong> {{selectedTransfer.pickup}} <strong>To: </strong> {{selectedTransfer.dropoff}}</td> 
+            <td>R {{selectedTransfer.price}}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><strong>Trailer: </strong> Yes</td> 
+            <td>R {{priceOfExtras.trailer}}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td> 
+            <td><strong>R {{selectedTransfer.totalPrice}}</strong></td>
+        </tr>
+    </table>
+
+    <table style="width:100%" *ngIf="!selectedTransfer.babySeat && !selectedTransfer.trailer">
+        <tr style="text-align: left; font-size: 20px;">
+            <th>DATE</th>
+            <th>TRANSFER DETAILS</th>
+            <th>AMOUNT</th>
+        </tr>
+        <tr>
+            <td>{{selectedTransfer.date}}</td>
+            <td><strong>From: </strong> {{selectedTransfer.pickup}} <strong>To: </strong> {{selectedTransfer.dropoff}}</td> 
+            <td>R {{selectedTransfer.price}}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td> 
+            <td><strong>R {{selectedTransfer.totalPrice}}</strong></td>
+        </tr>
+    </table>
+
+    <br>
+    <br>
+
+    <hr style="width: 100%; margin-bottom: 30px; margin-left: -10px;margin-top: 30px;">
+
+    <br>
+    <br>
+
+    <div style="float:right; margin-right: 30px; font-size: 22px;">
+        Balance Due: <strong>R {{selectedTransfer.totalPrice}}</strong>
+    </div>
+    
+
+
+
+
+</div>
+  

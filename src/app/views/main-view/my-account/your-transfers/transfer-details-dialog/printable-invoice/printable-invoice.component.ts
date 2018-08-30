@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
-import * as jsPDF from 'jspdf'
+import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
+import { Transfer, UserProfileService, UserDetails, PriceOfExtras } from '../../../../../../services/user-profile-service'
+import {MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-printable-invoice',
@@ -8,33 +9,20 @@ import * as jsPDF from 'jspdf'
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class PrintableInvoiceComponent implements OnInit {
+  userDetails: UserDetails;
+  sovrinBlue: '#ff4081';
+  priceOfExtras: PriceOfExtras;
 
-  constructor() { }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public selectedTransfer: Transfer,
+    public userProfileService: UserProfileService) {
+      this.userDetails = this.userProfileService.getUserDetails();
+      this.priceOfExtras = this.userProfileService.getPriceOfExtras();
+      console.log("baby" + this.selectedTransfer.babySeat);
+      console.log("trailer" + this.selectedTransfer.trailer);
+   }
 
   ngOnInit() {
-  }
-
-  @ViewChild('content') content: ElementRef;
-
-  downloadPDF(): void {
-
-    let doc = new jsPDF();
-
-    let specialElementHandlers = {
-      '#editor': function(element, renderer) {
-        return true;
-      }
-    }
-
-    let content = this.content.nativeElement;
-
-    doc.fromHTML(content.innerHTML, 15, 15 , {
-      'width': 190,
-      'elementHandlers': specialElementHandlers 
-    });
-
-    doc.save('test.pdf');
-
   }
 
 }

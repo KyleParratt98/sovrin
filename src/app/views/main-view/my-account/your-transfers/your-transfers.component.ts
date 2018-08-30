@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { TransferDetailsDialog } from '../your-transfers/transfer-details-dialog/transfer-details-dialog.component';
-import { Transfer } from '../../../../interfaces/transfer-interface'
+import { Transfer, UserProfileService } from '../../../../services/user-profile-service'
 
 @Component({
   selector: 'app-your-transfers',
@@ -9,26 +9,20 @@ import { Transfer } from '../../../../interfaces/transfer-interface'
   styleUrls: ['./your-transfers.component.css']
 })
 export class YourTransfersComponent implements OnInit {
-
-  pastTransfersArray: Transfer[] = [
-    {date: "06/01/2018", time: "18:45", price: "R 105.53", tripScreenshot: "", details: "past 1 details"},
-  ];
-  upcomingTransfersArray: Transfer[] = [
-    {date: "06/01/2018", time: "18:45", price: "R 105.53", tripScreenshot: "", details: "upcoming 1 details"},
-    {date: "", time: "", price: "", tripScreenshot: "", details: ""},
-    {date: "", time: "", price: "", tripScreenshot: "", details: ""},
-    {date: "", time: "", price: "", tripScreenshot: "", details: ""},
-    {date: "", time: "", price: "", tripScreenshot: "", details: ""},
-    {date: "", time: "", price: "", tripScreenshot: "", details: ""},
-    {date: "", time: "", price: "", tripScreenshot: "", details: ""},
-  ];
+  pastTransfersArray: Transfer[];
+  upcomingTransfersArray: Transfer[];
   pastTransfersArrayLength: number;
   upcomingTransfersArrayLength: number;
   selectedTransfer: Transfer;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(
+    public dialog: MatDialog,
+    public userProfileService: UserProfileService,    
+  ) { }
 
   ngOnInit() {
+    this.pastTransfersArray = this.userProfileService.getPastTransfers();
+    this.upcomingTransfersArray = this.userProfileService.getUpcomingTransfers();
     this.upcomingTransfersArrayLength = this.upcomingTransfersArray.length;
     this.pastTransfersArrayLength = this.pastTransfersArray.length;
   }

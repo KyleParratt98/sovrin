@@ -11,14 +11,16 @@
 <p><mat-icon style="color: #7a797b" id="transferDetailsIcon">location_on</mat-icon> {{selectedTransfer.pickup}}</p>
 <p><mat-icon  id="transferDetailsIcon">location_on</mat-icon> {{selectedTransfer.dropoff}}</p>
 <p><strong>Passengers:  </strong> {{selectedTransfer.nOfPassengers}}</p>
-<p><strong>Trailer:  </strong> {{selectedTransfer.tailer}}</p>
-<p><strong>Baby Seat:  </strong> {{selectedTransfer.babySeat}}</p>
-<p><strong>Distance:  </strong> {{selectedTransfer.distance}}</p>
+<p *ngIf="selectedTransfer.trailer"><strong>Trailer:  </strong> Yes</p>
+<p *ngIf="!selectedTransfer.trailer"><strong>Trailer:  </strong> No</p>
+<p *ngIf="selectedTransfer.babySeat"><strong>Baby Seat:  </strong> Yes</p>
+<p *ngIf="!selectedTransfer.babySeat"><strong>Baby Seat:  </strong> No</p>
+<p><strong>Distance:  </strong> {{selectedTransfer.distance}}km</p>
 <p><strong>Payment Method:  </strong> {{selectedTransfer.paymentMethod}}</p>
 
 <div class="row align-items-center">
   <div class="col">
-      <p id="priceOfTrip">{{selectedTransfer.price}}</p>
+      <p id="priceOfTrip">R {{selectedTransfer.totalPrice}}</p>
   </div>
   <div class="col">
     <button mat-raised-button color="primary" id="printInvoiceButton" (click)="printInvoice()">Print Invoice</button>

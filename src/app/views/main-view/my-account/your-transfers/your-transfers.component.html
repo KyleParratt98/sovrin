@@ -15,7 +15,7 @@
           <mat-card-actions style="text-align: right">
             <div class="row align-items-center">
               <div class="col">
-                <div style="float: left; margin-left: 5px;">{{transfer.price}}</div>
+                <div style="float: left; margin-left: 5px;">R {{transfer.totalPrice}}</div>
               </div>
               <div class="col">
                 <button mat-raised-button (click)="viewTransferDetails(i, 'upcoming')">Details</button>
@@ -41,7 +41,7 @@
           <mat-card-actions style="text-align: right">
             <div class="row align-items-center">
               <div class="col">
-                <div style="float: left; margin-left: 5px;">{{transfer.price}}</div>
+                <div style="float: left; margin-left: 5px;">{{transfer.totalPrice}}</div>
               </div>
               <div class="col">
                 <button mat-raised-button (click)="viewTransferDetails(i, 'past')">Details</button>

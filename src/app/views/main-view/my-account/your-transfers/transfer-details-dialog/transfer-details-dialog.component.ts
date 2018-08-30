@@ -1,6 +1,6 @@
 import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import { Transfer } from '../../../../../interfaces/transfer-interface'
+import { Transfer } from '../../../../../services/user-profile-service'
 
 @Component({
   selector: 'app-transfer-details-dialog',
@@ -18,14 +18,6 @@ export class TransferDetailsDialog {
   }
 
   printInvoice(): void {
-    // const printContent = document.getElementById("print-section");
-    // const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
-    // WindowPrt.document.write(printContent.innerHTML);
-    // WindowPrt.document.close();
-    // WindowPrt.focus();
-    // WindowPrt.print();
-    // WindowPrt.close();
-
     let printContents, popupWin;
     printContents = document.getElementById('print-section').innerHTML;
     popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
