@@ -1,0 +1,13 @@
+.fullWidth {
+    width: 100%;
+    height: 45.1px;
+}
+
+.matPrefixIcon {
+    position: relative;
+    top: 6px;
+}
+
+::ng-deep mat-step-header{
+    width: 24px;
+}

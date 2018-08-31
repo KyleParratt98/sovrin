@@ -1,0 +1,75 @@
+<div style="position: absolute; bottom: 0; width: calc(100% - 30px); margin-bottom: 40px;">
+    <div [ngStyle]="{'display': initialDivDisplay}">
+        <mat-card style="background-color:#fafbfcfa">
+            <form>
+                <div class="row">
+                    <div class="col-lg-5 col-md-4" style="padding-right:0px">
+                        <mat-form-field class="fullWidth">
+                            <mat-icon class="matPrefixIcon" matPrefix>location_on</mat-icon>
+                            <input type="tel" matInput placeholder="Pickup address">
+                        </mat-form-field>
+                   </div>                        
+                   <div class="col-lg-5 col-md-4" style="padding-left:5px">
+                        <mat-form-field class="fullWidth">
+                                <mat-icon class="matPrefixIcon" matPrefix>location_on</mat-icon>
+                                <input type="tel" matInput placeholder="Dropoff address">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2 col-md-4" style="padding-left:0px">
+                        <button class="fullWidth" [ngStyle]="{'display': calculateButton}" (click)="calculateFareClick()" mat-raised-button color="primary">Calculate Fare</button>
+                        <button class="fullWidth" [ngStyle]="{'display': continueToBook}" (click)="continueToBookClick()" mat-raised-button color="primary">Continue to book</button>
+                        <h4 style="color: var(--sovrinBlue); text-align: center; margin-top:5px; margin-bottom:0px; position: relative; top: 10px;">{{ fareBasedOnDistance }}</h4> 
+                    </div>
+                </div>
+                <button [ngStyle]="{'display': clearAddressesButton}" style="position: relative; float: left; bottom: 24px;" (click)="returnToInitialState()" mat-raised-button color="warn">Clear addresses</button>
+            </form>
+        </mat-card>            
+    </div>
+    <mat-card [@slideInOut]="helpMenuOpen" [ngStyle]="{'display': stepperDiv}" style="background-color:#fafbfcfa">
+        <mat-horizontal-stepper  [linear]="false" #stepper  style="background-color:#fafbfc00">
+                <mat-step [stepControl]="firstFormGroup"> <!--First Step-->
+                    <form [formGroup]="firstFormGroup" >
+                        <div class="row">
+                            <div class="col-md-2 col-lg-2 col-sm-2"></div>
+                            <div class="col-md-8 col-lg-8 col-sm-8">
+                                <h3 style="text-align: center"><strong>STEP 1 - CONTACT DETAILS</strong></h3>
+                                <br>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <mat-form-field>
+                                            <input  matInput placeholder="Company Name" formControlName="companyNameCtrl">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6">  
+                                        <mat-form-field>
+                                            <span matPrefix>&nbsp;<mat-icon matPrefix>person</mat-icon>&nbsp;</span>  
+                                            <input matInput placeholder="Contact Person" formControlName="contactPersonCtrl">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <mat-form-field>
+                                    <input  matInput placeholder="Address" formControlName="addressCtrl">
+                                </mat-form-field>
+                                <br>
+                                <div style="margin-bottom: 10px; text-align: center">
+                                    <button mat-raised-button (click)="backToInitial()">Cancel</button>                              
+                                    <button mat-raised-button matStepperNext>Next</button>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-lg-2 col-sm-2"></div>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step [stepControl]="secondFormGroup"> <!--Second Step-->
+                    <form [formGroup]="secondFormGroup">
+                
+                    </form>
+                </mat-step>
+                <mat-step [stepControl]="thirdFormGroup"> <!--Third Step-->
+                    <form [formGroup]="thirdFormGroup">
+                        
+                    </form>
+                </mat-step>
+        </mat-horizontal-stepper>
+    </mat-card>
+</div>

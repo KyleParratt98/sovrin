@@ -22,6 +22,7 @@ export class FaqComponent implements OnInit{
   displayMenu = 'none';
   numberOne = "One";
   expanded = false;
+  
 
   constructor(private afs: AngularFirestore) {
   }
