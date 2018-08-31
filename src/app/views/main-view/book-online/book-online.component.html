@@ -1,6 +1,6 @@
 <div style="position: absolute; bottom: 0; width: calc(100% - 30px); margin-bottom: 40px;">
     <div [ngStyle]="{'display': initialDivDisplay}">
-        <mat-card style="background-color:#fafbfcfa; padding-top:12px">
+        <mat-card style="background-color:#fafbfcfa; padding:12px" class="hideOnMobile">
             <form>
                 <div class="row">
                     <div class="col-lg-5 col-md-4" style="padding-right:0px">
@@ -18,13 +18,43 @@
                     <div class="col-lg-2 col-md-4" style="padding-left:0px">
                         <button class="fullWidth" [ngStyle]="{'display': calculateButton}" (click)="calculateFareClick()" mat-raised-button color="primary">Calculate Fare</button>
                         <button class="fullWidth" [ngStyle]="{'display': continueToBook}" (click)="continueToBookClick()" mat-raised-button color="primary">Continue to book</button>
-                        <h4 style="color: var(--sovrinBlue); text-align: center; margin-top:5px; margin-bottom:0px; position: relative; top: 10px;">{{ fareBasedOnDistance }}</h4> 
+                        <h4 style="color: var(--sovrinBlue); text-align: center; margin-top:5px; margin-bottom:10px; position: relative; top: 10px;">{{ fareBasedOnDistance }}</h4> 
                     </div>
                 </div>
-                <button [ngStyle]="{'display': clearAddressesButton}" style="position: relative; float: left; bottom: 24px;" (click)="returnToInitialState()" mat-raised-button color="warn">Clear addresses</button>
+                <button [ngStyle]="{'display': clearAddressesButton}" style="position: relative; float: left; bottom: 34px;" (click)="returnToInitialState()" mat-button color="warn">Clear addresses</button>
             </form>
-        </mat-card>            
+        </mat-card>
+
+
+
+        <mat-card style="background-color:#fafbfcfa; padding: 12px;" class="hideOnDesktop">
+            <form>
+                <div class="row align-items-end">
+                    <div class="col-md-8 col-sm-8 col-7" style="padding-right:0px">
+                        <mat-form-field class="fullWidth">
+                            <mat-icon class="matPrefixIcon" matPrefix>location_on</mat-icon>
+                            <input type="tel" matInput placeholder="Pickup address">
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field class="fullWidth">
+                            <mat-icon class="matPrefixIcon" matPrefix>location_on</mat-icon>
+                            <input type="tel" matInput placeholder="Dropoff address">
+                        </mat-form-field>
+                   </div>
+                    <div class="col-md-4 col-sm-4 col-5" style="padding-left:15px">
+                        <h4 id="fareHeadingMoile" style="color: var(--sovrinBlue); text-align: center; margin-top:0px; margin-bottom:10px;">{{ fareBasedOnDistance }}</h4>
+                        <button id="initialButtonsMobile" class="fullWidth" [ngStyle]="{'display': calculateButton}" (click)="calculateFareClick()" mat-raised-button color="primary">Calculate Fare</button>
+                        <button id="initialButtonsMobile" class="fullWidth" [ngStyle]="{'display': continueToBook}" (click)="continueToBookClick()" mat-raised-button color="primary">Book Transfer</button>
+                    </div>
+                </div>
+                <button [ngStyle]="{'display': clearAddressesButton}" style="margin-top: 10px;" (click)="returnToInitialState()" mat-button color="warn">Reset addresses</button>
+            </form>
+        </mat-card>     
+        
+        
+
     </div>
+    
     <mat-card [@slideInOut]="helpMenuOpen" [ngStyle]="{'display': stepperDiv}" style="background-color:#fafbfcfa">
         <mat-horizontal-stepper  [linear]="false" #stepper  style="background-color:#fafbfc00">
                 <mat-step [stepControl]="firstFormGroup"> <!--First Step-->

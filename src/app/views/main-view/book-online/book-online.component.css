@@ -11,3 +11,16 @@
 ::ng-deep mat-step-header{
     width: 24px;
 }
+
+@media only screen and (max-width: 370px) {
+    #initialButtonsMobile {
+        font-size: 12px;
+        padding: 6px;
+    }
+}
+@media only screen and (max-width: 378px) {
+    #fareHeadingMoile {
+        font-size: 18px;
+    }
+}
+    
