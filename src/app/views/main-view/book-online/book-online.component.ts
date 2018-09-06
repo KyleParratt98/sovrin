@@ -30,12 +30,18 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
 export class BookOnlineComponent implements OnInit {
   initialDivDisplay = 'block';
   stepperDiv = 'none';
-  helpMenuOpen: string;
+  stepperOpen: string;
   continueToBook = 'none';
   calculateButton = 'block';
   fareLabel = 'none';
   fareBasedOnDistance: string = '';
   clearAddressesButton = 'none';
+  minDate = new Date();
+
+  // TRANSFER VARIABLES
+  pickupAddress: string = '650 Cicely Street, Garsfontein, Pretoria';
+  dropoffAddress: string = 'O.R. Tambo International Airport';
+  //////////////////////////////////////////
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -58,63 +64,34 @@ export class BookOnlineComponent implements OnInit {
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       companyNameCtrl: ['', Validators.required],
-      contactPersonCtrl: ['', Validators.required],
-      addressCtrl: ['', Validators.required],
-      cityCtrl: ['', Validators.required],
-      zipCodeCtrl: ['', Validators.required],
-      countryCtrl: ['', Validators.required],
-      callCodeCtrl: ['', Validators.required],
-      telephoneNumberCtrl: ['', Validators.required],
-      emailFormControl: this.emailFormControl,
+
     });
     this.secondFormGroup = this._formBuilder.group({
-      projectNameCtrl: ['', Validators.required],
-      countryCtrl: ['', Validators.required],
-      cityCtrl: ['', Validators.required],
-      currencyCtrl: ['', Validators.required],
-      preparedByCtrl:  ['', Validators.required],
-      areaDescriptionCtrl: ['', Validators.required],
-      exportSaleControl: ['', Validators.required],
-      zipCodeCtrl: ['', Validators.required],
     });
     this.thirdFormGroup = this._formBuilder.group({
       riskNameCtrl: ['', Validators.required],
-      roomLengthCtrl: ['', Validators.required],
-      roomWidthCtrl: ['', Validators.required],
-      roomHeightCtrl: ['', Validators.required],
-      ceilingLengthCtrl: ['', Validators.required],
-      ceilingWidthCtrl: ['', Validators.required],
-      ceilingHeightCtrl: ['', Validators.required],
-      floorLengthCtrl: ['', Validators.required],
-      floorWidthCtrl: ['', Validators.required],
-      floorHeightCtrl: ['', Validators.required],
-      HASLCtrl: ['', Validators.required],
-      cityCtrl: ['', Validators.required],
-      roomTempCtrl: ['', Validators.required],
-      numberOfDoorsCtrl: ['', Validators.required],
-      commentsCtrl: ['', Validators.required],
     });
-    this.helpMenuOpen = 'out';
+    this.stepperOpen = 'out';
   }
 
   calculateFareClick() {
     this.calculateButton = 'none';
     this.continueToBook = 'block';
     this.fareLabel = 'block';
-    this.fareBasedOnDistance = 'Fare: R600';
+    this.fareBasedOnDistance = '600';
     this.clearAddressesButton = 'block';
   }
 
   backToInitial() {
     this.initialDivDisplay = 'block';
     this.stepperDiv = 'none';
-    this.helpMenuOpen = this.helpMenuOpen === 'in' ? 'out' : 'in';
+    this.stepperOpen = this.stepperOpen === 'in' ? 'out' : 'in';
   }
 
   continueToBookClick() {
     this.initialDivDisplay = 'none';
     this.stepperDiv = 'block';
-    this.helpMenuOpen = this.helpMenuOpen === 'out' ? 'in' : 'out';
+    this.stepperOpen = this.stepperOpen === 'out' ? 'in' : 'out';
   }
 
   returnToInitialState() {
@@ -123,6 +100,10 @@ export class BookOnlineComponent implements OnInit {
     this.fareLabel = 'none';
     this.clearAddressesButton = 'none';
     this.fareBasedOnDistance = '';
+  }
+
+  confirmBookingClick() {
+
   }
 
   

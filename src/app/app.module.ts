@@ -13,7 +13,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore'
 import { AgmCoreModule } from '@agm/core';
 
 //Angular Material Imports
-import {MatButtonModule, MatChipsModule, MatStepperModule,  MatDialogModule, MatTableModule, MatIconModule, MatTabsModule, MatCardModule, MatSidenavModule, MatToolbarModule, MatListModule, MatExpansionModule, MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
+import {MatButtonModule, MatChipsModule, MatStepperModule,  MatDialogModule, MatTableModule, MatIconModule, MatTabsModule, MatCardModule, MatSidenavModule, MatToolbarModule, MatListModule, MatExpansionModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material';
 
 // Components
 import { AppComponent } from './app.component';
@@ -82,6 +82,8 @@ import { UserProfileService } from './services/user-profile-service';
     MatTabsModule,
     MatDialogModule,
     MatTableModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule.enablePersistence(),
     AgmCoreModule.forRoot({
@@ -92,6 +94,8 @@ import { UserProfileService } from './services/user-profile-service';
   providers: [
     CountryCallCodesService,
     UserProfileService,
+    MatDatepickerModule,
+    {provide: MAT_DATE_LOCALE, useValue: 'en-in'},
   ],
   bootstrap: [AppComponent]
 })
