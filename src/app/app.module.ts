@@ -90,7 +90,8 @@ import { UserProfileService } from './services/user-profile-service';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule.enablePersistence(),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyB68mpC9K_kN8JFsHQfcj3TU2lm728CrQk'
+      apiKey: 'AIzaSyB68mpC9K_kN8JFsHQfcj3TU2lm728CrQk',
+      libraries: ["places"]
     })
   ],
   entryComponents: [ TransferDetailsDialog ],

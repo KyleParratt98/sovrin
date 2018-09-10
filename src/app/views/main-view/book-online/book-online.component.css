@@ -81,6 +81,7 @@ mat-card {
 #stepperContent {
   margin-left: 25px;
   margin-right: 25px;
+
 }
 
 ::ng-deep .btn-link:hover {
@@ -94,7 +95,7 @@ mat-card {
     .lineBreakHide {
         display: none;
     }
-    #stepOneHeading {
+    #stepHeading {
         font-size: 17px;
     }
 }
@@ -121,6 +122,10 @@ input[type=number]::-webkit-inner-spin-button {
     opacity: 1
 }
 
-#stepOneHeading {
+#stepHeading {
     text-align: center;
+}
+
+.stepThreeParagraphs {
+    margin-bottom: 15px;
 }

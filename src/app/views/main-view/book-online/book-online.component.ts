@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { MapsAPILoader } from '@agm/core';
+import {} from '@types/googlemaps';
+import { ViewChild, ElementRef, NgZone } from '@angular/core';
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -28,6 +31,8 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
 })
 
 export class BookOnlineComponent implements OnInit {
+  @ViewChild('search') public searchElement: ElementRef;
+  @ViewChild('search2') public searchElement2: ElementRef;
   initialDivDisplay = 'block';
   stepperDiv = 'none';
   stepperOpen: string;
@@ -37,30 +42,29 @@ export class BookOnlineComponent implements OnInit {
   fareBasedOnDistance: string = '';
   clearAddressesButton = 'none';
   minDate = new Date();
+  paymentMethods: string[] = ["Credit Card", "Cash", "EFT"]
   
 
   // TRANSFER VARIABLES
   pickupAddress: string = '650 Cicely Street, Garsfontein, Pretoria';
   dropoffAddress: string = 'O.R. Tambo International Airport';
+  date: string = '25 September 2018';
+  time: string = '14:12';
+  passengers: number = 3;
+  babySeat: string = 'Yes';
+  trailer: string = 'No';
+  transferFair: number = 450;
   //////////////////////////////////////////
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
 
-  inputToggled = false;
-  preparedByHintMessage = "Previous Names of Prepared By : 37 KG'S , ROOM - 15KG'S HFC-227 , KLERKSDORP PRISON , DEMO ROOM , 2 ROOMS , ECO BANK, ACCRA, GHANA , INERGEN , TIL JAGER , STRONG ROOMS , NEW SERVER ROOM , Credit Reference Bureau Africa ltd. , SERVER ROOM & FLOOR VOID , CHRIS HANI BARAGWANETH HOSPITAL , TRIANGULAR ROOM , BURGERSFORT , ROOM ONLY, NO VOIDS , NELSPRUIT , GHANA , HFC-125 SWOP OUT , ROOM & FLOOR VOID , ROOM ONLY , STANDARD BANK , ETHANOL STORE , MONT BLANC - BEDFORDVIEW , STANDARD BANK NAIROBI , 10 LITRE ECKOSHIELD , WATER SERVICES , INERGEN 300 BAR , HACO INDUSTRIES , JET PARK , SQUADRON - ALEXANDER BAY , SQUADRON - SLANGKOP , SQUADRON - UMDLOTI , SQUADRON - PHALABORWA , SQUADRON - LOUIS TRICHARDT , SQUADRON - BOEKENHOUTSKLOOF , SQUADRON - WONDERBOOM , SQUADRON - OLIFANTSHOEK , WATERKLOOF AIR FORCE BASE , COMPUTER CENTRE IN TANZANIA , FLOOR VOID , SNAKE VALLEY , JAQUAR - IRENE , KENYA INSTITUTE OF ADMINISTRATION , ESCONDIDA 3200 M ASL , PENSION SERVICES - PRETORIA , APOLLO - JET PARK , VCG , kjg;iug;iu , test , AOH , WIEKUS , Neil , Nick Collins , Nwh , a"
-  countries: any;
-  currencies: any;
-  cylinders: any;
-  warningMessage = "none";
-  scrollUp: any;
-
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.pattern(EMAIL_REGEX)]);
 
-  constructor(private _formBuilder: FormBuilder) { }
+  constructor(private _formBuilder: FormBuilder, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) { }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -73,6 +77,34 @@ export class BookOnlineComponent implements OnInit {
       riskNameCtrl: ['', Validators.required],
     });
     this.stepperOpen = 'out';
+
+    var options = {
+      types: ["address"],
+      componentRestrictions: {country: "za"}
+     };
+    
+    this.mapsAPILoader.load().then( () => {
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, options);
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          if(place.geometry === undefined || place.geometry === null ){
+            return;
+          }
+        });
+      });
+    });
+    this.mapsAPILoader.load().then( () => {
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElement2.nativeElement, options);
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          if(place.geometry === undefined || place.geometry === null ){
+            return;
+          }
+        });
+      });
+    });
   }
 
   calculateFareClick() {

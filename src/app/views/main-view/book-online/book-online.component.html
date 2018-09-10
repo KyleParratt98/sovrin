@@ -3,16 +3,16 @@
         <mat-card class="hideOnMobile">
             <form>
                 <div class="row">
-                    <div class="col-lg-5 col-md-4" style="padding-right:0px">
+                    <div class="col-lg-5 col-md-4 form-group" style="padding-right:0px">
                         <mat-form-field class="fullWidthAddressInputs">
                             <mat-icon class="matPrefixIcon" matPrefix>location_on</mat-icon>
-                            <input matInput placeholder="Pickup address">
+                            <input matInput placeholder="Pickup address" type="text" autocorrect="off" autocapitalize="off" spellcheck="off"  #search>
                         </mat-form-field>
                    </div>                        
                    <div class="col-lg-5 col-md-4" style="padding-left:5px">
                         <mat-form-field class="fullWidthAddressInputs">
-                                <mat-icon class="matPrefixIcon" matPrefix>location_on</mat-icon>
-                                <input matInput placeholder="Dropoff address">
+                            <mat-icon class="matPrefixIcon" matPrefix>location_on</mat-icon>
+                            <input matInput placeholder="Dropoff address"  type="text" autocorrect="off" autocapitalize="off" spellcheck="off"  #search2>
                         </mat-form-field>
                     </div>
                     <div class="col-lg-2 col-md-4" style="padding-left:0px">
@@ -31,12 +31,12 @@
                     <div class="col-md-8 col-sm-8 col-7" style="padding-right:0px">
                         <mat-form-field class="fullWidthAddressInputs">
                             <mat-icon class="matPrefixIcon" matPrefix>location_on</mat-icon>
-                            <input matInput placeholder="Pickup address">
+                            <input matInput placeholder="Pickup address"  type="text" autocorrect="off" autocapitalize="off" spellcheck="off"  #search>
                         </mat-form-field>
                         <br>
                         <mat-form-field class="fullWidthAddressInputs">
                             <mat-icon class="matPrefixIcon" matPrefix>location_on</mat-icon>
-                            <input matInput placeholder="Dropoff address">
+                            <input matInput placeholder="Dropoff address"  type="text" autocorrect="off" autocapitalize="off" spellcheck="off"  #search2>
                         </mat-form-field>
                    </div>
                     <div class="col-md-4 col-sm-4 col-5" style="padding-left:15px">
@@ -55,7 +55,7 @@
                 <mat-step [stepControl]="firstFormGroup"> <!--First Step-->
                     <form [formGroup]="firstFormGroup">
                         <div id="stepperContent">
-                            <h5 id="stepOneHeading">Fill in your transfers details</h5>
+                            <h5 id="stepHeading">Fill in your transfers details</h5>
                             <br class="lineBreakHide">
                             <mat-form-field class="fullWidth">
                                 <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="Date of Transfer">
@@ -95,24 +95,58 @@
                 <mat-step [stepControl]="secondFormGroup"> <!--Second Step-->
                     <form [formGroup]="secondFormGroup">
                         <div id="stepperContent">
-                            
+                            <h5 id="stepHeading">Fill in your personal details</h5>
+                            <br class="lineBreakHide">
+                            <div class="row">
+                                <div class="col-6" style="padding-right:2px;">
+                                    <mat-form-field class="fullWidth">
+                                        <input matInput placeholder="First Name">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-6 " style="padding-left:2px;">
+                                    <mat-form-field class="fullWidth">
+                                        <input matInput placeholder="Last Name">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <mat-form-field class="fullWidth">
+                                <input matInput placeholder="Mobile Number">
+                            </mat-form-field>
+                            <mat-form-field class="fullWidth">
+                                <input matInput placeholder="Email Address">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-select placeholder="Payment Method">
+                                  <mat-option *ngFor="let payment of paymentMethods" [value]="payment">
+                                    {{payment}}
+                                  </mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </div>
                         <br class="noSelect">
                         <div id="stepperNavigationButtonsDiv">
                             <div style="float: left"><button mat-raised-button matStepperPrevious>Back</button></div>
-                            <div style="text-align: right"><button mat-raised-button matStepperNext color="primary">Next Step</button></div>                               
+                            <div style="text-align: right"><button mat-raised-button matStepperNext color="primary">Transfer Summary</button></div>                               
                         </div>                
                     </form>
                 </mat-step>
                 <mat-step [stepControl]="thirdFormGroup"> <!--Third Step-->
                     <form [formGroup]="thirdFormGroup">
-                        <div id="stepperContent">
-                            
+                        <div style="margin-left: 15px; margin-right: 15px;">
+                            <h5 style="text-align: center;">Your Transfer Summary</h5>
+                            <br class="lineBreakHide noSelect">
+                            <p class="stepThreeParagraphs"><mat-icon style="color: #7a797b; position: relative; top: 6px; right: 4px;">location_on</mat-icon> {{pickupAddress}}</p>
+                            <p class="stepThreeParagraphs"><mat-icon style="position: relative; top: 5px; right: 4px;">location_on</mat-icon> {{dropoffAddress}}</p>
+                            <p class="stepThreeParagraphs"><strong>Date:</strong> {{date}}</p>
+                            <p class="stepThreeParagraphs"><strong>Time:</strong> {{time}} </p>
+                            <p class="stepThreeParagraphs"><strong>Number of Passengers:</strong> {{passengers}}</p>
+                            <p class="stepThreeParagraphs"><strong>Baby Seat: </strong> {{babySeat}}&nbsp;&nbsp; <strong>Trailer:</strong> {{trailer}}</p>
+                            <br class="lineBreakHide noSelect">
+                            <h5 style="margin-bottom: 8px"><strong>Fare:</strong> R{{transferFair}}</h5>
                         </div>
-                        <br class="noSelect">                        
                         <div id="stepperNavigationButtonsDiv">
                             <div style="float: left"><button mat-raised-button matStepperPrevious>Back</button></div>
-                            <div style="text-align: right"><button mat-raised-button (click)="confirmBookingClick()" color="primary">Confirm Booking</button></div>                               
+                            <div style="text-align: right"><button mat-raised-button (click)="confirmBookingClick()" color="primary">Make Payment</button></div>                               
                         </div> 
                     </form>
                 </mat-step>
