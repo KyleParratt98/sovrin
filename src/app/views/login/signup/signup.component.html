@@ -1,0 +1,78 @@
+<div style="background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%); min-height: 100vh">
+  <div class="container">
+    <div class="row">
+      <div class="col" style="max-width: 450px; margin: auto">
+        <br class="hideOnMobile noSelect">
+        <br class="hideOnMobile noSelect">
+        <br class="noSelect">
+        <mat-card>
+
+
+
+            <mat-tab-group [selectedIndex]="tabIndex">
+              <mat-tab label="First">
+                <h3 style="color: var(--sovrinBlue); text-align: center">Start Your SOVRIN Journey</h3>
+                <hr style="width: 100%">
+                <br>
+                <p style="font-size: 17px"><strong>Pros to having an account:</strong></p>
+                <p>1. View your trip history</p>
+                <p>2. Speedy online booking</p>
+                <p>3. Generate invoices for past trips</p>
+                <p>4. Unique discounts</p>
+                <p>5. </p>
+                <br>
+                <hr style="width: 100%">
+                <br>
+                <h5 style="color: var(--blue); text-align: left; display: inline">What are you waiting for?</h5>
+                <button mat-raised-button color="primary" style="float: right;" (click)="nextTab()">Get Started</button>
+              </mat-tab>
+              <mat-tab label="Second">
+                <div class="margin: 25px">
+                  <button mat-raised-button (click)="previousTab()">Back</button>
+                  <button mat-raised-button color="primary" (click)="nextTab()">Next</button>
+                </div>
+              </mat-tab>
+              <mat-tab label="Third">
+                  <div class="margin: 25px">
+                    <button mat-raised-button (click)="previousTab()">Back</button>
+                    <button mat-raised-button color="primary" (click)="nextTab()">Next</button>
+                  </div>
+              </mat-tab>
+            </mat-tab-group>
+          <!-- <h3 style="color: var(--sovrinBlue); text-align: center;">Welcome to SOVRIN</h3>
+          <hr style="width: 100%">
+          <br class="noSelect">
+          <h5 style="text-align: center;">Enter your login details below</h5>
+          <mat-card-content style="text-align: center; padding-left: 40px; padding-right: 40px">
+            <br class="noSelect">
+            <mat-form-field class="fullWidth">
+                <input matInput placeholder="Email">
+            </mat-form-field>
+            <mat-form-field class="fullWidth">
+                <input matInput placeholder="Password">
+            </mat-form-field>
+            <a href="" style="float: right;">Forgot Password</a>
+            <br class="noSelect">
+            <div style="text-align: left">
+                <mat-checkbox color="primary">REMEBER ME</mat-checkbox>
+            </div>
+            <br class="noSelect">
+            <br class="noSelect">
+            <div style="text-align: center">
+                <button mat-button style="background-color: var(--sovrinBlue); color: white; width: 40%; height: 46px; font-size: 19px; font-weight: 300;">Login</button>
+            </div>
+            <br class="noSelect">
+          </mat-card-content>
+          <hr style="width: 100%">
+          <mat-card-actions>
+            <div style="margin: 20px; margin-top: 5px">
+                <p style="line-height: 36px; display: inline">Want an account?</p>
+                <button mat-stroked-button style="float: right;" (click)="signUpClick()">SIGN-UP</button>
+            </div>
+          </mat-card-actions> -->
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <br class="noSelect">
+</div>

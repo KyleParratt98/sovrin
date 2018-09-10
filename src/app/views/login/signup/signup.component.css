@@ -1,0 +1,17 @@
+.fullWidth {
+    width: 100%;
+}
+a {
+    color: var(--sovrinBlue); 
+}
+a:hover {
+    color: #0d0531; 
+}
+
+::ng-deep mat-tab-header.mat-tab-header.mat-tab-header-pagination-controls-enabled {
+    display: none;
+}
+
+::ng-deep mat-tab-header.mat-tab-header {
+    display: none;
+}

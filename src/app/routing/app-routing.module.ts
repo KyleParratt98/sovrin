@@ -12,10 +12,13 @@ import { BookOnlineComponent } from '../views/main-view/book-online/book-online.
 import { FaqComponent } from '../views/main-view/faq/faq.component';
 import { MyAccountComponent } from '../views/main-view/my-account/my-account.component';
 import { PrintableInvoiceComponent } from '../views/main-view/my-account/your-transfers/transfer-details-dialog/printable-invoice/printable-invoice.component';
-
+import { LoginComponent } from '../views/login/login.component';
+import { SignupComponent } from '../views/login/signup/signup.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'mv', pathMatch: 'full'},
+    {path: 'login', component: LoginComponent},
+    {path: 'sign-up', component: SignupComponent},
     
         { path: 'mv', component: MainViewComponent,
         children: [

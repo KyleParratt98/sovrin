@@ -34,10 +34,13 @@ import { PaymentsComponent } from './views/main-view/my-account/payments/payment
 import { YourTransfersComponent } from './views/main-view/my-account/your-transfers/your-transfers.component';
 import { TransferDetailsDialog } from './views/main-view/my-account/your-transfers/transfer-details-dialog/transfer-details-dialog.component';
 import { PrintableInvoiceComponent } from './views/main-view/my-account/your-transfers/transfer-details-dialog/printable-invoice/printable-invoice.component';
+import { LoginComponent } from './views/login/login.component';
+import { SignupComponent } from './views/login/signup/signup.component';
 
 // Services
 import { CountryCallCodesService } from './repeated-code/country-call-codes';
 import { UserProfileService } from './services/user-profile-service';
+
 
 
 
@@ -60,6 +63,8 @@ import { UserProfileService } from './services/user-profile-service';
     YourTransfersComponent,
     TransferDetailsDialog,
     PrintableInvoiceComponent,
+    LoginComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,45 @@
+<div style="background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh">
+    <div class="container">
+      <div class="row">
+        <div class="col" style="max-width: 450px; margin: auto">
+          <br class="hideOnMobile noSelect">
+          <br class="hideOnMobile noSelect">
+          <br class="noSelect">
+          <mat-card>
+              <h3 style="color: var(--sovrinBlue); text-align: center;">Welcome to SOVRIN</h3>
+            <hr style="width: 100%">
+            <br class="noSelect">
+            <h5 style="text-align: center;">Enter your login details below</h5>
+            <mat-card-content style="text-align: center; padding-left: 40px; padding-right: 40px">
+              <br class="noSelect">
+              <mat-form-field class="fullWidth">
+                  <input matInput placeholder="Email">
+              </mat-form-field>
+              <mat-form-field class="fullWidth">
+                  <input matInput placeholder="Password">
+              </mat-form-field>
+              <a href="" style="float: right;">Forgot Password</a>
+              <br class="noSelect">
+              <div style="text-align: left">
+                  <mat-checkbox color="primary">REMEBER ME</mat-checkbox>
+              </div>
+              <br class="noSelect">
+              <br class="noSelect">
+              <div style="text-align: center">
+                  <button mat-button style="background-color: var(--sovrinBlue); color: white; width: 40%; height: 46px; font-size: 19px; font-weight: 300;">Login</button>
+              </div>
+              <br class="noSelect">
+            </mat-card-content>
+            <hr style="width: 100%">
+            <mat-card-actions>
+              <div style="margin: 20px; margin-top: 5px">
+                  <p style="line-height: 36px; display: inline">Want an account?</p>
+                  <button mat-stroked-button style="float: right;" (click)="signUpClick()">SIGN-UP</button>
+              </div>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <br class="noSelect">
+</div>
