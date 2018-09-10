@@ -1,23 +1,23 @@
-<div style="position: absolute; bottom: 0; width: calc(100% - 30px); margin-bottom: 40px;">
+<div id="entireBookingForm">
     <div [ngStyle]="{'display': initialDivDisplay}">
         <mat-card class="hideOnMobile">
             <form>
                 <div class="row">
                     <div class="col-lg-5 col-md-4" style="padding-right:0px">
-                        <mat-form-field class="fullWidth">
+                        <mat-form-field class="fullWidthAddressInputs">
                             <mat-icon class="matPrefixIcon" matPrefix>location_on</mat-icon>
-                            <input type="tel" matInput placeholder="Pickup address">
+                            <input matInput placeholder="Pickup address">
                         </mat-form-field>
                    </div>                        
                    <div class="col-lg-5 col-md-4" style="padding-left:5px">
-                        <mat-form-field class="fullWidth">
+                        <mat-form-field class="fullWidthAddressInputs">
                                 <mat-icon class="matPrefixIcon" matPrefix>location_on</mat-icon>
-                                <input type="tel" matInput placeholder="Dropoff address">
+                                <input matInput placeholder="Dropoff address">
                         </mat-form-field>
                     </div>
                     <div class="col-lg-2 col-md-4" style="padding-left:0px">
-                        <button class="fullWidth" [ngStyle]="{'display': calculateButton}" (click)="calculateFareClick()" mat-raised-button color="primary">Calculate Fare</button>
-                        <button class="fullWidth pulse-button" [ngStyle]="{'display': continueToBook}" (click)="continueToBookClick()" mat-raised-button>Continue to Book</button>
+                        <button class="fullWidthAddressInputs" [ngStyle]="{'display': calculateButton}" (click)="calculateFareClick()" mat-raised-button color="primary">Calculate Fare</button>
+                        <button class="fullWidthAddressInputs pulse-button" [ngStyle]="{'display': continueToBook}" (click)="continueToBookClick()" mat-raised-button>Continue to Book</button>
                         <h4 [ngStyle]="{'display': fareLabel}" style="color: var(--sovrinBlue); text-align: center; margin-top:5px; margin-bottom:10px; position: relative; top: 10px;">Fare: R{{ fareBasedOnDistance }}</h4> 
                     </div>
                 </div>
@@ -29,20 +29,20 @@
             <form>
                 <div class="row align-items-end">
                     <div class="col-md-8 col-sm-8 col-7" style="padding-right:0px">
-                        <mat-form-field class="fullWidth">
+                        <mat-form-field class="fullWidthAddressInputs">
                             <mat-icon class="matPrefixIcon" matPrefix>location_on</mat-icon>
-                            <input type="tel" matInput placeholder="Pickup address">
+                            <input matInput placeholder="Pickup address">
                         </mat-form-field>
                         <br>
-                        <mat-form-field class="fullWidth">
+                        <mat-form-field class="fullWidthAddressInputs">
                             <mat-icon class="matPrefixIcon" matPrefix>location_on</mat-icon>
-                            <input type="tel" matInput placeholder="Dropoff address">
+                            <input matInput placeholder="Dropoff address">
                         </mat-form-field>
                    </div>
                     <div class="col-md-4 col-sm-4 col-5" style="padding-left:15px">
                         <h4 id="fareHeadingMoile" [ngStyle]="{'display': fareLabel}" style="color: var(--sovrinBlue); text-align: center; margin-top:0px; margin-bottom:10px;">Fare: R{{ fareBasedOnDistance }}</h4>
-                        <button id="initialButtonsMobile" class="fullWidth" [ngStyle]="{'display': calculateButton}" (click)="calculateFareClick()" mat-raised-button color="primary">Calculate Fare</button>
-                        <button id="initialButtonsMobile" class="fullWidth" style="background-color: var(--yellow); font-size: 16px; font-weight: 600" [ngStyle]="{'display': continueToBook}" (click)="continueToBookClick()" mat-raised-button>Continue</button>
+                        <button id="initialButtonsMobile" class="fullWidthAddressInputs" [ngStyle]="{'display': calculateButton}" (click)="calculateFareClick()" mat-raised-button color="primary">Calculate Fare</button>
+                        <button id="initialButtonsMobile" class="fullWidthAddressInputs" style="background-color: var(--yellow); font-size: 16px; font-weight: 600" [ngStyle]="{'display': continueToBook}" (click)="continueToBookClick()" mat-raised-button>Continue</button>
                     </div>
                 </div>
                 <button [ngStyle]="{'display': clearAddressesButton}" style="margin-top: 10px;" (click)="returnToInitialState()" mat-button color="warn">Reset addresses</button>
@@ -50,28 +50,43 @@
         </mat-card>     
     </div>
     
-    <mat-card [@slideInOut]="stepperOpen" [ngStyle]="{'display': stepperDiv}" style="background-color:#fafbfcfa">
+    <mat-card [@slideInOut]="stepperOpen" [ngStyle]="{'display': stepperDiv}" id="matCardBookingSteps">
         <mat-horizontal-stepper  [linear]="false" #stepper  style="background-color:#fafbfc00">
                 <mat-step [stepControl]="firstFormGroup"> <!--First Step-->
                     <form [formGroup]="firstFormGroup">
                         <div id="stepperContent">
-                            <h5 style="text-align: center">Fill in your transfers details</h5>
-                            <div class="row">
-                                <div class="col-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="Date of Transfer">
-                                        <mat-hint>Click the calender icon</mat-hint>
-                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker></mat-datepicker>
-                                    </mat-form-field>
+                            <h5 id="stepOneHeading">Fill in your transfers details</h5>
+                            <br class="lineBreakHide">
+                            <mat-form-field class="fullWidth">
+                                <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="Date of Transfer">
+                                <mat-hint>Click the calender icon</mat-hint>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                            <br class="noSelect">
+                            <div class="row align-items-center">
+                                <div class="col-6" style="padding-right: 0px">
+                                   <p style="margin: 0px">Pickup Time:</p>
+                                   <p style="margin: 0px; font-size: 11px">Use 24hr format</p>
                                 </div>
-                                <div class="col-6">
-                                    <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu" style="max-width: 100%; height: 200px">
+                                <div class="col-6" style="padding-left: 0px">
+                                    <ngb-timepicker formControlName="time"></ngb-timepicker>
                                 </div>
                             </div>
+                            <br class="lineBreakHide">
+                            <mat-form-field class="fullWidth" style="margin-top: -20px;">
+                                <input matInput type="number" max="4" min="1" value="1" placeholder="No. Passengers">
+                                <mat-hint>Max of 4</mat-hint>
+                            </mat-form-field>
+                            <br class="noSelect">
+                            <br class="noSelect">
+                            <br class="lineBreakHide">
+                            <mat-checkbox color="primary">Baby Seat &nbsp;&nbsp;</mat-checkbox>
+                            <mat-checkbox color="primary">Trailer</mat-checkbox>
+                            <br class="lineBreakHide">
+                            <br class="lineBreakHide">
                         </div>
-                        <br class="noSelect">
-                        <div>
+                        <div id="stepperNavigationButtonsDiv">
                             <div style="float: left"><button mat-raised-button (click)="backToInitial()" color="warn">Change Addresses</button></div>
                             <div style="text-align: right"><button mat-raised-button matStepperNext color="primary">Next Step</button></div>                               
                         </div>
@@ -83,7 +98,7 @@
                             
                         </div>
                         <br class="noSelect">
-                        <div>
+                        <div id="stepperNavigationButtonsDiv">
                             <div style="float: left"><button mat-raised-button matStepperPrevious>Back</button></div>
                             <div style="text-align: right"><button mat-raised-button matStepperNext color="primary">Next Step</button></div>                               
                         </div>                
@@ -95,7 +110,7 @@
                             
                         </div>
                         <br class="noSelect">                        
-                        <div>
+                        <div id="stepperNavigationButtonsDiv">
                             <div style="float: left"><button mat-raised-button matStepperPrevious>Back</button></div>
                             <div style="text-align: right"><button mat-raised-button (click)="confirmBookingClick()" color="primary">Confirm Booking</button></div>                               
                         </div> 

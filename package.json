@@ -24,6 +24,7 @@
     "@angular/platform-browser": "6.0.9",
     "@angular/platform-browser-dynamic": "6.0.9",
     "@angular/router": "6.0.9",
+    "@ng-bootstrap/ng-bootstrap": "^2.2.2",
     "@types/jspdf": "^1.1.31",
     "angular-font-awesome": "^3.1.2",
     "angularfire2": "^5.0.0-rc.11",

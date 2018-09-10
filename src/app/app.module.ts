@@ -11,9 +11,10 @@ import { environment } from '../environments/environment.prod';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore'
 import { AgmCoreModule } from '@agm/core';
+import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 //Angular Material Imports
-import {MatButtonModule, MatChipsModule, MatStepperModule,  MatDialogModule, MatTableModule, MatIconModule, MatTabsModule, MatCardModule, MatSidenavModule, MatToolbarModule, MatListModule, MatExpansionModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material';
+import { MatCheckboxModule, MatButtonModule, MatChipsModule, MatStepperModule,  MatDialogModule, MatTableModule, MatIconModule, MatTabsModule, MatCardModule, MatSidenavModule, MatToolbarModule, MatListModule, MatExpansionModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material';
 
 // Components
 import { AppComponent } from './app.component';
@@ -27,7 +28,7 @@ import { AboutUsComponent } from './views/main-view/about-us/about-us.component'
 import { FaqComponent } from './views/main-view/faq/faq.component';
 import { MyAccountComponent } from './views/main-view/my-account/my-account.component';
 import { BookOnlineComponent } from './views/main-view/book-online/book-online.component';
-import { ContactUsMapComponent } from './views/main-view/contact-us/contact-us-map/contact-us-map/contact-us-map.component';
+import { ContactUsMapComponent } from './views/main-view/contact-us/contact-us-map/contact-us-map.component';
 import { ProfileComponent } from './views/main-view/my-account/profile/profile.component';
 import { PaymentsComponent } from './views/main-view/my-account/payments/payments.component';
 import { YourTransfersComponent } from './views/main-view/my-account/your-transfers/your-transfers.component';
@@ -64,6 +65,7 @@ import { UserProfileService } from './services/user-profile-service';
     BrowserModule,
     AppRoutingModule,
     MatButtonModule,
+    MatCheckboxModule,
     MatIconModule,
     MatCardModule,
     AngularFontAwesomeModule,
@@ -84,6 +86,7 @@ import { UserProfileService } from './services/user-profile-service';
     MatTableModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    NgbModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule.enablePersistence(),
     AgmCoreModule.forRoot({

@@ -37,6 +37,7 @@ export class BookOnlineComponent implements OnInit {
   fareBasedOnDistance: string = '';
   clearAddressesButton = 'none';
   minDate = new Date();
+  
 
   // TRANSFER VARIABLES
   pickupAddress: string = '650 Cicely Street, Garsfontein, Pretoria';
@@ -64,7 +65,7 @@ export class BookOnlineComponent implements OnInit {
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       companyNameCtrl: ['', Validators.required],
-
+      time: ['', Validators.required],
     });
     this.secondFormGroup = this._formBuilder.group({
     });
@@ -86,6 +87,11 @@ export class BookOnlineComponent implements OnInit {
     this.initialDivDisplay = 'block';
     this.stepperDiv = 'none';
     this.stepperOpen = this.stepperOpen === 'in' ? 'out' : 'in';
+    this.continueToBook = 'none';
+    this.calculateButton = 'block';
+    this.fareLabel = 'none';
+    this.clearAddressesButton = 'none';
+    this.fareBasedOnDistance = '';
   }
 
   continueToBookClick() {

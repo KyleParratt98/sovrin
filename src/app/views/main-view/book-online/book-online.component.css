@@ -1,11 +1,28 @@
-.fullWidth {
+.fullWidthAddressInputs {
     width: 100%;
     height: 45.1px;
+}
+
+.fullWidth {
+    width: 100%;
 }
 
 mat-card {
     background-color:#fafbfcfa; 
     padding: 12px;
+}
+
+#matCardBookingSteps {
+    max-width: 400px !important;
+    width: 100% !important;
+    margin: auto;
+    max-height: 600px !important;
+    height: 100% !important;
+    overflow-y: scroll;
+}
+
+#stepperNavigationButtonsDiv {
+    margin-top: 10px;
 }
 
 .matPrefixIcon {
@@ -64,4 +81,46 @@ mat-card {
 #stepperContent {
   margin-left: 25px;
   margin-right: 25px;
+}
+
+::ng-deep .btn-link:hover {
+    color: #0b042b;
+}
+::ng-deep .btn-link {
+    color: #150a46;
+}
+
+@media only screen and (max-height: 690px) {
+    .lineBreakHide {
+        display: none;
+    }
+    #stepOneHeading {
+        font-size: 17px;
+    }
+}
+
+@media only screen and (max-height: 720px) {
+    #entireBookingForm {
+        position: absolute; 
+        bottom: 0; 
+        width: calc(100% - 30px); 
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and (min-height: 720px) {
+    #entireBookingForm {
+        position: absolute; 
+        bottom: 0; 
+        width: calc(100% - 30px); 
+        margin-bottom: 40px;
+    }
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    opacity: 1
+}
+
+#stepOneHeading {
+    text-align: center;
 }
