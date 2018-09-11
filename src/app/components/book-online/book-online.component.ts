@@ -33,6 +33,8 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
 export class BookOnlineComponent implements OnInit {
   @ViewChild('search') public searchElement: ElementRef;
   @ViewChild('search2') public searchElement2: ElementRef;
+  @ViewChild('search3') public searchElement3: ElementRef;
+  @ViewChild('search4') public searchElement4: ElementRef;
   initialDivDisplay = 'block';
   stepperDiv = 'none';
   stepperOpen: string;
@@ -105,7 +107,30 @@ export class BookOnlineComponent implements OnInit {
         });
       });
     });
+    this.mapsAPILoader.load().then( () => {
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElement3.nativeElement, options);
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          if(place.geometry === undefined || place.geometry === null ){
+            return;
+          }
+        });
+      });
+    });
+    this.mapsAPILoader.load().then( () => {
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElement4.nativeElement, options);
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          if(place.geometry === undefined || place.geometry === null ){
+            return;
+          }
+        });
+      });
+    });
   }
+  
 
   calculateFareClick() {
     this.calculateButton = 'none';
