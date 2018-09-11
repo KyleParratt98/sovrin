@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   counter = 1;
   previousCounter = 1;
   currentTestimonial = "zzz";
+  homePageBannerHeadings: 'block';
 
   constructor() { 
     

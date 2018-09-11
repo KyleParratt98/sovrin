@@ -1,4 +1,4 @@
-<div style="background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%); min-height: 100vh">
+<div style="background-size: cover; background-repeat: no-repeat; background-position: 50% 50%; background-image: url('/assets/images/work.jpeg'); min-height: 100vh">
   <div class="container">
     <div class="row">
       <div class="col" style="max-width: 450px; margin: auto">
@@ -6,70 +6,108 @@
         <br class="hideOnMobile noSelect">
         <br class="noSelect">
         <mat-card>
-
-
-
             <mat-tab-group [selectedIndex]="tabIndex">
               <mat-tab label="First">
                 <h3 style="color: var(--sovrinBlue); text-align: center">Start Your SOVRIN Journey</h3>
                 <hr style="width: 100%">
-                <br>
-                <p style="font-size: 17px"><strong>Pros to having an account:</strong></p>
-                <p>1. View your trip history</p>
-                <p>2. Speedy online booking</p>
-                <p>3. Generate invoices for past trips</p>
-                <p>4. Unique discounts</p>
-                <p>5. </p>
-                <br>
+                <br class="noSelect">
+                <p style="font-size: 17px"><strong>Why should you join the SOVRIN family:</strong></p>
+                <p>1. View your past and upcoming transfers - print and download invoices</p>
+                <p>2. Increased online booking speed</p>
+                <p>3. Get unique discounts</p>
                 <hr style="width: 100%">
-                <br>
-                <h5 style="color: var(--blue); text-align: left; display: inline">What are you waiting for?</h5>
-                <button mat-raised-button color="primary" style="float: right;" (click)="nextTab()">Get Started</button>
+                <br class="noSelect">
+                <div id="divForDesktop">
+                    <h5 style="color: var(--blue); text-align: left; display: inline">What are you waiting for?</h5>
+                    <button mat-raised-button color="primary" style="float: right;" (click)="nextTab()">Get Started</button>
+                </div>
+                <div id="divForMobile" style="text-align: center">
+                    <h5 style="color: var(--blue); margin-bottom: 10px" >What are you waiting for?</h5>
+                    <button mat-raised-button color="primary" (click)="nextTab()">Get Started</button>
+                </div>
               </mat-tab>
               <mat-tab label="Second">
-                <div class="margin: 25px">
-                  <button mat-raised-button (click)="previousTab()">Back</button>
-                  <button mat-raised-button color="primary" (click)="nextTab()">Next</button>
+                <h4 style="color: var(--sovrinBlue); text-align: center">Login Credentials</h4>
+                <mat-slider class="fullWidth" disabled="true" max="4" min="0" step="1" thumbLabel="true" value="1"></mat-slider>
+                <mat-form-field class="fullWidth">
+                    <mat-icon matPrefix class="inputIcons">mail</mat-icon>
+                    <input matInput placeholder="Email" [(ngModel)]="userEmailAddress">
+                </mat-form-field>
+                <mat-form-field class="fullWidth">
+                  <mat-icon matPrefix class="inputIcons">lock</mat-icon>
+                  <input matInput placeholder="Password" [type]="show ? 'text' : 'password'">
+                  <button mat-icon-button matSuffix (click)="revealPassword()">
+                    <mat-icon >remove_red_eye</mat-icon>
+                  </button>
+                  <mat-hint>Min 8 characters, must include one Uppercase and one number</mat-hint>
+                </mat-form-field>
+                <br class="noSelect">
+                <br class="noSelect">
+                <br class="noSelect">
+                <div class="buttonDiv">
+                  <button mat-raised-button color="primary" style="float: right" (click)="nextTab()">Next</button>
                 </div>
               </mat-tab>
               <mat-tab label="Third">
-                  <div class="margin: 25px">
+                  <h4 style="color: var(--sovrinBlue); text-align: center">Confirmation OTP</h4>
+                  <mat-slider class="fullWidth" disabled="true" max="4" min="0" step="1" thumbLabel="true" value="2"></mat-slider>
+                  <br class="noSelect">
+                  <p style="text-align: center">A confirmation email has been sent to {{ userEmailAddress }} </p>
+                  <mat-form-field class="fullWidth">
+                      <input matInput placeholder="One-Time-Pin">
+                  </mat-form-field>
+                  <br class="noSelect">
+                  <p style="font-size: 11px">I did not receive the email - <a href="resendOTP()">Resend OTP</a></p>
+                  <br class="noSelect">
+                  <div class="buttonDiv">
                     <button mat-raised-button (click)="previousTab()">Back</button>
-                    <button mat-raised-button color="primary" (click)="nextTab()">Next</button>
+                    <button mat-raised-button color="primary" style="float: right" (click)="nextTab()">Veryify</button>
+                  </div>
+              </mat-tab>
+              <mat-tab label="Forth">
+                <h4 style="color: var(--sovrinBlue); text-align: center">Personal Details</h4>
+                <mat-slider class="fullWidth" disabled="true" max="4" min="0" step="1" thumbLabel="true" value="3"></mat-slider>
+                <div class="row">
+                  <div class="col-6" style="padding-right: 2px">
+                    <mat-form-field class="fullWidth">
+                        <input matInput placeholder="First Name">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-6" style="padding-left: 2px">
+                    <mat-form-field class="fullWidth">
+                        <input matInput placeholder="Last Name">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <mat-form-field id="selectDropdown">
+                  <mat-select id="selectDropdownOptions" placeholder="Country Code" [(ngModel)]="selectedCode" name="first">
+                    <mat-option *ngFor="let country of countryArray" [value]="country.code">
+                      {{country.country}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field id="mobileNumberInput" class="fullWidth">
+                  <mat-icon matPrefix class="inputIcons">phone</mat-icon>
+                  <input matInput style="padding-left:3px" placeholder=" &nbsp; Mobile Number" [value]="selectedCode" [(ngModel)]="userMobileNumber" name="second">
+                </mat-form-field>
+                <br class="noSelect">
+                <br class="noSelect">
+                <br class="noSelect">
+                <div class="buttonDiv">
+                  <button mat-raised-button color="primary" style="float: right" (click)="nextTab()">Next</button>
+                </div>
+              </mat-tab>
+              <mat-tab label="Fifth">
+                  <h4 style="color: var(--sovrinBlue); text-align: center">You're all finished up!</h4>
+                  <mat-slider class="fullWidth" disabled="true" max="4" min="0" step="1" thumbLabel="true" value="4"></mat-slider>
+                  <br class="noSelect">
+                  <p style="text-align: center">Click the button below to Login and start your SOVRIN journey.</p>
+                  <br class="noSelect">
+                  <div style="padding:3px; text-align: center">
+                      <button mat-stroked-button (click)="loginClick()">LOGIN</button>
                   </div>
               </mat-tab>
             </mat-tab-group>
-          <!-- <h3 style="color: var(--sovrinBlue); text-align: center;">Welcome to SOVRIN</h3>
-          <hr style="width: 100%">
-          <br class="noSelect">
-          <h5 style="text-align: center;">Enter your login details below</h5>
-          <mat-card-content style="text-align: center; padding-left: 40px; padding-right: 40px">
-            <br class="noSelect">
-            <mat-form-field class="fullWidth">
-                <input matInput placeholder="Email">
-            </mat-form-field>
-            <mat-form-field class="fullWidth">
-                <input matInput placeholder="Password">
-            </mat-form-field>
-            <a href="" style="float: right;">Forgot Password</a>
-            <br class="noSelect">
-            <div style="text-align: left">
-                <mat-checkbox color="primary">REMEBER ME</mat-checkbox>
-            </div>
-            <br class="noSelect">
-            <br class="noSelect">
-            <div style="text-align: center">
-                <button mat-button style="background-color: var(--sovrinBlue); color: white; width: 40%; height: 46px; font-size: 19px; font-weight: 300;">Login</button>
-            </div>
-            <br class="noSelect">
-          </mat-card-content>
-          <hr style="width: 100%">
-          <mat-card-actions>
-            <div style="margin: 20px; margin-top: 5px">
-                <p style="line-height: 36px; display: inline">Want an account?</p>
-                <button mat-stroked-button style="float: right;" (click)="signUpClick()">SIGN-UP</button>
-            </div>
-          </mat-card-actions> -->
         </mat-card>
       </div>
     </div>

@@ -103,7 +103,6 @@ mat-card {
 @media only screen and (max-height: 720px) {
     #entireBookingForm {
         position: absolute; 
-        bottom: 0; 
         width: calc(100% - 30px); 
         margin-bottom: 10px;
     }
@@ -112,7 +111,6 @@ mat-card {
 @media only screen and (min-height: 720px) {
     #entireBookingForm {
         position: absolute; 
-        bottom: 0; 
         width: calc(100% - 30px); 
         margin-bottom: 40px;
     }

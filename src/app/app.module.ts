@@ -14,7 +14,7 @@ import { AgmCoreModule } from '@agm/core';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 //Angular Material Imports
-import { MatCheckboxModule, MatButtonModule, MatChipsModule, MatStepperModule,  MatDialogModule, MatTableModule, MatIconModule, MatTabsModule, MatCardModule, MatSidenavModule, MatToolbarModule, MatListModule, MatExpansionModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material';
+import { MatCheckboxModule, MatSliderModule, MatButtonModule, MatChipsModule, MatStepperModule,  MatDialogModule, MatTableModule, MatIconModule, MatTabsModule, MatCardModule, MatSidenavModule, MatToolbarModule, MatListModule, MatExpansionModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material';
 
 // Components
 import { AppComponent } from './app.component';
@@ -27,7 +27,7 @@ import { ContactUsComponent } from './views/main-view/contact-us/contact-us.comp
 import { AboutUsComponent } from './views/main-view/about-us/about-us.component';
 import { FaqComponent } from './views/main-view/faq/faq.component';
 import { MyAccountComponent } from './views/main-view/my-account/my-account.component';
-import { BookOnlineComponent } from './views/main-view/book-online/book-online.component';
+import { BookOnlineComponent } from './components/book-online/book-online.component';
 import { ContactUsMapComponent } from './views/main-view/contact-us/contact-us-map/contact-us-map.component';
 import { ProfileComponent } from './views/main-view/my-account/profile/profile.component';
 import { PaymentsComponent } from './views/main-view/my-account/payments/payments.component';
@@ -40,6 +40,7 @@ import { SignupComponent } from './views/login/signup/signup.component';
 // Services
 import { CountryCallCodesService } from './repeated-code/country-call-codes';
 import { UserProfileService } from './services/user-profile-service';
+import { BookOnlineViewComponent } from './views/main-view/book-online-view/book-online-view.component';
 
 
 
@@ -65,6 +66,7 @@ import { UserProfileService } from './services/user-profile-service';
     PrintableInvoiceComponent,
     LoginComponent,
     SignupComponent,
+    BookOnlineViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,6 +82,7 @@ import { UserProfileService } from './services/user-profile-service';
     MatStepperModule,
     MatListModule, 
     MatExpansionModule,
+    MatSliderModule,
     MatFormFieldModule,
     BrowserAnimationsModule,
     MatInputModule,

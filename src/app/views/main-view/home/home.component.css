@@ -9,7 +9,7 @@ br {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    background-image: url('/assets/images/Home screen banner/Original.jpg');
+    background-image: url('/assets/images/traveler.jpg');
 }
 @media only screen and (min-width: 1500px) {
     #HomePageBanner {
@@ -71,6 +71,10 @@ br {
     }
     #onlyDesktopBreak {
         display: none;
+    }
+    #homePageMainHeading {
+        color: white;
+        font-size: 24px;
     }
 }
 @media only screen and (max-width: 768px){
@@ -202,3 +206,6 @@ br {
     }
 }
 
+#homePageMainHeading {
+    color: white;
+}
