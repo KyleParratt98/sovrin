@@ -12,8 +12,8 @@
   <br class="noSelect">
   <mat-form-field id="selectDropdown">
     <mat-select id="selectDropdownOptions" placeholder="Country Code" [(ngModel)]="selectedCode" name="first">
-      <mat-option *ngFor="let country of countryArray" [value]="country.code">
-        {{country.country}}
+      <mat-option *ngFor="let country of countryArray" [value]="country.Code">
+        {{country.Name}}
       </mat-option>
     </mat-select>
   </mat-form-field>

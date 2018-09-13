@@ -41,6 +41,7 @@ import { SignupComponent } from './views/login/signup/signup.component';
 import { CountryCallCodesService } from './repeated-code/country-call-codes';
 import { UserProfileService } from './services/user-profile-service';
 import { BookOnlineViewComponent } from './views/main-view/book-online-view/book-online-view.component';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -70,6 +71,7 @@ import { BookOnlineViewComponent } from './views/main-view/book-online-view/book
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     MatButtonModule,
     MatCheckboxModule,

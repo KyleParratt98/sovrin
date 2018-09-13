@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CountryCallCodesService } from '../../../../repeated-code/country-call-codes';
+import { CountryCallCodesService, Country } from '../../../../repeated-code/country-call-codes';
 import { FormControl, Validators } from '@angular/forms';
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const MOBILE_NUMBER_REGEX = /^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$/;
-
-export interface Country {
-  country: string;
-  code: string;
-}
 
 export interface FavouriteAddress {
   address: string;
@@ -88,6 +83,6 @@ export class ProfileComponent implements OnInit {
       this.finalMobileNumber = this.userMobileNumber;
     }
     this.favouriteAddresses.push({address: this.secondAddressInput , counter: 2});
-    console.log(this.favouriteAddresses);
+    console.log(this.finalMobileNumber);
   }
 }

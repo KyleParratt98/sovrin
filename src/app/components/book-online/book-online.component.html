@@ -58,8 +58,8 @@
                             <h5 id="stepHeading">Fill in your transfers details</h5>
                             <br class="lineBreakHide">
                             <mat-form-field class="fullWidth">
-                                <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="Date of Transfer">
-                                <mat-hint>Click the calender icon</mat-hint>
+                                <input matInput [min]="minDate" readonly="readonly" [matDatepicker]="picker" placeholder="Date of Transfer" formControlName="dateCtrl">
+                                <mat-hint>*Click the calender icon</mat-hint>
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
                             </mat-form-field>
@@ -68,14 +68,17 @@
                                 <div class="col-6" style="padding-right: 0px">
                                    <p style="margin: 0px">Pickup Time:</p>
                                    <p style="margin: 0px; font-size: 11px">Use 24hr format</p>
+                                   <mat-error *ngIf="showTimeError()">
+                                    Fill out time
+                                    </mat-error>
                                 </div>
                                 <div class="col-6" style="padding-left: 0px">
-                                    <ngb-timepicker formControlName="time"></ngb-timepicker>
+                                    <ngb-timepicker [minuteStep]="minuteStep" [formControl]="timeFormControl"></ngb-timepicker>
                                 </div>
                             </div>
                             <br class="lineBreakHide">
                             <mat-form-field class="fullWidth" style="margin-top: -20px;">
-                                <input matInput type="number" max="4" min="1" value="1" placeholder="No. Passengers">
+                                <input matInput type="number" max="4" min="1" placeholder="No. Passengers" [formControl]="passengerNumberFormControl">
                                 <mat-hint>Max of 4</mat-hint>
                             </mat-form-field>
                             <br class="noSelect">
@@ -88,7 +91,7 @@
                         </div>
                         <div id="stepperNavigationButtonsDiv">
                             <div style="float: left"><button mat-raised-button (click)="backToInitial()" color="warn">Change Addresses</button></div>
-                            <div style="text-align: right"><button mat-raised-button matStepperNext color="primary">Next Step</button></div>                               
+                            <div style="text-align: right"><button (click)="stepOneSubmit()" mat-raised-button matStepperNext color="primary">Next Step</button></div>                               
                         </div>
                     </form>
                 </mat-step>
@@ -100,23 +103,37 @@
                             <div class="row">
                                 <div class="col-6" style="padding-right:2px;">
                                     <mat-form-field class="fullWidth">
-                                        <input matInput placeholder="First Name">
+                                        <input matInput placeholder="First Name" formControlName="firstNameCtrl">
                                     </mat-form-field>
                                 </div>
                                 <div class="col-6 " style="padding-left:2px;">
                                     <mat-form-field class="fullWidth">
-                                        <input matInput placeholder="Last Name">
+                                        <input matInput placeholder="Last Name" formControlName="lastNameCtrl">
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <mat-form-field class="fullWidth">
-                                <input matInput placeholder="Mobile Number">
+                            <mat-form-field id="selectDropdown">
+                                <mat-select id="selectDropdownOptions" placeholder="Country Code" [(ngModel)]="selectedISO" [ngModelOptions]="{standalone: true}">
+                                  <mat-option *ngFor="let country of countryArray" [value]="country.ISO">
+                                    {{country.Name}}
+                                  </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field id="mobileNumberInput" class="fullWidth">
+                                <mat-icon matPrefix class="matPrefixIcon">phone</mat-icon>
+                                <input matInput style="padding-left:3px" placeholder=" &nbsp; Mobile Number" [formControl]="mobileNumberFormControl">
+                                <mat-error *ngIf="mobileNumberFormControl.hasError('pattern')">
+                                    Please enter a valid mobile number
+                                </mat-error>
                             </mat-form-field>
                             <mat-form-field class="fullWidth">
-                                <input matInput placeholder="Email Address">
+                                <input matInput placeholder="Email" [formControl]="emailFormControl">
+                                <mat-error *ngIf="emailFormControl.hasError('pattern')">
+                                    Please enter a valid email address
+                                </mat-error>
                             </mat-form-field>
                             <mat-form-field>
-                                <mat-select placeholder="Payment Method">
+                                <mat-select placeholder="Payment Method" formControlName="paymentMethodCtrl">
                                   <mat-option *ngFor="let payment of paymentMethods" [value]="payment">
                                     {{payment}}
                                   </mat-option>
@@ -126,7 +143,7 @@
                         <br class="noSelect">
                         <div id="stepperNavigationButtonsDiv">
                             <div style="float: left"><button mat-raised-button matStepperPrevious>Back</button></div>
-                            <div style="text-align: right"><button mat-raised-button matStepperNext color="primary">Transfer Summary</button></div>                               
+                            <div style="text-align: right"><button mat-raised-button matStepperNext color="primary" (click)="stepTwoSubmit()">Transfer Summary</button></div>                               
                         </div>                
                     </form>
                 </mat-step>
