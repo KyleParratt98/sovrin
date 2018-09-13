@@ -56,8 +56,6 @@ export class BookOnlineComponent implements OnInit {
   minuteStep = 5;
   showTimeErrorState = false;
   stepOneSubmitClicked = false;
-  selectedISO: CountryCode;
-  selectedISOString: any;
   countryArray: Country[];
   
 
@@ -93,7 +91,7 @@ export class BookOnlineComponent implements OnInit {
       lastNameCtrl: ['', Validators.required],
       mobileNumberCtrl: this.mobileNumberFormControl,
       paymentMethodCtrl: ['', Validators.required],
-      countryCodeCtrl: ['', Validators.required],
+      countryCodeCtrl: this.countryCodeFormControl,
     });
     this.thirdFormGroup = this._formBuilder.group({
       
@@ -170,6 +168,10 @@ export class BookOnlineComponent implements OnInit {
     Validators.required,
     Validators.pattern(PASSENGER_NUMBER_REGEX)
   ]);
+
+  countryCodeFormControl = new FormControl('ZA', [
+    Validators.required,
+  ]);
   
   
   
@@ -244,7 +246,7 @@ export class BookOnlineComponent implements OnInit {
   stepTwoSubmit() {
     const formModel2 = this.secondFormGroup.value;
     this.email = formModel2.emailCtrl;
-    this.mobileNumber = format(formModel2.mobileNumberCtrl, this.selectedISO , 'International');
+    this.mobileNumber = format(formModel2.mobileNumberCtrl, formModel2.countryCodeCtrl , 'International');
     var spaceIndex =  this.mobileNumber.indexOf(' ');
     spaceIndex = spaceIndex + 1;
     console.log('Number formatted = ' + this.mobileNumber);
@@ -255,7 +257,7 @@ export class BookOnlineComponent implements OnInit {
     }
     for (var i = 0; i < this.mobileNumber.length; i++) {
       if (this.mobileNumber[i] == ' ') {
-        this.mobileNumber = this.mobileNumber.substring(0,i -1) + this.mobileNumber.substring(i + 1, this.mobileNumber.length);
+        this.mobileNumber = this.mobileNumber.substring(0,i) + this.mobileNumber.substring(i + 1, this.mobileNumber.length);
       }
     }
     console.log('Number formatted two = ' + this.mobileNumber);

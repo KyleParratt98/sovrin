@@ -14,7 +14,7 @@ import { AgmCoreModule } from '@agm/core';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 //Angular Material Imports
-import { MatCheckboxModule, MatSliderModule, MatButtonModule, MatChipsModule, MatStepperModule,  MatDialogModule, MatTableModule, MatIconModule, MatTabsModule, MatCardModule, MatSidenavModule, MatToolbarModule, MatListModule, MatExpansionModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material';
+import { MatCheckboxModule, MatSliderModule, MatButtonModule, MatChipsModule, MatStepperModule,  MatDialogModule, MatTableModule, MatIconModule, MatTabsModule, MatCardModule, MatSidenavModule, MatToolbarModule, MatListModule, MatExpansionModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE, MatTooltipModule} from '@angular/material';
 
 // Components
 import { AppComponent } from './app.component';
@@ -91,6 +91,7 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
+    MatTooltipModule,
     MatTabsModule,
     MatDialogModule,
     MatTableModule,

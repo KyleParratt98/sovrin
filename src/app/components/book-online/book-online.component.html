@@ -113,7 +113,7 @@
                                 </div>
                             </div>
                             <mat-form-field id="selectDropdown">
-                                <mat-select id="selectDropdownOptions" placeholder="Country Code" [(ngModel)]="selectedISO" [ngModelOptions]="{standalone: true}">
+                                <mat-select id="selectDropdownOptions" placeholder="Country Code" [formControl]="countryCodeFormControl">
                                   <mat-option *ngFor="let country of countryArray" [value]="country.ISO">
                                     {{country.Name}}
                                   </mat-option>
@@ -127,7 +127,7 @@
                                 </mat-error>
                             </mat-form-field>
                             <mat-form-field class="fullWidth">
-                                <input matInput placeholder="Email" [formControl]="emailFormControl">
+                                <input matInput placeholder="Email" type="email" [formControl]="emailFormControl">
                                 <mat-error *ngIf="emailFormControl.hasError('pattern')">
                                     Please enter a valid email address
                                 </mat-error>
