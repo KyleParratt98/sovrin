@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './routing/app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 // Third party imports
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
@@ -36,13 +37,13 @@ import { TransferDetailsDialog } from './views/main-view/my-account/your-transfe
 import { PrintableInvoiceComponent } from './views/main-view/my-account/your-transfers/transfer-details-dialog/printable-invoice/printable-invoice.component';
 import { LoginComponent } from './views/login/login.component';
 import { SignupComponent } from './views/login/signup/signup.component';
+import { BookOnlineViewComponent } from './views/main-view/book-online-view/book-online-view.component';
+
 
 // Services
-import { CountryCallCodesService } from './repeated-code/country-call-codes';
+import { CountryCallCodesService } from './services/country-call-code-service';
 import { UserProfileService } from './services/user-profile-service';
-import { BookOnlineViewComponent } from './views/main-view/book-online-view/book-online-view.component';
-import { CommonModule } from '@angular/common';
-
+import { FormatService } from './services/format.service';
 
 
 
@@ -110,6 +111,7 @@ import { CommonModule } from '@angular/common';
     CountryCallCodesService,
     UserProfileService,
     MatDatepickerModule,
+    FormatService,
     {provide: MAT_DATE_LOCALE, useValue: 'en-in'},
   ],
   bootstrap: [AppComponent]

@@ -4,13 +4,38 @@ import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms'
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MapsAPILoader } from '@agm/core';
 import { ViewChild, ElementRef, NgZone } from '@angular/core';
-import { format, CountryCode } from 'libphonenumber-js';
-import { Country, CountryCallCodesService } from '../../repeated-code/country-call-codes';
-import { UpperCasePipe } from '@angular/common';
+import { format } from 'libphonenumber-js';
+import { Country, CountryCallCodesService } from '../../services/country-call-code-service';
+
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+
+// Depending on whether rollup is used, moment needs to be imported differently.
+// Since Moment.js doesn't have a default export, we normally need to import using the `* as`
+// syntax. However, rollup creates a synthetic default module and we thus need to import it using
+// the `default as` syntax.
+import * as _moment from 'moment';
+// tslint:disable-next-line:no-duplicate-imports
+import {default as _rollupMoment} from 'moment';
+import { FormatService } from '../../services/format.service';
+
+const moment = _rollupMoment || _moment;
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const MOBILE_NUMBER_REGEX = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
 const PASSENGER_NUMBER_REGEX = /^(?=.*[1-4])/;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'LL',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-book-online',
@@ -32,6 +57,10 @@ const PASSENGER_NUMBER_REGEX = /^(?=.*[1-4])/;
       transition('in => out', animate('400ms ease-in-out')),
       transition('out => in', animate('400ms ease-in-out'))
     ])
+  ],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ]
 })
 
@@ -57,30 +86,34 @@ export class BookOnlineComponent implements OnInit {
   showTimeErrorState = false;
   stepOneSubmitClicked = false;
   countryArray: Country[];
+  options = {
+    types: ["address"],
+    componentRestrictions: {country: "za"}
+   };
   
-
   // TRANSFER VARIABLES
-  pickupAddress: string = '650 Cicely Street, Garsfontein, Pretoria';
-  dropoffAddress: string = 'O.R. Tambo International Airport';
-  date: string = '25 September 2018';
-  time: string = '14:12';
-  passengers: number = 3;
-  babySeat: string = 'Yes';
-  trailer: string = 'No';
+  pickupAddress: string = '';
+  dropoffAddress: string = '';
+  date: string;
+  time: string;
+  passengers: number;
+  babySeat: boolean = false;
+  trailer: boolean = false;
   transferFair: number = 450;
   distanceFair: number;
   email: string;
   mobileNumber: string;
   //////////////////////////////////////////
 
-  constructor(private _formBuilder: FormBuilder, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private countryCallCodesService: CountryCallCodesService) { }
+  constructor(private _formBuilder: FormBuilder, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private countryCallCodesService: CountryCallCodesService, private formatService: FormatService) { }
 
 
   ////////////////////////////////////////////////////////////////////NGONINIT///////////////////////////////////////////////
   ngOnInit() {
+    console.log(this.minDate);
     this.countryArray = this.countryCallCodesService.getCountryList();
     this.firstFormGroup = this._formBuilder.group({
-      dateCtrl: ['', Validators.required],
+      dateCtrl: this.dateFormControl,
       timeCtrl: this.timeFormControl,
       passengerNumberCtrl: this.passengerNumberFormControl,
 
@@ -98,13 +131,9 @@ export class BookOnlineComponent implements OnInit {
     });
     
     this.stepperOpen = 'out';
-    var options = {
-      types: ["address"],
-      componentRestrictions: {country: "za"}
-     };
     
     this.mapsAPILoader.load().then( () => {
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, options);
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, this.options);
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
@@ -115,7 +144,7 @@ export class BookOnlineComponent implements OnInit {
       });
     });
     this.mapsAPILoader.load().then( () => {
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElement2.nativeElement, options);
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElement2.nativeElement, this.options);
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
@@ -126,7 +155,7 @@ export class BookOnlineComponent implements OnInit {
       });
     });
     this.mapsAPILoader.load().then( () => {
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElement3.nativeElement, options);
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElement3.nativeElement, this.options);
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
@@ -137,7 +166,7 @@ export class BookOnlineComponent implements OnInit {
       });
     });
     this.mapsAPILoader.load().then( () => {
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElement4.nativeElement, options);
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElement4.nativeElement, this.options);
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
@@ -172,15 +201,63 @@ export class BookOnlineComponent implements OnInit {
   countryCodeFormControl = new FormControl('ZA', [
     Validators.required,
   ]);
-  
-  
-  
-  calculateFareClick() {
+
+  dateFormControl = new FormControl('', [
+    Validators.required,
+  ]);
+
+  stepOneSubmit() {
+    const formModel1 = this.firstFormGroup.value;
+    this.time = formModel1.timeCtrl;
+    this.time = this.formatService.formatTime(this.time);
+    this.passengers = formModel1.passengerNumberCtrl;
+    this.date = formModel1.dateCtrl;
+    this.showTimeError();
+    this.stepOneSubmitClicked = true;
+  }
+
+  stepTwoSubmit() {
+    const formModel2 = this.secondFormGroup.value;
+    this.email = formModel2.emailCtrl;
+    this.mobileNumber = format(formModel2.mobileNumberCtrl, formModel2.countryCodeCtrl , 'International');
+    console.log('pre-format: ' + this.mobileNumber);
+    this.mobileNumber = this.formatService.formatMobileNumber(this.mobileNumber);
+    console.log('post-format: ' + this.mobileNumber);
+
+  }
+
+  confirmBookingClick() {
+
+  }
+
+  showTimeError(): boolean {
+    if (this.timeFormControl.hasError('required') && this.stepOneSubmitClicked) {
+      this.showTimeErrorState = true;
+      return this.showTimeErrorState;
+    }
+    if (!this.timeFormControl.hasError('required')) {
+      this.showTimeErrorState = false;
+      return this.showTimeErrorState;
+    }
+  }
+
+  calculateFareClickMobile() {
     this.calculateButton = 'none';
     this.continueToBook = 'block';
     this.fareLabel = 'block';
     this.fareBasedOnDistance = '600';
     this.clearAddressesButton = 'block';
+    this.pickupAddress = this.searchElement3.nativeElement.value;
+    this.dropoffAddress = this.searchElement4.nativeElement.value;
+  }
+  calculateFareClickDesktop() {
+    this.calculateButton = 'none';
+    this.continueToBook = 'block';
+    this.fareLabel = 'block';
+    this.fareBasedOnDistance = '600';
+    this.clearAddressesButton = 'block';
+    this.pickupAddress = this.searchElement.nativeElement.value;
+    this.dropoffAddress = this.searchElement2.nativeElement.value;
   }
 
   backToInitial() {
@@ -198,6 +275,8 @@ export class BookOnlineComponent implements OnInit {
     this.initialDivDisplay = 'none';
     this.stepperDiv = 'block';
     this.stepperOpen = this.stepperOpen === 'out' ? 'in' : 'out';
+    this.pickupAddress = this.searchElement.nativeElement.value;
+    this.dropoffAddress = this.searchElement2.nativeElement.value;
   }
 
   returnToInitialState() {
@@ -206,65 +285,5 @@ export class BookOnlineComponent implements OnInit {
     this.fareLabel = 'none';
     this.clearAddressesButton = 'none';
     this.fareBasedOnDistance = '';
-  }
-
-  stepOneSubmit() {
-    const formModel1 = this.firstFormGroup.value;
-    ////////////////////////////////////// formatting time ///////////////////////////////////////////////////
-    if (formModel1.timeCtrl.hour > -1 && formModel1.timeCtrl.hour < 10) {
-      if (formModel1.timeCtrl.minute > -1 && formModel1.timeCtrl.minute < 10) {
-        this.time = '0' + formModel1.timeCtrl.hour + ':0' + formModel1.timeCtrl.minute;
-      } else {
-        this.time = '0' + formModel1.timeCtrl.hour + ':' + formModel1.timeCtrl.minute;
-      }
-    } else {
-      if (formModel1.timeCtrl.minute > -1 && formModel1.timeCtrl.minute < 10) {
-        this.time = formModel1.timeCtrl.hour + ':0' + formModel1.timeCtrl.minute;
-      } else {
-        this.time = formModel1.timeCtrl.hour + ':' + formModel1.timeCtrl.minute;
-      }
-    }
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    this.passengers = formModel1.passengerNumberCtrl;
-    console.log(this.time);
-    console.log(this.passengers);
-    this.showTimeError();
-    this.stepOneSubmitClicked = true;
-  }
-
-  showTimeError(): boolean {
-    if (this.timeFormControl.hasError('required') && this.stepOneSubmitClicked) {
-      this.showTimeErrorState = true;
-      return this.showTimeErrorState;
-    }
-    if (!this.timeFormControl.hasError('required')) {
-      this.showTimeErrorState = false;
-      return this.showTimeErrorState;
-    }
-  }
-
-  stepTwoSubmit() {
-    const formModel2 = this.secondFormGroup.value;
-    this.email = formModel2.emailCtrl;
-    this.mobileNumber = format(formModel2.mobileNumberCtrl, formModel2.countryCodeCtrl , 'International');
-    var spaceIndex =  this.mobileNumber.indexOf(' ');
-    spaceIndex = spaceIndex + 1;
-    console.log('Number formatted = ' + this.mobileNumber);
-    if (this.mobileNumber[spaceIndex] == '0') {
-      this.mobileNumber = this.mobileNumber.substring(0,spaceIndex -1) + this.mobileNumber.substring(spaceIndex + 1, this.mobileNumber.length);
-    } else {
-      this.mobileNumber = this.mobileNumber.substring(0,spaceIndex -1) + this.mobileNumber.substring(spaceIndex, this.mobileNumber.length);
-    }
-    for (var i = 0; i < this.mobileNumber.length; i++) {
-      if (this.mobileNumber[i] == ' ') {
-        this.mobileNumber = this.mobileNumber.substring(0,i) + this.mobileNumber.substring(i + 1, this.mobileNumber.length);
-      }
-    }
-    console.log('Number formatted two = ' + this.mobileNumber);
-    console.log(this.email);
-  }
-
-  confirmBookingClick() {
-
   }
 }

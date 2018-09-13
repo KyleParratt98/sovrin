@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CountryCallCodesService, Country } from '../../repeated-code/country-call-codes';
+import { CountryCallCodesService, Country } from '../../services/country-call-code-service';
 
 @Component({
   selector: 'app-login',

@@ -16,7 +16,7 @@
                         </mat-form-field>
                     </div>
                     <div class="col-lg-2 col-md-4" style="padding-left:0px">
-                        <button class="fullWidthAddressInputs" [ngStyle]="{'display': calculateButton}" (click)="calculateFareClick()" mat-raised-button color="primary">Calculate Fare</button>
+                        <button class="fullWidthAddressInputs" [ngStyle]="{'display': calculateButton}" (click)="calculateFareClickDesktop()" mat-raised-button color="primary">Calculate Fare</button>
                         <button class="fullWidthAddressInputs pulse-button" [ngStyle]="{'display': continueToBook}" (click)="continueToBookClick()" mat-raised-button>Continue to Book</button>
                         <h4 [ngStyle]="{'display': fareLabel}" style="color: var(--sovrinBlue); text-align: center; margin-top:5px; margin-bottom:10px; position: relative; top: 10px;">Fare: R{{ fareBasedOnDistance }}</h4> 
                     </div>
@@ -41,7 +41,7 @@
                    </div>
                     <div class="col-md-4 col-sm-4 col-5" style="padding-left:15px">
                         <h4 id="fareHeadingMoile" [ngStyle]="{'display': fareLabel}" style="color: var(--sovrinBlue); text-align: center; margin-top:0px; margin-bottom:10px;">Fare: R{{ fareBasedOnDistance }}</h4>
-                        <button id="initialButtonsMobile" class="fullWidthAddressInputs" [ngStyle]="{'display': calculateButton}" (click)="calculateFareClick()" mat-raised-button color="primary">Calculate Fare</button>
+                        <button id="initialButtonsMobile" class="fullWidthAddressInputs" [ngStyle]="{'display': calculateButton}" (click)="calculateFareClickMobile()" mat-raised-button color="primary">Calculate Fare</button>
                         <button id="initialButtonsMobile" class="fullWidthAddressInputs" style="background-color: var(--yellow); font-size: 16px; font-weight: 600" [ngStyle]="{'display': continueToBook}" (click)="continueToBookClick()" mat-raised-button>Continue</button>
                     </div>
                 </div>
@@ -58,10 +58,10 @@
                             <h5 id="stepHeading">Fill in your transfers details</h5>
                             <br class="lineBreakHide">
                             <mat-form-field class="fullWidth">
-                                <input matInput [min]="minDate" readonly="readonly" [matDatepicker]="picker" placeholder="Date of Transfer" formControlName="dateCtrl">
+                                <input matInput [min]="minDate" readonly="readonly" [matDatepicker]="picker" placeholder="Date of Transfer" [formControl]="dateFormControl">
                                 <mat-hint>*Click the calender icon</mat-hint>
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
+                                <mat-datepicker #picker touchUi color="primary"></mat-datepicker>
                             </mat-form-field>
                             <br class="noSelect">
                             <div class="row align-items-center">
@@ -84,8 +84,8 @@
                             <br class="noSelect">
                             <br class="noSelect">
                             <br class="lineBreakHide">
-                            <mat-checkbox color="primary">Baby Seat &nbsp;&nbsp;</mat-checkbox>
-                            <mat-checkbox color="primary">Trailer</mat-checkbox>
+                            <mat-checkbox color="primary" [(ngModel)]="babySeat" [ngModelOptions]="{standalone: true}">Baby Seat &nbsp;&nbsp;</mat-checkbox>
+                            <mat-checkbox color="primary" [(ngModel)]="trailer" [ngModelOptions]="{standalone: true}">Trailer</mat-checkbox>
                             <br class="lineBreakHide">
                             <br class="lineBreakHide">
                         </div>
@@ -157,7 +157,7 @@
                             <p class="stepThreeParagraphs"><strong>Date:</strong> {{date}}</p>
                             <p class="stepThreeParagraphs"><strong>Time:</strong> {{time}} </p>
                             <p class="stepThreeParagraphs"><strong>Number of Passengers:</strong> {{passengers}}</p>
-                            <p class="stepThreeParagraphs"><strong>Baby Seat: </strong> {{babySeat}}&nbsp;&nbsp; <strong>Trailer:</strong> {{trailer}}</p>
+                            <p class="stepThreeParagraphs"><strong>Baby Seat: </strong> <i *ngIf="babySeat">Yes</i><i *ngIf="!babySeat">No</i>&nbsp;&nbsp; <strong>Trailer: </strong> <i *ngIf="trailer">Yes</i><i *ngIf="!trailer">No</i></p>
                             <br class="lineBreakHide noSelect">
                             <h5 style="margin-bottom: 8px"><strong>Fare:</strong> R{{transferFair}}</h5>
                         </div>

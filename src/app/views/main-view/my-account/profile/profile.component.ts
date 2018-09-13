@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CountryCallCodesService, Country } from '../../../../repeated-code/country-call-codes';
+import { CountryCallCodesService, Country } from '../../../../services/country-call-code-service';
 import { FormControl, Validators } from '@angular/forms';
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

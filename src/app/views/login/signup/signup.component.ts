@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Country, CountryCallCodesService } from '../../../repeated-code/country-call-codes';
+import { Country, CountryCallCodesService } from '../../../services/country-call-code-service';
 import { Validators, FormControl } from '@angular/forms';
 
 const MOBILE_NUMBER_REGEX = /^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$/;
