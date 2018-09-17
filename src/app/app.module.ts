@@ -44,6 +44,7 @@ import { BookOnlineViewComponent } from './views/main-view/book-online-view/book
 import { CountryCallCodesService } from './services/country-call-code-service';
 import { UserProfileService } from './services/user-profile-service';
 import { FormatService } from './services/format.service';
+import { MapRouteComponent } from './components/book-online/map-route/map-route.component';
 
 
 
@@ -69,6 +70,7 @@ import { FormatService } from './services/format.service';
     LoginComponent,
     SignupComponent,
     BookOnlineViewComponent,
+    MapRouteComponent,
   ],
   imports: [
     BrowserModule,

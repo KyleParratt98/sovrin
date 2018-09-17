@@ -14,11 +14,13 @@ import { MyAccountComponent } from '../views/main-view/my-account/my-account.com
 import { PrintableInvoiceComponent } from '../views/main-view/my-account/your-transfers/transfer-details-dialog/printable-invoice/printable-invoice.component';
 import { LoginComponent } from '../views/login/login.component';
 import { SignupComponent } from '../views/login/signup/signup.component';
+import { MapRouteComponent } from '../components/book-online/map-route/map-route.component';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: 'mv', pathMatch: 'full'},
+    {path: '', redirectTo: 'mv', pathMatch: 'full'},
     {path: 'login', component: LoginComponent},
     {path: 'sign-up', component: SignupComponent},
+    {path: 'map-route', component: MapRouteComponent},
     
         { path: 'mv', component: MainViewComponent,
         children: [

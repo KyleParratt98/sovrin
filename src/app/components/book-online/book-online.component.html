@@ -51,7 +51,7 @@
     </div>
     
     <mat-card [@slideInOut]="stepperOpen" [ngStyle]="{'display': stepperDiv}" id="matCardBookingSteps">
-        <mat-horizontal-stepper  [linear]="false" #stepper  style="background-color:#fafbfc00">
+        <mat-horizontal-stepper  [linear]="true" #stepper  style="background-color:#fafbfc00">
                 <mat-step [stepControl]="firstFormGroup"> <!--First Step-->
                     <form [formGroup]="firstFormGroup">
                         <div id="stepperContent">

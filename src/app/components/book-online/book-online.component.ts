@@ -6,20 +6,10 @@ import { MapsAPILoader } from '@agm/core';
 import { ViewChild, ElementRef, NgZone } from '@angular/core';
 import { format } from 'libphonenumber-js';
 import { Country, CountryCallCodesService } from '../../services/country-call-code-service';
-
+import { FormatService } from '../../services/format.service';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-
-// Depending on whether rollup is used, moment needs to be imported differently.
-// Since Moment.js doesn't have a default export, we normally need to import using the `* as`
-// syntax. However, rollup creates a synthetic default module and we thus need to import it using
-// the `default as` syntax.
 import * as _moment from 'moment';
-// tslint:disable-next-line:no-duplicate-imports
-import {default as _rollupMoment} from 'moment';
-import { FormatService } from '../../services/format.service';
-
-const moment = _rollupMoment || _moment;
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const MOBILE_NUMBER_REGEX = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
@@ -89,7 +79,7 @@ export class BookOnlineComponent implements OnInit {
   options = {
     types: ["address"],
     componentRestrictions: {country: "za"}
-   };
+  };
   
   // TRANSFER VARIABLES
   pickupAddress: string = '';
@@ -210,8 +200,10 @@ export class BookOnlineComponent implements OnInit {
     const formModel1 = this.firstFormGroup.value;
     this.time = formModel1.timeCtrl;
     this.time = this.formatService.formatTime(this.time);
+    console.log(this.time);
     this.passengers = formModel1.passengerNumberCtrl;
     this.date = formModel1.dateCtrl;
+    console.log(this.date);
     this.showTimeError();
     this.stepOneSubmitClicked = true;
   }
@@ -223,7 +215,6 @@ export class BookOnlineComponent implements OnInit {
     console.log('pre-format: ' + this.mobileNumber);
     this.mobileNumber = this.formatService.formatMobileNumber(this.mobileNumber);
     console.log('post-format: ' + this.mobileNumber);
-
   }
 
   confirmBookingClick() {
