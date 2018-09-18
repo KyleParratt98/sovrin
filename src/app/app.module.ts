@@ -15,7 +15,7 @@ import { AgmCoreModule } from '@agm/core';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 //Angular Material Imports
-import { MatCheckboxModule, MatSliderModule, MatButtonModule, MatChipsModule, MatStepperModule,  MatDialogModule, MatTableModule, MatIconModule, MatTabsModule, MatCardModule, MatSidenavModule, MatToolbarModule, MatListModule, MatExpansionModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE, MatTooltipModule} from '@angular/material';
+import { MatCheckboxModule, MatProgressSpinnerModule,  MatSliderModule, MatButtonModule, MatChipsModule, MatStepperModule,  MatDialogModule, MatTableModule, MatIconModule, MatTabsModule, MatCardModule, MatSidenavModule, MatToolbarModule, MatListModule, MatExpansionModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE, MatTooltipModule} from '@angular/material';
 
 // Components
 import { AppComponent } from './app.component';
@@ -45,6 +45,7 @@ import { CountryCallCodesService } from './services/country-call-code-service';
 import { UserProfileService } from './services/user-profile-service';
 import { FormatService } from './services/format.service';
 import { MapRouteComponent } from './components/book-online/map-route/map-route.component';
+import { MatSpinnerComponent } from './components/mat-spinner/mat-spinner.component';
 
 
 
@@ -71,6 +72,7 @@ import { MapRouteComponent } from './components/book-online/map-route/map-route.
     SignupComponent,
     BookOnlineViewComponent,
     MapRouteComponent,
+    MatSpinnerComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,6 +80,7 @@ import { MapRouteComponent } from './components/book-online/map-route/map-route.
     AppRoutingModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatProgressSpinnerModule,
     MatIconModule,
     MatCardModule,
     AngularFontAwesomeModule,

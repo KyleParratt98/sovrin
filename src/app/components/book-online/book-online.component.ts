@@ -1,9 +1,9 @@
 /// <reference types="@types/googlemaps" />
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MapsAPILoader } from '@agm/core';
-import { ViewChild, ElementRef, NgZone } from '@angular/core';
+import { ViewChild, ElementRef } from '@angular/core';
 import { format } from 'libphonenumber-js';
 import { Country, CountryCallCodesService } from '../../services/country-call-code-service';
 import { FormatService } from '../../services/format.service';
@@ -55,21 +55,29 @@ export const MY_FORMATS = {
 })
 
 export class BookOnlineComponent implements OnInit {
-  @ViewChild('search') public searchElement: ElementRef;
-  @ViewChild('search2') public searchElement2: ElementRef;
-  @ViewChild('search3') public searchElement3: ElementRef;
-  @ViewChild('search4') public searchElement4: ElementRef;
+
+  trip_start: {location: google.maps.LatLng, name: string};
+  trip_end: {location: google.maps.LatLng, name: string};
+  autocompleteStart;
+  autocompleteEnd;
+  geoencoder_;
+  dropofflocation;
+  pickuplocation;
+
+  displayType;
+  mapRouteDisplay = false;
+
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
-  initialDivDisplay = 'block';
-  stepperDiv = 'none';
+  initialDivDisplay = true;
+  stepperDiv = false;
   stepperOpen: string;
-  continueToBook = 'none';
-  calculateButton = 'block';
-  fareLabel = 'none';
+  continueToBook = false;
+  calculateButton = true;
+  fareLabel = false;
   fareBasedOnDistance: string = '';
-  clearAddressesButton = 'none';
+  clearAddressesButton = false;
   minDate = new Date();
   paymentMethods: string[] = ["Credit Card", "Cash", "EFT"];
   minuteStep = 5;
@@ -80,7 +88,11 @@ export class BookOnlineComponent implements OnInit {
     types: ["address"],
     componentRestrictions: {country: "za"}
   };
-  
+  addressInputsReadOnly: boolean = false;
+  forClearingInput1;
+  forClearingInput2;
+  matSpinnerDisplay = false;
+
   // TRANSFER VARIABLES
   pickupAddress: string = '';
   dropoffAddress: string = '';
@@ -95,12 +107,18 @@ export class BookOnlineComponent implements OnInit {
   mobileNumber: string;
   //////////////////////////////////////////
 
-  constructor(private _formBuilder: FormBuilder, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private countryCallCodesService: CountryCallCodesService, private formatService: FormatService) { }
+  constructor(private _formBuilder: FormBuilder, private mapsAPILoader: MapsAPILoader, private countryCallCodesService: CountryCallCodesService, private formatService: FormatService) { 
 
+  }
 
   ////////////////////////////////////////////////////////////////////NGONINIT///////////////////////////////////////////////
   ngOnInit() {
-    console.log(this.minDate);
+    if(screen.width >= 992) {
+      this.displayType = 'desktop';
+    } else {
+      this.displayType = 'mobile';
+    }
+    this.geoencoder_ = new google.maps.Geocoder;
     this.countryArray = this.countryCallCodesService.getCountryList();
     this.firstFormGroup = this._formBuilder.group({
       dateCtrl: this.dateFormControl,
@@ -117,54 +135,61 @@ export class BookOnlineComponent implements OnInit {
       countryCodeCtrl: this.countryCodeFormControl,
     });
     this.thirdFormGroup = this._formBuilder.group({
-      
+
     });
-    
+
     this.stepperOpen = 'out';
-    
+
     this.mapsAPILoader.load().then( () => {
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, this.options);
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          if(place.geometry === undefined || place.geometry === null ){
-            return;
-          }
+      if(this.displayType === 'desktop'){
+        let inputElmStart = <HTMLInputElement>document.getElementById('search');
+        let inputElmEnd = <HTMLInputElement>document.getElementById('search2');
+        let options = {
+          componentRestrictions: {country: "za"}
+        };
+        this.autocompleteStart = new google.maps.places.Autocomplete(inputElmStart, options);
+        this.autocompleteEnd = new google.maps.places.Autocomplete(inputElmEnd, options);
+        this.autocompleteStart.addListener('place_changed', (res)=> {
+          let address_ = this.autocompleteStart.getPlace();
+          inputElmStart.value = address_.formatted_address;
+          this.pickupAddress = address_.formatted_address;
+          this.geoencoder_.geocode({'placeId': address_.place_id}, (results, status) =>{
+            this.pickuplocation =  results[0].geometry.location;
+          });
         });
-      });
-    });
-    this.mapsAPILoader.load().then( () => {
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElement2.nativeElement, this.options);
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          if(place.geometry === undefined || place.geometry === null ){
-            return;
-          }
+        this.autocompleteEnd.addListener('place_changed', (res)=> {
+          let address_ = this.autocompleteEnd.getPlace();
+          inputElmEnd.value = address_.formatted_address;
+          this.dropoffAddress = address_.formatted_address;
+          this.geoencoder_.geocode({'placeId': address_.place_id}, (results, status) =>{
+            this.dropofflocation =  results[0].geometry.location;
+          });
         });
-      });
-    });
-    this.mapsAPILoader.load().then( () => {
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElement3.nativeElement, this.options);
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          if(place.geometry === undefined || place.geometry === null ){
-            return;
-          }
+      } else {
+        let inputElmStart = <HTMLInputElement>document.getElementById('search3');
+        let inputElmEnd = <HTMLInputElement>document.getElementById('search4');
+        let options = {
+          componentRestrictions: {country: "za"}
+        };
+        this.autocompleteStart = new google.maps.places.Autocomplete(inputElmStart, options);
+        this.autocompleteEnd = new google.maps.places.Autocomplete(inputElmEnd, options);
+        this.autocompleteStart.addListener('place_changed', (res)=> {
+          let address_ = this.autocompleteStart.getPlace();
+          inputElmStart.value = address_.formatted_address;
+          this.pickupAddress = address_.formatted_address;
+          this.geoencoder_.geocode({'placeId': address_.place_id}, (results, status) =>{
+            this.pickuplocation =  results[0].geometry.location;
+          });
         });
-      });
-    });
-    this.mapsAPILoader.load().then( () => {
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElement4.nativeElement, this.options);
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          if(place.geometry === undefined || place.geometry === null ){
-            return;
-          }
+        this.autocompleteEnd.addListener('place_changed', (res)=> {
+          let address_ = this.autocompleteEnd.getPlace();
+          inputElmEnd.value = address_.formatted_address;
+          this.dropoffAddress = address_.formatted_address;
+          this.geoencoder_.geocode({'placeId': address_.place_id}, (results, status) =>{
+            this.dropofflocation =  results[0].geometry.location;
+          });
         });
-      });
+      }
     });
   }
 ////////////////////////////////////////////////////////////////////ENDOF NGONINIT///////////////////////////////////////////////
@@ -173,7 +198,7 @@ export class BookOnlineComponent implements OnInit {
     Validators.required,
     Validators.pattern(EMAIL_REGEX)
   ]);
-  
+
   timeFormControl = new FormControl('', [
     Validators.required,
   ]);
@@ -232,49 +257,98 @@ export class BookOnlineComponent implements OnInit {
     }
   }
 
-  calculateFareClickMobile() {
-    this.calculateButton = 'none';
-    this.continueToBook = 'block';
-    this.fareLabel = 'block';
-    this.fareBasedOnDistance = '600';
-    this.clearAddressesButton = 'block';
-    this.pickupAddress = this.searchElement3.nativeElement.value;
-    this.dropoffAddress = this.searchElement4.nativeElement.value;
+  async calculateFareClickMobile() {
+    this.calculateButton = false;
+    this.matSpinnerDisplay = true;
+    this.delay(300).then(any=>{
+      this.trip_end = {location: this.dropofflocation, name: this.dropoffAddress};
+      this.trip_start = {location: this.pickuplocation, name: this.pickupAddress};
+      this.continueToBook = true;
+      this.fareLabel = true;
+      this.fareBasedOnDistance = '600';
+      this.clearAddressesButton = true;
+      this.mapRouteDisplay = true;
+      this.addressInputsReadOnly = true;
+      this.matSpinnerDisplay = false;
+    });
   }
-  calculateFareClickDesktop() {
-    this.calculateButton = 'none';
-    this.continueToBook = 'block';
-    this.fareLabel = 'block';
-    this.fareBasedOnDistance = '600';
-    this.clearAddressesButton = 'block';
-    this.pickupAddress = this.searchElement.nativeElement.value;
-    this.dropoffAddress = this.searchElement2.nativeElement.value;
+  async calculateFareClickDesktop() {
+    this.calculateButton = false;
+    this.matSpinnerDisplay = true;
+    this.delay(300).then(any=>{
+      this.trip_end = {location: this.dropofflocation, name: this.dropoffAddress};
+      this.trip_start = {location: this.pickuplocation, name: this.pickupAddress};
+      this.continueToBook = true;
+      this.fareLabel = true;
+      this.fareBasedOnDistance = '600';
+      this.clearAddressesButton = true;
+      this.mapRouteDisplay = true;
+      this.addressInputsReadOnly = true;
+      this.matSpinnerDisplay = false;
+    });
   }
 
-  backToInitial() {
-    this.initialDivDisplay = 'block';
-    this.stepperDiv = 'none';
+  backToInitialStep() {
+    this.initialDivDisplay = true;
+    this.stepperDiv = false;
     this.stepperOpen = this.stepperOpen === 'in' ? 'out' : 'in';
-    this.continueToBook = 'none';
-    this.calculateButton = 'block';
-    this.fareLabel = 'none';
-    this.clearAddressesButton = 'none';
+    this.continueToBook = false;
+    this.calculateButton = true;
+    this.fareLabel = false;
+    this.clearAddressesButton = false;
     this.fareBasedOnDistance = '';
+    this.mapRouteDisplay = false;
+    this.addressInputsReadOnly = false;
+    if (this.displayType === 'desktop') {
+      this.forClearingInput1 = <HTMLInputElement>document.getElementById('search');
+      this.forClearingInput2 = <HTMLInputElement>document.getElementById('search2');
+    } else if (this.displayType === 'mobile') {
+      this.forClearingInput1 = <HTMLInputElement>document.getElementById('search3');
+      this.forClearingInput2 = <HTMLInputElement>document.getElementById('search4');
+    }
+    this.forClearingInput1.value = '';
+    this.forClearingInput2.value = '';
   }
 
   continueToBookClick() {
-    this.initialDivDisplay = 'none';
-    this.stepperDiv = 'block';
+    this.initialDivDisplay = false;
+    this.stepperDiv = true;
     this.stepperOpen = this.stepperOpen === 'out' ? 'in' : 'out';
-    this.pickupAddress = this.searchElement.nativeElement.value;
-    this.dropoffAddress = this.searchElement2.nativeElement.value;
   }
 
-  returnToInitialState() {
-    this.continueToBook = 'none';
-    this.calculateButton = 'block';
-    this.fareLabel = 'none';
-    this.clearAddressesButton = 'none';
+  cleanInitialStep() {
+    this.continueToBook = false;
+    this.calculateButton = true;
+    this.fareLabel = false;
+    this.clearAddressesButton = false;
     this.fareBasedOnDistance = '';
+    this.mapRouteDisplay = false;
+    this.addressInputsReadOnly = false;
+    if (this.displayType === 'desktop') {
+      this.forClearingInput1 = <HTMLInputElement>document.getElementById('search');
+      this.forClearingInput2 = <HTMLInputElement>document.getElementById('search2');
+    } else if (this.displayType === 'mobile') {
+      this.forClearingInput1 = <HTMLInputElement>document.getElementById('search3');
+      this.forClearingInput2 = <HTMLInputElement>document.getElementById('search4');
+    }
+    this.forClearingInput1.value = '';
+    this.forClearingInput2.value = '';
   }
+
+  @HostListener('window:resize', ['$event'])onResize(event) {
+    if(event.target.innerWidth >= 992 && this.displayType === 'mobile') {
+      this.displayType = 'desktop';
+      this.ngOnInit();
+    } 
+    if (event.target.innerWidth <= 992 && this.displayType === 'desktop') {
+      this.displayType = 'mobile';
+      this.ngOnInit();
+    }
+    
+  }
+
+  async delay(ms: number) {
+    await new Promise(resolve => setTimeout(()=>resolve(), 1000)).then(()=>console.log("fired"));
 }
+}
+

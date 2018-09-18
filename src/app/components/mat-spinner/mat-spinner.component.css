@@ -1,0 +1,9 @@
+mat-spinner.mat-spinner.mat-progress-spinner.mat-primary.mat-progress-spinner-indeterminate-animation {
+    width: 45px !important;
+    height: 45px !important;
+}
+
+::ng-deep svg {
+    width: 45px !important;
+    height: 45px !important;
+}

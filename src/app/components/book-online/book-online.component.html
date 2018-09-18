@@ -1,27 +1,29 @@
 <div id="entireBookingForm">
-    <div [ngStyle]="{'display': initialDivDisplay}">
+    <div *ngIf="initialDivDisplay">
         <mat-card class="hideOnMobile">
             <form>
                 <div class="row">
                     <div class="col-lg-5 col-md-4 form-group" style="padding-right:0px">
                         <mat-form-field class="fullWidthAddressInputs">
                             <mat-icon class="matPrefixIcon" matPrefix>location_on</mat-icon>
-                            <input matInput placeholder="Pickup address" type="text" autocorrect="off" autocapitalize="off" spellcheck="off"  #search>
+                            <input matInput placeholder="Pickup address" type="text" autocorrect="off" autocapitalize="off" spellcheck="off"  id="search" [disabled]="addressInputsReadOnly">
                         </mat-form-field>
-                   </div>                        
+                   </div>
                    <div class="col-lg-5 col-md-4" style="padding-left:5px">
                         <mat-form-field class="fullWidthAddressInputs">
                             <mat-icon class="matPrefixIcon" matPrefix>location_on</mat-icon>
-                            <input matInput placeholder="Dropoff address"  type="text" autocorrect="off" autocapitalize="off" spellcheck="off"  #search2>
+                            <input matInput placeholder="Dropoff address"  type="text" autocorrect="off" autocapitalize="off" spellcheck="off"  id="search2" [disabled]="addressInputsReadOnly">
                         </mat-form-field>
                     </div>
                     <div class="col-lg-2 col-md-4" style="padding-left:0px">
-                        <button class="fullWidthAddressInputs" [ngStyle]="{'display': calculateButton}" (click)="calculateFareClickDesktop()" mat-raised-button color="primary">Calculate Fare</button>
-                        <button class="fullWidthAddressInputs pulse-button" [ngStyle]="{'display': continueToBook}" (click)="continueToBookClick()" mat-raised-button>Continue to Book</button>
-                        <h4 [ngStyle]="{'display': fareLabel}" style="color: var(--sovrinBlue); text-align: center; margin-top:5px; margin-bottom:10px; position: relative; top: 10px;">Fare: R{{ fareBasedOnDistance }}</h4> 
+                        <button type="button" class="fullWidthAddressInputs" *ngIf="calculateButton" (click)="calculateFareClickDesktop()" mat-raised-button color="primary">Calculate Fare</button>
+                        <app-mat-spinner *ngIf="matSpinnerDisplay"></app-mat-spinner>
+                        <button type="button" class="fullWidthAddressInputs pulse-button" *ngIf="continueToBook" (click)="continueToBookClick()" mat-raised-button>Continue to Book</button>
+                        <h4 *ngIf="fareLabel" style="color: var(--sovrinBlue); text-align: center; margin-top:5px; margin-bottom:10px; position: relative; top: 10px;">Fare: R{{ fareBasedOnDistance }}</h4>
                     </div>
                 </div>
-                <button [ngStyle]="{'display': clearAddressesButton}" style="position: relative; float: left; bottom: 34px;" (click)="returnToInitialState()" mat-button color="warn">Clear addresses</button>
+                <app-map-route *ngIf="displayType === 'desktop' && mapRouteDisplay" [end]="trip_end" [start]="trip_start"></app-map-route>
+                <button *ngIf="clearAddressesButton" style="margin-top: 10px" (click)="cleanInitialStep()" mat-button color="warn">Reset addresses</button>
             </form>
         </mat-card>
 
@@ -31,26 +33,28 @@
                     <div class="col-md-8 col-sm-8 col-7" style="padding-right:0px">
                         <mat-form-field class="fullWidthAddressInputs" style="margin-bottom:3px">
                             <mat-icon class="matPrefixIcon" matPrefix>location_on</mat-icon>
-                            <input matInput placeholder="Pickup address"  type="text" autocorrect="off" autocapitalize="off" spellcheck="off"  #search3>
+                            <input matInput placeholder="Pickup address"  type="text" autocorrect="off" autocapitalize="off" spellcheck="off"  id="search3" [disabled]="addressInputsReadOnly">
                         </mat-form-field>
                         <br class="noSelect">
                         <mat-form-field class="fullWidthAddressInputs">
                             <mat-icon class="matPrefixIcon" matPrefix>location_on</mat-icon>
-                            <input matInput placeholder="Dropoff address"  type="text" autocorrect="off" autocapitalize="off" spellcheck="off"  #search4>
+                            <input matInput placeholder="Dropoff address"  type="text" autocorrect="off" autocapitalize="off" spellcheck="off"  id="search4" [disabled]="addressInputsReadOnly">
                         </mat-form-field>
                    </div>
                     <div class="col-md-4 col-sm-4 col-5" style="padding-left:15px">
-                        <h4 id="fareHeadingMoile" [ngStyle]="{'display': fareLabel}" style="color: var(--sovrinBlue); text-align: center; margin-top:0px; margin-bottom:10px;">Fare: R{{ fareBasedOnDistance }}</h4>
-                        <button id="initialButtonsMobile" class="fullWidthAddressInputs" [ngStyle]="{'display': calculateButton}" (click)="calculateFareClickMobile()" mat-raised-button color="primary">Calculate Fare</button>
-                        <button id="initialButtonsMobile" class="fullWidthAddressInputs" style="background-color: var(--yellow); font-size: 16px; font-weight: 600" [ngStyle]="{'display': continueToBook}" (click)="continueToBookClick()" mat-raised-button>Continue</button>
+                        <h4 id="fareHeadingMoile" *ngIf="fareLabel" style="color: var(--sovrinBlue); text-align: center; margin-top:0px; margin-bottom:10px;">Fare: R{{ fareBasedOnDistance }}</h4>
+                        <button type="button" id="initialButtonsMobile" class="fullWidthAddressInputs"  *ngIf="calculateButton" (click)="calculateFareClickMobile()" mat-raised-button color="primary">Calculate Fare</button>
+                        <app-mat-spinner *ngIf="matSpinnerDisplay"></app-mat-spinner>
+                        <button type="button" id="initialButtonsMobile" class="fullWidthAddressInputs" style="background-color: var(--yellow); font-size: 16px; font-weight: 600" *ngIf="continueToBook" (click)="continueToBookClick()" mat-raised-button>Continue</button>
                     </div>
                 </div>
-                <button [ngStyle]="{'display': clearAddressesButton}" style="margin-top: 10px;" (click)="returnToInitialState()" mat-button color="warn">Reset addresses</button>
+              <app-map-route *ngIf="displayType === 'mobile' && mapRouteDisplay" [end]="trip_end" [start]="trip_start"></app-map-route>
+                <button *ngIf="clearAddressesButton" style="margin-top: 10px;" (click)="cleanInitialStep()" mat-button color="warn">Reset addresses</button>
             </form>
-        </mat-card>     
+        </mat-card>
     </div>
-    
-    <mat-card [@slideInOut]="stepperOpen" [ngStyle]="{'display': stepperDiv}" id="matCardBookingSteps">
+
+    <mat-card [@slideInOut]="stepperOpen" *ngIf="stepperDiv" id="matCardBookingSteps">
         <mat-horizontal-stepper  [linear]="true" #stepper  style="background-color:#fafbfc00">
                 <mat-step [stepControl]="firstFormGroup"> <!--First Step-->
                     <form [formGroup]="firstFormGroup">
@@ -90,8 +94,8 @@
                             <br class="lineBreakHide">
                         </div>
                         <div id="stepperNavigationButtonsDiv">
-                            <div style="float: left"><button mat-raised-button (click)="backToInitial()" color="warn">Change Addresses</button></div>
-                            <div style="text-align: right"><button (click)="stepOneSubmit()" mat-raised-button matStepperNext color="primary">Next Step</button></div>                               
+                            <div style="float: left"><button mat-raised-button (click)="backToInitialStep()" color="warn">Change Addresses</button></div>
+                            <div style="text-align: right"><button (click)="stepOneSubmit()" mat-raised-button matStepperNext color="primary">Next Step</button></div>
                         </div>
                     </form>
                 </mat-step>
@@ -143,8 +147,8 @@
                         <br class="noSelect">
                         <div id="stepperNavigationButtonsDiv">
                             <div style="float: left"><button mat-raised-button matStepperPrevious>Back</button></div>
-                            <div style="text-align: right"><button mat-raised-button matStepperNext color="primary" (click)="stepTwoSubmit()">Transfer Summary</button></div>                               
-                        </div>                
+                            <div style="text-align: right"><button mat-raised-button matStepperNext color="primary" (click)="stepTwoSubmit()">Transfer Summary</button></div>
+                        </div>
                     </form>
                 </mat-step>
                 <mat-step [stepControl]="thirdFormGroup"> <!--Third Step-->
@@ -163,8 +167,8 @@
                         </div>
                         <div id="stepperNavigationButtonsDiv">
                             <div style="float: left"><button mat-raised-button matStepperPrevious>Back</button></div>
-                            <div style="text-align: right"><button mat-raised-button (click)="confirmBookingClick()" color="primary">Make Payment</button></div>                               
-                        </div> 
+                            <div style="text-align: right"><button mat-raised-button (click)="confirmBookingClick()" color="primary">Make Payment</button></div>
+                        </div>
                     </form>
                 </mat-step>
         </mat-horizontal-stepper>
