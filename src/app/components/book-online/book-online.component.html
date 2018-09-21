@@ -1,25 +1,27 @@
 <div id="entireBookingForm">
-    <div *ngIf="initialDivDisplay">
+    <div [ngStyle]="{'display': initialDivDisplay}">
         <mat-card class="hideOnMobile">
             <form>
                 <div class="row">
                     <div class="col-lg-5 col-md-4 form-group" style="padding-right:0px">
                         <mat-form-field class="fullWidthAddressInputs">
                             <mat-icon class="matPrefixIcon" matPrefix>location_on</mat-icon>
-                            <input matInput placeholder="Pickup address" type="text" autocorrect="off" autocapitalize="off" spellcheck="off"  id="search" [disabled]="addressInputsReadOnly">
+                            <mat-hint *ngIf="showPickupAddressError" id="addressError"> *Please enter valid Pickup Address</mat-hint>
+                            <input matInput placeholder="Pickup address" autocorrect="off" autocapitalize="off" spellcheck="off"  id="search" [disabled]="addressInputsReadOnly">
                         </mat-form-field>
                    </div>
                    <div class="col-lg-5 col-md-4" style="padding-left:5px">
                         <mat-form-field class="fullWidthAddressInputs">
                             <mat-icon class="matPrefixIcon" matPrefix>location_on</mat-icon>
-                            <input matInput placeholder="Dropoff address"  type="text" autocorrect="off" autocapitalize="off" spellcheck="off"  id="search2" [disabled]="addressInputsReadOnly">
+                            <mat-hint *ngIf="showDropoffAddressError" id="addressError"> *Please enter valid Dropoff Address</mat-hint>
+                            <input matInput placeholder="Dropoff address" autocorrect="off" autocapitalize="off" spellcheck="off"  id="search2" [disabled]="addressInputsReadOnly">
                         </mat-form-field>
                     </div>
                     <div class="col-lg-2 col-md-4" style="padding-left:0px">
-                        <button type="button" class="fullWidthAddressInputs" *ngIf="calculateButton" (click)="calculateFareClickDesktop()" mat-raised-button color="primary">Calculate Fare</button>
+                        <button type="button" class="fullWidthAddressInputs" *ngIf="calculateButton" (click)="calculateFareClick()" mat-raised-button color="primary">Calculate Fare</button>
                         <app-mat-spinner *ngIf="matSpinnerDisplay"></app-mat-spinner>
                         <button type="button" class="fullWidthAddressInputs pulse-button" *ngIf="continueToBook" (click)="continueToBookClick()" mat-raised-button>Continue to Book</button>
-                        <h4 *ngIf="fareLabel" style="color: var(--sovrinBlue); text-align: center; margin-top:5px; margin-bottom:10px; position: relative; top: 10px;">Fare: R{{ fareBasedOnDistance }}</h4>
+                        <h4 *ngIf="fareLabel" style="color: var(--sovrinBlue); text-align: center; margin-top:5px; margin-bottom:10px; position: relative; top: 10px;">Fare: R{{ distanceFare }}</h4>
                     </div>
                 </div>
                 <app-map-route *ngIf="displayType === 'desktop' && mapRouteDisplay" [end]="trip_end" [start]="trip_start"></app-map-route>
@@ -33,29 +35,31 @@
                     <div class="col-md-8 col-sm-8 col-7" style="padding-right:0px">
                         <mat-form-field class="fullWidthAddressInputs" style="margin-bottom:3px">
                             <mat-icon class="matPrefixIcon" matPrefix>location_on</mat-icon>
-                            <input matInput placeholder="Pickup address"  type="text" autocorrect="off" autocapitalize="off" spellcheck="off"  id="search3" [disabled]="addressInputsReadOnly">
+                            <mat-hint *ngIf="showPickupAddressError" id="addressError"> *Please enter valid Pickup Address</mat-hint>
+                            <input matInput placeholder="Pickup address" autocorrect="off" autocapitalize="off" spellcheck="off"  id="search3" [disabled]="addressInputsReadOnly">
                         </mat-form-field>
                         <br class="noSelect">
                         <mat-form-field class="fullWidthAddressInputs">
                             <mat-icon class="matPrefixIcon" matPrefix>location_on</mat-icon>
-                            <input matInput placeholder="Dropoff address"  type="text" autocorrect="off" autocapitalize="off" spellcheck="off"  id="search4" [disabled]="addressInputsReadOnly">
+                            <mat-hint *ngIf="showDropoffAddressError" id="addressError"> *Please enter valid Dropoff Address</mat-hint>
+                            <input matInput placeholder="Dropoff address" autocorrect="off" autocapitalize="off" spellcheck="off"  id="search4" [disabled]="addressInputsReadOnly">
                         </mat-form-field>
                    </div>
                     <div class="col-md-4 col-sm-4 col-5" style="padding-left:15px">
-                        <h4 id="fareHeadingMoile" *ngIf="fareLabel" style="color: var(--sovrinBlue); text-align: center; margin-top:0px; margin-bottom:10px;">Fare: R{{ fareBasedOnDistance }}</h4>
-                        <button type="button" id="initialButtonsMobile" class="fullWidthAddressInputs"  *ngIf="calculateButton" (click)="calculateFareClickMobile()" mat-raised-button color="primary">Calculate Fare</button>
+                        <h4 id="fareHeadingMoile" *ngIf="fareLabel" style="color: var(--sovrinBlue); text-align: center; margin-top:0px; margin-bottom:10px;">Fare: R{{ distanceFare }}</h4>
+                        <button type="button" id="initialButtonsMobile" class="fullWidthAddressInputs"  *ngIf="calculateButton" (click)="calculateFareClick()" mat-raised-button color="primary">Calculate Fare</button>
                         <app-mat-spinner *ngIf="matSpinnerDisplay"></app-mat-spinner>
                         <button type="button" id="initialButtonsMobile" class="fullWidthAddressInputs" style="background-color: var(--yellow); font-size: 16px; font-weight: 600" *ngIf="continueToBook" (click)="continueToBookClick()" mat-raised-button>Continue</button>
                     </div>
                 </div>
-              <app-map-route *ngIf="displayType === 'mobile' && mapRouteDisplay" [end]="trip_end" [start]="trip_start"></app-map-route>
+                <app-map-route *ngIf="displayType === 'mobile' && mapRouteDisplay" [end]="trip_end" [start]="trip_start"></app-map-route>
                 <button *ngIf="clearAddressesButton" style="margin-top: 10px;" (click)="cleanInitialStep()" mat-button color="warn">Reset addresses</button>
             </form>
         </mat-card>
     </div>
 
     <mat-card [@slideInOut]="stepperOpen" *ngIf="stepperDiv" id="matCardBookingSteps">
-        <mat-horizontal-stepper  [linear]="true" #stepper  style="background-color:#fafbfc00">
+        <mat-horizontal-stepper  [linear]="false" #stepper  style="background-color:#fafbfc00">
                 <mat-step [stepControl]="firstFormGroup"> <!--First Step-->
                     <form [formGroup]="firstFormGroup">
                         <div id="stepperContent">
@@ -163,7 +167,7 @@
                             <p class="stepThreeParagraphs"><strong>Number of Passengers:</strong> {{passengers}}</p>
                             <p class="stepThreeParagraphs"><strong>Baby Seat: </strong> <i *ngIf="babySeat">Yes</i><i *ngIf="!babySeat">No</i>&nbsp;&nbsp; <strong>Trailer: </strong> <i *ngIf="trailer">Yes</i><i *ngIf="!trailer">No</i></p>
                             <br class="lineBreakHide noSelect">
-                            <h5 style="margin-bottom: 8px"><strong>Fare:</strong> R{{transferFair}}</h5>
+                            <h5 style="margin-bottom: 8px"><strong>Fare:</strong> R{{transferFare}}</h5>
                         </div>
                         <div id="stepperNavigationButtonsDiv">
                             <div style="float: left"><button mat-raised-button matStepperPrevious>Back</button></div>

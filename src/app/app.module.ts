@@ -38,14 +38,14 @@ import { PrintableInvoiceComponent } from './views/main-view/my-account/your-tra
 import { LoginComponent } from './views/login/login.component';
 import { SignupComponent } from './views/login/signup/signup.component';
 import { BookOnlineViewComponent } from './views/main-view/book-online-view/book-online-view.component';
+import { MapRouteComponent } from './components/book-online/map-route/map-route.component';
+import { MatSpinnerComponent } from './components/mat-spinner/mat-spinner.component';
 
 
 // Services
 import { CountryCallCodesService } from './services/country-call-code-service';
 import { UserProfileService } from './services/user-profile-service';
 import { FormatService } from './services/format.service';
-import { MapRouteComponent } from './components/book-online/map-route/map-route.component';
-import { MatSpinnerComponent } from './components/mat-spinner/mat-spinner.component';
 
 
 

@@ -1,19 +1,24 @@
 /// <reference types="@types/googlemaps" />
-import { Component, OnInit, HostListener } from '@angular/core';
+import { forwardRef } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MapsAPILoader } from '@agm/core';
-import { ViewChild, ElementRef } from '@angular/core';
 import { format } from 'libphonenumber-js';
 import { Country, CountryCallCodesService } from '../../services/country-call-code-service';
 import { FormatService } from '../../services/format.service';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import * as _moment from 'moment';
+import { MapRouteComponent } from './map-route/map-route.component';
+import { TransferDistanceService } from '../../services/transfer-distance.service';
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const MOBILE_NUMBER_REGEX = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
 const PASSENGER_NUMBER_REGEX = /^(?=.*[1-4])/;
+const RATE_PER_KM = 8.5;
+const COST_FOR_TRAILER = 150;
+const COST_FOR_BABYSEAT = 50;
 
 export const MY_FORMATS = {
   parse: {
@@ -49,6 +54,7 @@ export const MY_FORMATS = {
     ])
   ],
   providers: [
+    TransferDistanceService,
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ]
@@ -56,13 +62,14 @@ export const MY_FORMATS = {
 
 export class BookOnlineComponent implements OnInit {
 
-  trip_start: {location: google.maps.LatLng, name: string};
-  trip_end: {location: google.maps.LatLng, name: string};
+  trip_start: google.maps.LatLng;
+  trip_end: google.maps.LatLng;
   autocompleteStart;
   autocompleteEnd;
-  geoencoder_;
   dropofflocation;
   pickuplocation;
+  inputElmStart: any;
+  inputElmEnd: any;
 
   displayType;
   mapRouteDisplay = false;
@@ -70,13 +77,12 @@ export class BookOnlineComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
-  initialDivDisplay = true;
+  initialDivDisplay = 'block';
   stepperDiv = false;
   stepperOpen: string;
   continueToBook = false;
   calculateButton = true;
   fareLabel = false;
-  fareBasedOnDistance: string = '';
   clearAddressesButton = false;
   minDate = new Date();
   paymentMethods: string[] = ["Credit Card", "Cash", "EFT"];
@@ -89,11 +95,13 @@ export class BookOnlineComponent implements OnInit {
     componentRestrictions: {country: "za"}
   };
   addressInputsReadOnly: boolean = false;
-  forClearingInput1;
-  forClearingInput2;
   matSpinnerDisplay = false;
+  addressOneEntered = false;
+  addressTwoEntered = false;
+  showPickupAddressError = false;
+  showDropoffAddressError = false;
 
-  // TRANSFER VARIABLES
+  ///// TRANSFER VARIABLES//////////////////////////////////////
   pickupAddress: string = '';
   dropoffAddress: string = '';
   date: string;
@@ -101,15 +109,20 @@ export class BookOnlineComponent implements OnInit {
   passengers: number;
   babySeat: boolean = false;
   trailer: boolean = false;
-  transferFair: number = 450;
-  distanceFair: number;
+  transferFare: number = 450;
+  distanceFare: number;
+  transferDistance: number;
   email: string;
   mobileNumber: string;
-  //////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////
 
-  constructor(private _formBuilder: FormBuilder, private mapsAPILoader: MapsAPILoader, private countryCallCodesService: CountryCallCodesService, private formatService: FormatService) { 
-
-  }
+  constructor(
+    private _formBuilder: FormBuilder, 
+    private mapsAPILoader: MapsAPILoader, 
+    private countryCallCodesService: CountryCallCodesService, 
+    private formatService: FormatService,
+    private transferDistanceService: TransferDistanceService,
+    ) { }
 
   ////////////////////////////////////////////////////////////////////NGONINIT///////////////////////////////////////////////
   ngOnInit() {
@@ -118,7 +131,6 @@ export class BookOnlineComponent implements OnInit {
     } else {
       this.displayType = 'mobile';
     }
-    this.geoencoder_ = new google.maps.Geocoder;
     this.countryArray = this.countryCallCodesService.getCountryList();
     this.firstFormGroup = this._formBuilder.group({
       dateCtrl: this.dateFormControl,
@@ -137,63 +149,13 @@ export class BookOnlineComponent implements OnInit {
     this.thirdFormGroup = this._formBuilder.group({
 
     });
-
     this.stepperOpen = 'out';
-
-    this.mapsAPILoader.load().then( () => {
-      if(this.displayType === 'desktop'){
-        let inputElmStart = <HTMLInputElement>document.getElementById('search');
-        let inputElmEnd = <HTMLInputElement>document.getElementById('search2');
-        let options = {
-          componentRestrictions: {country: "za"}
-        };
-        this.autocompleteStart = new google.maps.places.Autocomplete(inputElmStart, options);
-        this.autocompleteEnd = new google.maps.places.Autocomplete(inputElmEnd, options);
-        this.autocompleteStart.addListener('place_changed', (res)=> {
-          let address_ = this.autocompleteStart.getPlace();
-          inputElmStart.value = address_.formatted_address;
-          this.pickupAddress = address_.formatted_address;
-          this.geoencoder_.geocode({'placeId': address_.place_id}, (results, status) =>{
-            this.pickuplocation =  results[0].geometry.location;
-          });
-        });
-        this.autocompleteEnd.addListener('place_changed', (res)=> {
-          let address_ = this.autocompleteEnd.getPlace();
-          inputElmEnd.value = address_.formatted_address;
-          this.dropoffAddress = address_.formatted_address;
-          this.geoencoder_.geocode({'placeId': address_.place_id}, (results, status) =>{
-            this.dropofflocation =  results[0].geometry.location;
-          });
-        });
-      } else {
-        let inputElmStart = <HTMLInputElement>document.getElementById('search3');
-        let inputElmEnd = <HTMLInputElement>document.getElementById('search4');
-        let options = {
-          componentRestrictions: {country: "za"}
-        };
-        this.autocompleteStart = new google.maps.places.Autocomplete(inputElmStart, options);
-        this.autocompleteEnd = new google.maps.places.Autocomplete(inputElmEnd, options);
-        this.autocompleteStart.addListener('place_changed', (res)=> {
-          let address_ = this.autocompleteStart.getPlace();
-          inputElmStart.value = address_.formatted_address;
-          this.pickupAddress = address_.formatted_address;
-          this.geoencoder_.geocode({'placeId': address_.place_id}, (results, status) =>{
-            this.pickuplocation =  results[0].geometry.location;
-          });
-        });
-        this.autocompleteEnd.addListener('place_changed', (res)=> {
-          let address_ = this.autocompleteEnd.getPlace();
-          inputElmEnd.value = address_.formatted_address;
-          this.dropoffAddress = address_.formatted_address;
-          this.geoencoder_.geocode({'placeId': address_.place_id}, (results, status) =>{
-            this.dropofflocation =  results[0].geometry.location;
-          });
-        });
-      }
-    });
+    this.initiateInputs();
   }
-////////////////////////////////////////////////////////////////////ENDOF NGONINIT///////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+////////////////////////////////////////////////////////////// Controls /////////////////////////////////////////////////////////////
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.pattern(EMAIL_REGEX)
@@ -220,7 +182,9 @@ export class BookOnlineComponent implements OnInit {
   dateFormControl = new FormControl('', [
     Validators.required,
   ]);
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////// form submission buttons on each step ////////////////////////////////////////////////////////////////
   stepOneSubmit() {
     const formModel1 = this.firstFormGroup.value;
     this.time = formModel1.timeCtrl;
@@ -245,6 +209,118 @@ export class BookOnlineComponent implements OnInit {
   confirmBookingClick() {
 
   }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  async calculateFareClick() {
+    if (this.addressOneEntered && this.addressTwoEntered) {
+      this.calculateButton = false;
+      this.matSpinnerDisplay = true;
+      this.delay(500).then(any=>{
+        this.trip_end = this.dropofflocation;
+        this.trip_start = this.pickuplocation;
+        this.continueToBook = true;
+        this.clearAddressesButton = true;
+        this.mapRouteDisplay = true;
+        this.addressInputsReadOnly = true;
+        this.matSpinnerDisplay = false;
+        this.fareLabel = true;
+        this.transferDistance = this.transferDistanceService.getTransferDistance();
+        this.distanceFare = Math.ceil(this.transferDistance * RATE_PER_KM);
+        this.showPickupAddressError = false;
+        this.showDropoffAddressError = false;
+      });
+    } else if (!this.addressOneEntered && this.addressTwoEntered){
+      this.showPickupAddressError = true;
+      this.showDropoffAddressError = false;
+    } else if (this.addressOneEntered && !this.addressTwoEntered){
+      this.showPickupAddressError = false;
+      this.showDropoffAddressError = true;
+    } else {
+      this.showPickupAddressError = true;
+      this.showDropoffAddressError = true;
+    }
+    
+  }
+
+  backToInitialStep() {
+    this.initialDivDisplay = 'block';
+    this.stepperDiv = false;
+    this.stepperOpen = this.stepperOpen === 'in' ? 'out' : 'in';
+    this.continueToBook = false;
+    this.calculateButton = true;
+    this.fareLabel = false;
+    this.clearAddressesButton = false;
+    this.mapRouteDisplay = false;
+    this.addressInputsReadOnly = false;
+    this.addressOneEntered = false;
+    this.addressTwoEntered = false;
+    this.initiateInputs();
+    this.inputElmStart.value = '';
+      this.inputElmEnd.value = '';
+  }
+
+  cleanInitialStep() {
+    this.continueToBook = false;
+    this.calculateButton = true;
+    this.fareLabel = false;
+    this.clearAddressesButton = false;
+    this.mapRouteDisplay = false;
+    this.addressInputsReadOnly = false;
+    this.initiateInputs();
+    this.addressOneEntered = false;
+    this.addressTwoEntered = false;
+    this.inputElmStart.value = '';
+      this.inputElmEnd.value = '';
+  }
+
+  continueToBookClick() {
+    this.initialDivDisplay = 'none';
+    this.stepperDiv = true;
+    this.stepperOpen = this.stepperOpen === 'out' ? 'in' : 'out';
+  }
+
+  initiateInputs() {
+    let options = {
+      componentRestrictions: {country: "za"}
+    };
+    this.mapsAPILoader.load().then( () => {
+      if (this.displayType === 'desktop') {
+        this.inputElmStart = <HTMLInputElement>document.getElementById('search');
+        this.inputElmEnd = <HTMLInputElement>document.getElementById('search2');
+      } else {
+        this.inputElmStart = <HTMLInputElement>document.getElementById('search3');
+        this.inputElmEnd = <HTMLInputElement>document.getElementById('search4');
+      }
+      this.autocompleteStart = new google.maps.places.Autocomplete(this.inputElmStart, options);
+      this.autocompleteEnd = new google.maps.places.Autocomplete(this.inputElmEnd, options);
+      this.autocompleteStart.addListener('place_changed', (res)=> {
+        let address_ = this.autocompleteStart.getPlace();
+        this.addressOneEntered = true;
+        this.pickupAddress = address_.formatted_address;
+        this.pickuplocation = address_.geometry.location;
+      });
+      this.autocompleteEnd.addListener('place_changed', (res)=> {
+        let address_ = this.autocompleteEnd.getPlace();
+        this.addressTwoEntered = true;
+        this.dropoffAddress = address_.formatted_address;
+        this.dropofflocation = address_.geometry.location;
+      });
+    });
+  }
+
+  @HostListener('window:resize', ['$event'])onResize(event) {
+    if(event.target.innerWidth >= 992 && this.displayType === 'mobile') {
+      this.displayType = 'desktop';
+      this.initiateInputs();
+    } else if (event.target.innerWidth <= 992 && this.displayType === 'desktop') {
+      this.displayType = 'mobile';
+      this.initiateInputs();
+    }
+  }
+
+  async delay(ms: number) {
+    await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>'');
+  }
 
   showTimeError(): boolean {
     if (this.timeFormControl.hasError('required') && this.stepOneSubmitClicked) {
@@ -257,98 +333,5 @@ export class BookOnlineComponent implements OnInit {
     }
   }
 
-  async calculateFareClickMobile() {
-    this.calculateButton = false;
-    this.matSpinnerDisplay = true;
-    this.delay(300).then(any=>{
-      this.trip_end = {location: this.dropofflocation, name: this.dropoffAddress};
-      this.trip_start = {location: this.pickuplocation, name: this.pickupAddress};
-      this.continueToBook = true;
-      this.fareLabel = true;
-      this.fareBasedOnDistance = '600';
-      this.clearAddressesButton = true;
-      this.mapRouteDisplay = true;
-      this.addressInputsReadOnly = true;
-      this.matSpinnerDisplay = false;
-    });
-  }
-  async calculateFareClickDesktop() {
-    this.calculateButton = false;
-    this.matSpinnerDisplay = true;
-    this.delay(300).then(any=>{
-      this.trip_end = {location: this.dropofflocation, name: this.dropoffAddress};
-      this.trip_start = {location: this.pickuplocation, name: this.pickupAddress};
-      this.continueToBook = true;
-      this.fareLabel = true;
-      this.fareBasedOnDistance = '600';
-      this.clearAddressesButton = true;
-      this.mapRouteDisplay = true;
-      this.addressInputsReadOnly = true;
-      this.matSpinnerDisplay = false;
-    });
-  }
-
-  backToInitialStep() {
-    this.initialDivDisplay = true;
-    this.stepperDiv = false;
-    this.stepperOpen = this.stepperOpen === 'in' ? 'out' : 'in';
-    this.continueToBook = false;
-    this.calculateButton = true;
-    this.fareLabel = false;
-    this.clearAddressesButton = false;
-    this.fareBasedOnDistance = '';
-    this.mapRouteDisplay = false;
-    this.addressInputsReadOnly = false;
-    if (this.displayType === 'desktop') {
-      this.forClearingInput1 = <HTMLInputElement>document.getElementById('search');
-      this.forClearingInput2 = <HTMLInputElement>document.getElementById('search2');
-    } else if (this.displayType === 'mobile') {
-      this.forClearingInput1 = <HTMLInputElement>document.getElementById('search3');
-      this.forClearingInput2 = <HTMLInputElement>document.getElementById('search4');
-    }
-    this.forClearingInput1.value = '';
-    this.forClearingInput2.value = '';
-  }
-
-  continueToBookClick() {
-    this.initialDivDisplay = false;
-    this.stepperDiv = true;
-    this.stepperOpen = this.stepperOpen === 'out' ? 'in' : 'out';
-  }
-
-  cleanInitialStep() {
-    this.continueToBook = false;
-    this.calculateButton = true;
-    this.fareLabel = false;
-    this.clearAddressesButton = false;
-    this.fareBasedOnDistance = '';
-    this.mapRouteDisplay = false;
-    this.addressInputsReadOnly = false;
-    if (this.displayType === 'desktop') {
-      this.forClearingInput1 = <HTMLInputElement>document.getElementById('search');
-      this.forClearingInput2 = <HTMLInputElement>document.getElementById('search2');
-    } else if (this.displayType === 'mobile') {
-      this.forClearingInput1 = <HTMLInputElement>document.getElementById('search3');
-      this.forClearingInput2 = <HTMLInputElement>document.getElementById('search4');
-    }
-    this.forClearingInput1.value = '';
-    this.forClearingInput2.value = '';
-  }
-
-  @HostListener('window:resize', ['$event'])onResize(event) {
-    if(event.target.innerWidth >= 992 && this.displayType === 'mobile') {
-      this.displayType = 'desktop';
-      this.ngOnInit();
-    } 
-    if (event.target.innerWidth <= 992 && this.displayType === 'desktop') {
-      this.displayType = 'mobile';
-      this.ngOnInit();
-    }
-    
-  }
-
-  async delay(ms: number) {
-    await new Promise(resolve => setTimeout(()=>resolve(), 1000)).then(()=>console.log("fired"));
-}
 }
 
